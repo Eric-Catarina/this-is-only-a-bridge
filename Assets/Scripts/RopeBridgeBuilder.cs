@@ -16,10 +16,10 @@ public class RopeBridgeBuilder : MonoBehaviour
 
     [Header("Physics Properties")]
     [Tooltip("How much the bridge sags in the middle.")]
-    [SerializeField] private float sag = 2f;
-    [SerializeField] private float plankMass = 5f;
-    [SerializeField] private float jointSpring = 100f;
-    [SerializeField] private float jointDamper = 10f;
+    [SerializeField] private float sag = 0f;
+    [SerializeField] private float plankMass = 0f;
+    [SerializeField] private float jointSpring = 0f;
+    [SerializeField] private float jointDamper = 0f;
 
     [Header("Rope Visuals")]
     [SerializeField] private Material ropeMaterial;
