@@ -3,14 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-
     [Header("Configurações de Cena")]
     [Tooltip("Lista de cenas do jogo. Use o nome exato das cenas adicionadas no Build Settings.")]
     public string[] sceneNames;
     public string forceNextScene;
 
     int nextSceneIndex;
+
+    public static GameManager Instance;
 
     private void Awake()
     {
@@ -30,6 +30,14 @@ public class GameManager : MonoBehaviour
         nextSceneIndex = 0;
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            RestartScene();
+        }
+    }
+
     // Carrega próxima cena na lista
     public void LoadNextScene()
     {
@@ -40,6 +48,11 @@ public class GameManager : MonoBehaviour
         }
         SceneManager.LoadScene(sceneNames[nextSceneIndex]);
         nextSceneIndex++;
+    }
+
+    public void LoadSceneByName(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
     // Reinicia a cena atual
