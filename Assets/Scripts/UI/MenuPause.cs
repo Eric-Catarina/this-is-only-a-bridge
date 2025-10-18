@@ -23,10 +23,10 @@ public class MenuPause : MonoBehaviour
 
     void Update()
     {
-        ControlCanvas();
         if (SceneManager.GetActiveScene().name == "Main_Menu")
             return;
 
+        ControlCanvas();
     }
 
     void ControlCanvas()
