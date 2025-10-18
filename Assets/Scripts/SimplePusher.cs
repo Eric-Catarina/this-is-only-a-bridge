@@ -4,11 +4,11 @@ using UnityEngine;
 public class SimplePusher : MonoBehaviour
 {
     [Header("Configuração do Empurrão")]
-    [Tooltip("A magnitude da força a ser aplicada.")]
-    [SerializeField] private float pushForce = 50f;
+    [Tooltip("O intervalo (Mínimo e Máximo) da força a ser aplicada aleatoriamente.")]
+    [SerializeField] private Vector2 pushForceRange = new Vector2(0f, 5f);
 
-    [Tooltip("A direção do empurrão no espaço local do objeto. (1, 0, 0) para a direita, (-1, 0, 0) para a esquerda.")]
-    [SerializeField] private Vector3 localPushDirection = Vector3.right;
+    [Tooltip("O eixo local do empurrão. A direção será aleatoriamente positiva ou negativa ao longo deste eixo.")]
+    [SerializeField] private Vector3 localPushAxis = Vector3.right;
 
     [Tooltip("O tipo de força a ser aplicada (Force para contínuo, Impulse para súbito).")]
     [SerializeField] private ForceMode forceMode = ForceMode.Force;
@@ -21,6 +21,7 @@ public class SimplePusher : MonoBehaviour
     [SerializeField] private bool pushOnStart = false;
 
     private Rigidbody rb;
+    private int randomSign;
 
     private void Awake()
     {
@@ -29,10 +30,13 @@ public class SimplePusher : MonoBehaviour
 
     private void Start()
     {
+
         if (pushOnStart)
         {
             ApplyPush();
         }
+
+        randomSign = (Random.value < 0.5f) ? 1 : -1;
     }
 
     private void FixedUpdate()
@@ -47,7 +51,12 @@ public class SimplePusher : MonoBehaviour
     {
         if (rb == null) return;
         
-        Vector3 worldPushDirection = transform.TransformDirection(localPushDirection.normalized);
-        rb.AddForce(worldPushDirection * pushForce, forceMode);
+        float randomForce = Random.Range(pushForceRange.x, pushForceRange.y);
+        
+        Vector3 randomizedLocalDirection = localPushAxis.normalized * randomSign;
+
+        Vector3 worldPushDirection = transform.TransformDirection(randomizedLocalDirection);
+        
+        rb.AddForce(worldPushDirection * randomForce, forceMode);
     }
-}
+}   

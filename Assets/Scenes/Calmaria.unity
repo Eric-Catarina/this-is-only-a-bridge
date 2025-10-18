@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9eba6c937a3562a8df9c04fd293947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 3
-  localPushDirection: {x: 1, y: 0, z: 0}
+  pushForceRange: {x: 3, y: 4}
+  localPushAxis: {x: 1, y: 0, z: 0}
   forceMode: 2
   pushContinuously: 1
   pushOnStart: 1
