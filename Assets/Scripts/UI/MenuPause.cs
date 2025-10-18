@@ -31,7 +31,7 @@ public class MenuPause : MonoBehaviour
 
     void ControlCanvas()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current.startButton.wasPressedThisFrame) // OU PRESSIONAR BOTÃO 'START' NO JOYSTICK
+        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
         {
             if (menuObject.activeSelf)
             {
