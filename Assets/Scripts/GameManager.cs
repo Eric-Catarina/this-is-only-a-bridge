@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
     [Header("Configurações de Cena")]
     [Tooltip("Lista de cenas do jogo. Use o nome exato das cenas adicionadas no Build Settings.")]
     public string[] sceneNames;
-    public string forceNextScene;
 
     int nextSceneIndex;
 
@@ -41,11 +40,13 @@ public class GameManager : MonoBehaviour
     // Carrega próxima cena na lista
     public void LoadNextScene()
     {
-        if (forceNextScene != "")
-        {
-            SceneManager.LoadScene(forceNextScene);
-            return;
-        }
+        LevelDeathManager.Instance.MarkLevelPassed();
+        SceneManager.LoadScene(sceneNames[nextSceneIndex]);
+        nextSceneIndex++;
+    }
+
+    public void SkipLevel()
+    {
         SceneManager.LoadScene(sceneNames[nextSceneIndex]);
         nextSceneIndex++;
     }
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
     // Reinicia a cena atual
     public void RestartScene()
     {
+        LevelDeathManager.Instance.RegisterDeath();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
