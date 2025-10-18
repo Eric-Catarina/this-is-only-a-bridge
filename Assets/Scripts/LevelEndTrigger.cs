@@ -41,7 +41,7 @@ public class LevelEndTrigger : MonoBehaviour
             Debug.LogError("GameManager.Instance não foi encontrado. O gatilho não pode funcionar.");
             return;
         }
-GameManager gameManager = GameManager.Instance;
-        gameManager.LoadNextScene();
+        GameManager.Instance.LoadSceneByName(specificSceneName != "" ? specificSceneName : null);
+
     }
 }
