@@ -10388,7 +10388,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: forceNextScene
-      value: Control Reverse
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: 'sceneNames.Array.data[0]'
@@ -12850,7 +12850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9eba6c937a3562a8df9c04fd293947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForceRange: {x: 2.8, y: 3.2}
+  pushForceRange: {x: 2, y: 2.5}
   localPushAxis: {x: 1, y: 0, z: 0}
   pushContinuously: 1
   pushOnStart: 0
@@ -13925,6 +13925,14 @@ PrefabInstance:
     - target: {fileID: 9082687542472939564, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Mass
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214105334318831960, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: brakeTorque
+      value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214105334318831960, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: motorTorque
+      value: 20000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
