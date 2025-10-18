@@ -11,7 +11,7 @@ public class SimplePusher : MonoBehaviour
     [SerializeField] private Vector3 localPushAxis = Vector3.right;
 
     [Tooltip("O tipo de força a ser aplicada (Force para contínuo, Impulse para súbito).")]
-    [SerializeField] private ForceMode forceMode = ForceMode.Force;
+    private ForceMode forceMode = ForceMode.VelocityChange;
 
     [Header("Ativação")]
     [Tooltip("Se marcado, aplica a força continuamente a cada frame de física.")]
