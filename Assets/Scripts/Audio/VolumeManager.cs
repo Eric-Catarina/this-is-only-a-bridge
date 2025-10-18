@@ -30,6 +30,11 @@ public class VolumeManager : MonoBehaviour
         if (sfxSlider != null) sfxSlider.onValueChanged.AddListener(SetSFXVolume);
     }
 
+    private void OnEnable()
+    {
+        masterSlider.Select();
+    }
+
     void OnDestroy()
     {
         // remove listeners para evitar memory leaks

@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class MenuPause : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public GameObject menuObject;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        ControlCanvas();
+    }
+
+    void ControlCanvas()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (menuObject.activeSelf)
+            {
+                Time.timeScale = 1f;
+                menuObject.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0f;
+                menuObject.SetActive(true);
+            }
+        }
     }
 }
