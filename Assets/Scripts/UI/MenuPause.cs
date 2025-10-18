@@ -45,4 +45,16 @@ public class MenuPause : MonoBehaviour
             }
         }
     }
+
+    public void Restart()
+    {
+        GameManager.Instance.RestartScene();
+        Time.timeScale = 1f;
+        menuObject.SetActive(false);
+    }
+
+    public void Quit()
+    {
+        GameManager.Instance.QuitGame();
+    }
 }
