@@ -4296,6 +4296,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2087783247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &625293257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6511870232170594846, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+  m_PrefabInstance: {fileID: 4483944679452891163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &625293263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625293257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b6bf5344c182143ab360fc7e08c702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motorTorque: 2000
+  brakeTorque: 2000
+  maxSpeed: 20
+  steeringRange: 30
+  steeringRangeAtMaxSpeed: 10
+  centreOfGravityOffset: -1
 --- !u!1 &651739500
 GameObject:
   m_ObjectHideFlags: 0
@@ -13929,7 +13952,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6511870232170594846, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 625293263}
   m_SourcePrefab: {fileID: 100100000, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
 --- !u!1001 &6379318910808000490
 PrefabInstance:
