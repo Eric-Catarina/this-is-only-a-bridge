@@ -164,7 +164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4629a36a834b274387dfb2b10c48bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAmount: {x: 30, y: 0, z: 0}
+  targetObject1: {fileID: 0}
+  targetObject2: {fileID: 0}
+  targetEulerAngles1: {x: 0, y: 0, z: 0}
+  targetEulerAngles2: {x: 0, y: 0, z: 0}
+  rotationDuration: 5
 --- !u!1 &227531306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4629a36a834b274387dfb2b10c48bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAmount: {x: -30, y: 0, z: 0}
+  targetObject1: {fileID: 1852597383}
+  targetObject2: {fileID: 89994624}
+  targetEulerAngles1: {x: -15, y: 0, z: 0}
+  targetEulerAngles2: {x: 15, y: 0, z: 0}
+  rotationDuration: 1
 --- !u!65 &1852597386
 BoxCollider:
   m_ObjectHideFlags: 0
