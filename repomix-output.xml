@@ -1,0 +1,765 @@
+This file is a merged representation of a subset of the codebase, containing specifically included files and files not matching ignore patterns, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: Assets/Scripts/**/*.cs
+- Files matching these patterns are excluded: Library/, Temp/, Obj/, Build/, Builds/, Logs/, *.log, *.tmp, *.bak, *.cache, *.csproj, *.sln, *.user, *.unityproj, *.pidb, *.booproj, *.svd, *.pdb, *.mdb, *.opendb, *.VC.db, *.pidb.meta, *.pdb.meta, *.mdb.meta, *.opendb.meta, *.VC.db.meta, Assets/Scripts/Player/PlayerControls.cs
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+Assets/
+  Scripts/
+    Audio/
+      VolumeManager.cs
+    UI/
+      MenuPause.cs
+    ActionsManager.cs
+    CarController.cs
+    CarControllerReverse.cs
+    GameManager.cs
+    LevelEndTrigger.cs
+    RopeBridgeBuilder.cs
+    RopeVisualizer.cs
+    WheelController.cs
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="Assets/Scripts/ActionsManager.cs">
+using System;
+using UnityEngine;
+
+public class ActionsManager
+{
+    private static ActionsManager instance;
+
+    #region Properties
+
+    public static ActionsManager Instance
+    {
+        get 
+        {
+            if (instance == null)
+            {
+                instance = new ActionsManager();
+            }
+            return instance; 
+        }
+        private set { instance = value; }
+    }
+
+    #endregion
+
+    public Action onPlayerDeath;
+    public Action onPlayerEnterCar;
+    public Action onPlayerExitCar;
+
+    public Action<Vector2> onPlayerMoveInput;
+    public Action<float> onPlayerSprintInput;
+    public Action<float> onPlayerJumpInput;
+    public Action<float> onPlayerInteractInput;
+
+    public Action onPlayerRagdollActivate;
+    public Action onPlayerRagdollDeactivate;
+
+    public Action<float, Vector3> onPlayerChangeSpeed;
+}
+</file>
+
+<file path="Assets/Scripts/CarController.cs">
+using UnityEngine;
+
+public class CarController : MonoBehaviour
+{
+    [Header("Parâmetros de Força")]
+    [SerializeField] private float motorTorque = 2000f;
+    [SerializeField] private float brakeTorque = 2000f;
+    [SerializeField] private float maxSpeed = 20f;
+    [SerializeField] private float steeringRange = 30f;
+    [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
+    [SerializeField] private float centreOfGravityOffset = -1f;
+
+    private WheelController[] wheels;
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        wheels = GetComponentsInChildren<WheelController>();
+    }
+
+    private void Start()
+    {
+        Vector3 centerOfMass = rb.centerOfMass;
+        centerOfMass.y += centreOfGravityOffset;
+        rb.centerOfMass = centerOfMass;
+    }
+
+    private void FixedUpdate()
+    {
+        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
+        float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));
+
+        float currentMotorTorque = Mathf.Lerp(motorTorque, 0f, speedFactor);
+        float currentSteerAngle = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
+
+        foreach (var wheel in wheels)
+        {
+            if (wheel.steerable)
+            {
+                wheel.WheelCollider.steerAngle = horizontalInput * currentSteerAngle;
+            }
+
+            if (Mathf.Abs(verticalInput) > 0.1f)
+            {
+                bool isBraking = (forwardSpeed > 0.1f && verticalInput < -0.1f) || (forwardSpeed < -0.1f && verticalInput > 0.1f);
+
+                if (isBraking)
+                {
+                    wheel.WheelCollider.motorTorque = 0f;
+                    wheel.WheelCollider.brakeTorque = Mathf.Abs(verticalInput) * brakeTorque;
+                }
+                else
+                {
+                    if (wheel.motorized)
+                    {
+                        wheel.WheelCollider.motorTorque = verticalInput * currentMotorTorque;
+                    }
+                    wheel.WheelCollider.brakeTorque = 0f;
+                }
+            }
+            else
+            {
+                wheel.WheelCollider.motorTorque = 0f;
+                wheel.WheelCollider.brakeTorque = 0f;
+            }
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/CarControllerReverse.cs">
+using UnityEngine;
+
+public class CarControllerReverse : MonoBehaviour
+{
+    [Header("Parâmetros de Força")]
+    [SerializeField] private float motorTorque = 2000f;
+    [SerializeField] private float brakeTorque = 2000f;
+    [SerializeField] private float maxSpeed = 20f;
+    [SerializeField] private float steeringRange = 30f;
+    [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
+    [SerializeField] private float centreOfGravityOffset = -1f;
+
+    private WheelController[] wheel;
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        wheel = GetComponentsInChildren<WheelController>();
+    }
+
+    private void Start()
+    {
+        Vector3 centerOfMass = rb.centerOfMass;
+        centerOfMass.y += centreOfGravityOffset;
+        rb.centerOfMass = centerOfMass;
+    }
+
+    private void FixedUpdate()
+    {
+        float verticalInput = -Input.GetAxis("Vertical");
+        float horizontalInput = -Input.GetAxis("Horizontal");
+
+        float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
+        float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));
+
+        float currentMotorTorque = Mathf.Lerp(motorTorque, 0f, speedFactor);
+        float currentSteerAngle = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
+
+        foreach (var wheel in wheel)
+        {
+            if (wheel.steerable)
+            {
+                wheel.WheelCollider.steerAngle = horizontalInput * currentSteerAngle;
+            }
+
+            if (Mathf.Abs(verticalInput) > 0.1f)
+            {
+                bool isBraking = (forwardSpeed > 0.1f && verticalInput < -0.1f) || (forwardSpeed < -0.1f && verticalInput > 0.1f);
+
+                if (isBraking)
+                {
+                    wheel.WheelCollider.motorTorque = 0f;
+                    wheel.WheelCollider.brakeTorque = Mathf.Abs(verticalInput) * brakeTorque;
+                }
+                else
+                {
+                    if (wheel.motorized)
+                    {
+                        wheel.WheelCollider.motorTorque = verticalInput * currentMotorTorque;
+                    }
+                    wheel.WheelCollider.brakeTorque = 0f;
+                }
+            }
+            else
+            {
+                wheel.WheelCollider.motorTorque = 0f;
+                wheel.WheelCollider.brakeTorque = 0f;
+            }
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/LevelEndTrigger.cs">
+using UnityEngine;
+
+[RequireComponent(typeof(Collider))]
+public class LevelEndTrigger : MonoBehaviour
+{
+    [Header("Configuração do Gatilho")]
+    [Tooltip("Tag do objeto que pode ativar o gatilho. Certifique-se que seu carro tenha esta tag.")]
+    [SerializeField] private string playerTag = "Player";
+
+    [Tooltip("Nome da cena específica para carregar. Se deixado em branco, carregará a próxima cena da lista do GameManager.")]
+    [SerializeField] private string specificSceneName;
+
+    [Tooltip("Garante que o gatilho seja ativado apenas uma vez.")]
+    [SerializeField] private bool triggerOnce = true;
+
+    private bool hasBeenTriggered = false;
+
+    private void Awake()
+    {
+        GetComponent<Collider>().isTrigger = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (triggerOnce && hasBeenTriggered)
+        {
+            return;
+        }
+
+        if (other.CompareTag(playerTag))
+        {
+            hasBeenTriggered = true;
+            LoadTargetScene();
+        }
+    }
+
+    private void LoadTargetScene()
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance não foi encontrado. O gatilho não pode funcionar.");
+            return;
+        }
+GameManager gameManager = GameManager.Instance;
+        gameManager.LoadNextScene();
+    }
+}
+</file>
+
+<file path="Assets/Scripts/RopeVisualizer.cs">
+using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+
+[RequireComponent(typeof(LineRenderer))]
+public class RopeVisualizer : MonoBehaviour
+{
+    private LineRenderer lineRenderer;
+    private List<Transform> anchorPoints;
+
+    public void Initialize(List<Transform> points, Material material, float width)
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        anchorPoints = points.Where(p => p != null).ToList();
+
+        lineRenderer.material = material;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.positionCount = anchorPoints.Count;
+    }
+
+    private void LateUpdate()
+    {
+        if (anchorPoints == null || anchorPoints.Count == 0) return;
+
+        for (int i = 0; i < anchorPoints.Count; i++)
+        {
+            if (anchorPoints[i] != null)
+            {
+                lineRenderer.SetPosition(i, anchorPoints[i].position);
+            }
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/WheelController.cs">
+using UnityEngine;
+
+public class WheelController : MonoBehaviour
+{
+    [HideInInspector] public WheelCollider WheelCollider;
+    public Transform[] wheelModels;
+    public bool steerable = false;
+    public bool motorized = false;
+
+    private Vector3 wheelPosition;
+    private Quaternion wheelRotation;
+
+    void Awake()
+    {
+        WheelCollider = GetComponent<WheelCollider>();
+    }
+
+    void Update()
+    {
+        if (WheelCollider == null) return;
+        
+        WheelCollider.GetWorldPose(out wheelPosition, out wheelRotation);
+
+        for (int i = 0; i < wheelModels.Length; i++)
+        {
+            if (wheelModels[i] != null)
+            {
+                wheelModels[i].position = wheelPosition;
+                wheelModels[i].rotation = wheelRotation;
+            }
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/Audio/VolumeManager.cs">
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+
+public class VolumeManager : MonoBehaviour
+{
+    [Header("Audio")]
+    public AudioMixer audioMixer;
+
+    [Header("UI Sliders")]
+    public Slider masterSlider;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+
+    
+    const string MASTER_PARAM = "MasterVolume";
+    const string BGM_PARAM = "BGMVolume";
+    const string SFX_PARAM = "SFXVolume";
+
+    void Start()
+    {
+        // inicializa sliders a partir dos valores atuais do AudioMixer (em dB)
+        InitializeSliderFromMixer(masterSlider, MASTER_PARAM, 0.75f);
+        InitializeSliderFromMixer(bgmSlider, BGM_PARAM, 0.75f);
+        InitializeSliderFromMixer(sfxSlider, SFX_PARAM, 0.75f);
+
+        // adiciona listeners — se preferir pode ligar pelo Inspector
+        if (masterSlider != null) masterSlider.onValueChanged.AddListener(SetMasterVolume);
+        if (bgmSlider != null) bgmSlider.onValueChanged.AddListener(SetMusicVolume);
+        if (sfxSlider != null) sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+    }
+
+    private void OnEnable()
+    {
+        masterSlider.Select();
+    }
+
+    void OnDestroy()
+    {
+        // remove listeners para evitar memory leaks
+        if (masterSlider != null) masterSlider.onValueChanged.RemoveListener(SetMasterVolume);
+        if (bgmSlider != null) bgmSlider.onValueChanged.RemoveListener(SetMusicVolume);
+        if (sfxSlider != null) sfxSlider.onValueChanged.RemoveListener(SetSFXVolume);
+    }
+
+    void InitializeSliderFromMixer(Slider slider, string paramName, float defaultLinear)
+    {
+        if (slider == null) return;
+
+        if (audioMixer != null && audioMixer.GetFloat(paramName, out float dB))
+        {
+            // converte dB -> linear (0..1)
+            slider.value = DecibelToLinear(dB);
+        }
+        else
+        {
+            // mixer não tem o param exposto ou audioMixer null: usa default
+            slider.value = defaultLinear;
+            // opcional: aplicar o default no mixer agora
+            SetMixerParameterFromLinear(paramName, defaultLinear);
+        }
+    }
+
+    // conversão linear (0..1) -> decibéis (dB)
+    float LinearToDecibel(float linear)
+    {
+        linear = Mathf.Clamp01(linear);
+        if (linear <= 0.0001f) return -80f;
+        return Mathf.Log10(linear) * 20f;
+    }
+
+    // conversão decibel -> linear (0..1)
+    float DecibelToLinear(float dB)
+    {
+        return Mathf.Pow(10f, dB / 20f);
+    }
+
+    // aplica no AudioMixer (usando linear 0..1)
+    void SetMixerParameterFromLinear(string paramName, float linear)
+    {
+        if (audioMixer == null) return;
+        float dB = LinearToDecibel(linear);
+        audioMixer.SetFloat(paramName, dB);
+    }
+
+    // --- funções chamadas pelo UI ---
+    public void SetMasterVolume(float linearValue) => SetMixerParameterFromLinear(MASTER_PARAM, linearValue);
+    public void SetMusicVolume(float linearValue) => SetMixerParameterFromLinear(BGM_PARAM, linearValue);
+    public void SetSFXVolume(float linearValue) => SetMixerParameterFromLinear(SFX_PARAM, linearValue);
+}
+</file>
+
+<file path="Assets/Scripts/GameManager.cs">
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    [Header("Configuraушes de Cena")]
+    [Tooltip("Lista de cenas do jogo. Use o nome exato das cenas adicionadas no Build Settings.")]
+    public string[] sceneNames;
+    public string forceNextScene;
+
+    int nextSceneIndex;
+
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        nextSceneIndex = 0;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            RestartScene();
+        }
+    }
+
+    // Carrega prзxima cena na lista
+    public void LoadNextScene()
+    {
+        if (forceNextScene != "")
+        {
+            SceneManager.LoadScene(forceNextScene);
+            return;
+        }
+        SceneManager.LoadScene(sceneNames[nextSceneIndex]);
+        nextSceneIndex++;
+    }
+
+    public void LoadSceneByName(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // Reinicia a cena atual
+    public void RestartScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
+
+    // Sai do jogo
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+}
+</file>
+
+<file path="Assets/Scripts/RopeBridgeBuilder.cs">
+using UnityEngine;
+using System;
+using System.Collections.Generic;
+
+[DisallowMultipleComponent]
+public class RopeBridgeBuilder : MonoBehaviour
+{
+    [Header("Bridge Structure")]
+    [SerializeField] private Transform startPoint;
+    [SerializeField] private Transform endPoint;
+    [SerializeField] private int plankCount = 20;
+
+    [Header("Plank Properties")]
+    [SerializeField] private GameObject plankPrefab;
+    [SerializeField, Range(0f, 1f)] private float missingPlankChance = 0.1f;
+
+    [Header("Physics Properties")]
+    [Tooltip("How much the bridge sags in the middle.")]
+    [SerializeField] private float sag = 2f;
+    [SerializeField] private float plankMass = 5f;
+    [SerializeField] private float jointSpring = 100f;
+    [SerializeField] private float jointDamper = 10f;
+
+    [Header("Rope Visuals")]
+    [SerializeField] private Material ropeMaterial;
+    [SerializeField] private float ropeWidth = 0.1f;
+
+    public event Action OnBridgeGenerated;
+
+    private const string BRIDGE_ROOT_NAME = "GeneratedRopeBridge";
+    private const string LEFT_ROPE_ANCHOR_NAME = "RopeAnchor_Left";
+    private const string RIGHT_ROPE_ANCHOR_NAME = "RopeAnchor_Right";
+
+    [ContextMenu("Generate Bridge")]
+    public void Generate()
+    {
+        ClearBridge();
+        if (!AreSettingsValid()) return;
+
+        var bridgeRoot = new GameObject(BRIDGE_ROOT_NAME);
+        bridgeRoot.transform.SetParent(transform, false);
+
+        var leftRopePoints = new List<Transform> { startPoint };
+        var rightRopePoints = new List<Transform> { startPoint };
+
+        Vector3 bridgeDirection = endPoint.position - startPoint.position;
+        Vector3 step = bridgeDirection / (plankCount + 1);
+
+        Rigidbody previousRigidbody = CreateAnchor(startPoint, bridgeRoot.transform, "StartAnchor");
+
+        for (int i = 0; i < plankCount; i++)
+        {
+            float progress = (float)(i + 1) / (plankCount + 1);
+            Vector3 position = startPoint.position + (step * (i + 1));
+            
+            float curve = (1 - Mathf.Pow(2 * progress - 1, 2));
+            position.y -= curve * sag;
+
+            Quaternion rotation = Quaternion.LookRotation(step.normalized);
+
+            if (UnityEngine.Random.value < missingPlankChance && i > 0 && i < plankCount -1)
+            {
+                var dummyPoint = new GameObject($"DummyPoint_{i}").transform;
+                dummyPoint.position = position;
+                dummyPoint.SetParent(bridgeRoot.transform);
+                leftRopePoints.Add(dummyPoint);
+                rightRopePoints.Add(dummyPoint);
+                continue;
+            }
+
+            GameObject plankInstance = Instantiate(plankPrefab, position, rotation, bridgeRoot.transform);
+            plankInstance.name = $"Plank_{i}";
+            
+            Rigidbody currentRigidbody = plankInstance.GetComponent<Rigidbody>();
+            if (currentRigidbody == null)
+            {
+                currentRigidbody = plankInstance.AddComponent<Rigidbody>();
+            }
+            currentRigidbody.mass = plankMass;
+            
+            ConnectToPrevious(previousRigidbody, currentRigidbody);
+            previousRigidbody = currentRigidbody;
+
+            Transform leftAnchor = plankInstance.transform.Find(LEFT_ROPE_ANCHOR_NAME);
+            Transform rightAnchor = plankInstance.transform.Find(RIGHT_ROPE_ANCHOR_NAME);
+            
+            if(leftAnchor == null || rightAnchor == null)
+            {
+                 Debug.LogError($"O Prefab da prancha precisa ter GameObjects filhos chamados '{LEFT_ROPE_ANCHOR_NAME}' e '{RIGHT_ROPE_ANCHOR_NAME}'. Abortando.", plankPrefab);
+                 ClearBridge();
+                 return;
+            }
+
+            leftRopePoints.Add(leftAnchor);
+            rightRopePoints.Add(rightAnchor);
+        }
+
+        Rigidbody endAnchor = CreateAnchor(endPoint, bridgeRoot.transform, "EndAnchor");
+        ConnectToPrevious(previousRigidbody, endAnchor);
+
+        leftRopePoints.Add(endPoint);
+        rightRopePoints.Add(endPoint);
+
+        CreateRopeVisualizer("LeftRope", bridgeRoot.transform, leftRopePoints);
+        CreateRopeVisualizer("RightRope", bridgeRoot.transform, rightRopePoints);
+
+        OnBridgeGenerated?.Invoke();
+    }
+    
+    [ContextMenu("Clear Existing Bridge")]
+    public void ClearBridge()
+    {
+        Transform existingBridge = transform.Find(BRIDGE_ROOT_NAME);
+        if (existingBridge != null)
+        {
+            if (Application.isPlaying)
+                Destroy(existingBridge.gameObject);
+            else
+                DestroyImmediate(existingBridge.gameObject);
+        }
+    }
+
+    private void ConnectToPrevious(Rigidbody previous, Rigidbody current)
+    {
+        HingeJoint joint = current.gameObject.AddComponent<HingeJoint>();
+        joint.connectedBody = previous;
+        joint.anchor = new Vector3(0, 0, -plankPrefab.transform.localScale.z / 2f);
+        joint.axis = new Vector3(1, 0, 0);
+        
+        var spring = new JointSpring
+        {
+            spring = jointSpring,
+            damper = jointDamper
+        };
+        joint.spring = spring;
+        joint.useSpring = true;
+    }
+
+    private Rigidbody CreateAnchor(Transform anchorTransform, Transform parent, string name)
+    {
+        var anchorObject = new GameObject(name);
+        anchorObject.transform.SetPositionAndRotation(anchorTransform.position, anchorTransform.rotation);
+        anchorObject.transform.SetParent(parent);
+        var rb = anchorObject.AddComponent<Rigidbody>();
+        rb.isKinematic = true;
+        return rb;
+    }
+
+    private void CreateRopeVisualizer(string name, Transform parent, List<Transform> points)
+    {
+        var ropeObject = new GameObject(name);
+        ropeObject.transform.SetParent(parent);
+        var visualizer = ropeObject.AddComponent<RopeVisualizer>();
+        visualizer.Initialize(points, ropeMaterial, ropeWidth);
+    }
+    
+    private bool AreSettingsValid()
+    {
+        if (startPoint == null || endPoint == null || plankPrefab == null)
+        {
+            Debug.LogError("Start Point, End Point e Plank Prefab devem ser atribuídos.");
+            return false;
+        }
+        return true;
+    }
+}
+</file>
+
+<file path="Assets/Scripts/UI/MenuPause.cs">
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+public class MenuPause : MonoBehaviour
+{
+    public GameObject menuObject;
+
+    public static MenuPause Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Main_Menu")
+            return;
+
+        ControlCanvas();
+    }
+
+    void ControlCanvas()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current.startButton.wasPressedThisFrame) // OU PRESSIONAR BOTÃO 'START' NO JOYSTICK
+        {
+            if (menuObject.activeSelf)
+            {
+                Time.timeScale = 1f;
+                menuObject.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0f;
+                menuObject.SetActive(true);
+            }
+        }
+    }
+}
+</file>
+
+</files>
