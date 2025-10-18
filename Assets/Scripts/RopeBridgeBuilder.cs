@@ -44,7 +44,6 @@ public class RopeBridgeBuilder : MonoBehaviour
         var rightRopePoints = new List<Transform> { startPoint };
 
         Vector3 bridgeDirection = endPoint.position - startPoint.position;
-        float totalDistance = bridgeDirection.magnitude;
         Vector3 step = bridgeDirection / (plankCount + 1);
 
         Rigidbody previousRigidbody = CreateAnchor(startPoint, bridgeRoot.transform, "StartAnchor");
@@ -133,8 +132,8 @@ public class RopeBridgeBuilder : MonoBehaviour
             spring = jointSpring,
             damper = jointDamper
         };
-        // joint.spring = spring;
-        // joint.useSpring = true;
+        joint.spring = spring;
+        joint.useSpring = true;
     }
 
     private Rigidbody CreateAnchor(Transform anchorTransform, Transform parent, string name)
