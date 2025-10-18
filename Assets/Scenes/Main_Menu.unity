@@ -4336,6 +4336,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
+      propertyPath: 'sceneNames.Array.data[0]'
+      value: Bridge
+      objectReference: {fileID: 0}
     - target: {fileID: 736662103764782225, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: m_Name
       value: GameManager
