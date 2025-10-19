@@ -26,8 +26,9 @@ public class InactivityTimer : MonoBehaviour
 
             if (inactivityTimer >= inactiveTimeLimit)
             {
+                GameManager.Instance.LoadNextScene();
                 // Jogador ficou inativo por 7 segundos
-                Debug.Log("Jogador inativo por 7 segundos!");
+                //Debug.Log("Jogador inativo por 7 segundos!");
                 // Aqui você pode chamar uma função, ativar algo, etc.
             }
         }
