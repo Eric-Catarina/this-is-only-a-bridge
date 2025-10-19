@@ -58,6 +58,11 @@ public class LevelDeathManager : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Creditos")
+        {
+            Destroy(gameObject);
+        }
+
         if (!hudFather.activeSelf)
         {
             if(SceneManager.GetActiveScene().name != "Main_Menu")

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class MenuPause : MonoBehaviour
 {
     public GameObject menuObject;
+    public GameObject eventSystem;
 
     public static MenuPause Instance;
 
@@ -21,97 +22,48 @@ public class MenuPause : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        HandleCursorState(SceneManager.GetActiveScene());
-    }
-
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        HandleCursorState(scene);
-    }
-    
     void Update()
     {
-        if (IsMenuScene())
-            return;
+        if (SceneManager.GetActiveScene().name == "Creditos")
+        {
+            Destroy(gameObject);
+        }
 
-        ControlCanvas();
+        if (SceneManager.GetActiveScene().name == "Main_Menu")
+            return;
+        else if (!eventSystem.activeSelf)
+            eventSystem.SetActive(true);
+
+        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
+        {
+            ControlCanvas();
+        }
     }
 
-    private void HandleCursorState(Scene scene)
+    public void ControlCanvas()
     {
-        if (IsMenuScene())
+        if (menuObject.activeSelf)
         {
-            UnlockCursor();
+            Time.timeScale = 1f;
+            menuObject.SetActive(false);
+            LevelDeathManager.Instance.skipLevelButton.Select();
         }
         else
         {
-            LockCursor();
+            Time.timeScale = 0f;
+            menuObject.SetActive(true);
         }
-    }
-
-    void ControlCanvas()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
-        {
-            if (menuObject.activeSelf)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
-        }
-    }
-
-    private void PauseGame()
-    {
-        Time.timeScale = 0f;
-        menuObject.SetActive(true);
-        UnlockCursor();
-    }
-
-    private void ResumeGame()
-    {
-        Time.timeScale = 1f;
-        menuObject.SetActive(false);
-        LockCursor();
     }
 
     public void Restart()
     {
-        ResumeGame();
         GameManager.Instance.RestartScene();
+        Time.timeScale = 1f;
+        menuObject.SetActive(false);
     }
 
     public void Quit()
     {
         GameManager.Instance.QuitGame();
-    }
-
-    private void LockCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-    private void UnlockCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    private bool IsMenuScene()
-    {
-        string currentScene = SceneManager.GetActiveScene().name;
-        return currentScene == "Main_Menu" || currentScene == "Creditos";
     }
 }

@@ -22,7 +22,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
+        if (SceneManager.GetActiveScene().name == "Creditos")
+        {
+            Destroy(gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
         {
             RestartScene();
         }
@@ -35,11 +40,6 @@ public class GameManager : MonoBehaviour
             LevelDeathManager.Instance.MarkLevelPassed();
 
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
-
-        if (SceneManager.GetSceneByBuildIndex(currentIndex + 1).name == "Creditos")
-        {
-            DontDestroyCleaner.ClearAll();
-        }
 
         SceneManager.LoadScene(currentIndex + 1);
     }
