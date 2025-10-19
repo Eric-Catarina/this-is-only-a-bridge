@@ -47,5 +47,13 @@ MonoBehaviour:
   sceneNames:
   - Fase01
   - Fase02
+  - Fase03
+  - Fase04
+  - Fase05
+  - Fase06
+  - Fase07
+  - Fase08
+  - Fase09
+  - Fase10
+  - Fase11
   - Creditos
-  forceNextScene: 

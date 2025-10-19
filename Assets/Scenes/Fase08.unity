@@ -7898,7 +7898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7186364042714898296, guid: 553722b74931e6e209d35843c9af8d96, type: 3}
       propertyPath: plankMass
-      value: 50
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7186364042714898296, guid: 553722b74931e6e209d35843c9af8d96, type: 3}
       propertyPath: plankCount
@@ -7906,7 +7906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7186364042714898296, guid: 553722b74931e6e209d35843c9af8d96, type: 3}
       propertyPath: jointDamper
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7375179783156841985, guid: 553722b74931e6e209d35843c9af8d96, type: 3}
       propertyPath: m_LocalPosition.x
