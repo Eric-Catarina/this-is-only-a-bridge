@@ -110,7 +110,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
-    - _Curvature_Radius: 139.6
+    - _Curvature_Radius: 122
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1

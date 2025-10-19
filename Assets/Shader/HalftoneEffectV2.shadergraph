@@ -1004,7 +1004,7 @@
     "m_ObjectId": "02132db6bf5c4ee492a412be57d4fe1a",
     "m_Title": "Additional Lights",
     "m_Position": {
-        "x": -3435.000244140625,
+        "x": -3435.0,
         "y": -211.0
     }
 }
@@ -2098,7 +2098,7 @@
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
-    "m_RenderFace": 2,
+    "m_RenderFace": 0,
     "m_AlphaClip": false,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
@@ -5011,7 +5011,7 @@
     "m_ObjectId": "cc441b70dca1421db9fb1321b7d48c14",
     "m_Title": "Difuse Light",
     "m_Position": {
-        "x": -3683.000244140625,
+        "x": -3683.0,
         "y": 536.0
     }
 }
@@ -5431,7 +5431,7 @@
     "m_Title": "Correct Screen Space",
     "m_Position": {
         "x": -2244.0,
-        "y": 1060.0001220703125
+        "y": 1060.0
     }
 }
 
