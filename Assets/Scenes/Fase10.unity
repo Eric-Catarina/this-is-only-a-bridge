@@ -480,6 +480,7 @@ MonoBehaviour:
   steeringRangeAtMaxSpeed: 10
   centreOfGravityOffset: -1
   rollingResistance: 100
+  engineAudio: {fileID: 0}
 --- !u!1 &678365366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,52 +1091,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1901285840
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1901285842}
-  - component: {fileID: 1901285841}
-  m_Layer: 0
-  m_Name: InactivityTimer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1901285841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901285840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4f44dca2483f34dbf9f3e9325530e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  specificSceneName: Fase11
-  inactiveTimeLimit: 7
---- !u!4 &1901285842
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901285840}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.81, z: 31.189999}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4483944679452891163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1226,7 +1181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.97
+      value: 3.96
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1336,4 +1291,3 @@ SceneRoots:
   - {fileID: 4483944679452891163}
   - {fileID: 1622898656}
   - {fileID: 877524658}
-  - {fileID: 1901285842}

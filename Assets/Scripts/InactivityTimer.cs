@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InactivityTimer : MonoBehaviour
 {
@@ -6,7 +7,23 @@ public class InactivityTimer : MonoBehaviour
     [SerializeField] private string specificSceneName;
     public float inactiveTimeLimit = 7f; // tempo necessário sem movimento
     private float inactivityTimer = 0f;
-        void Update()
+    
+    public void LoadNextScene()
+    {
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.MarkLevelPassed();
+
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentIndex +1);
+    }
+
+    public void LoadSceneByName(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+       
+    }
+    void Update()
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
@@ -31,8 +48,9 @@ public class InactivityTimer : MonoBehaviour
                     else
                     {
                         Debug.Log("Carregando próxima cena...");
-                        GameManager.Instance.LoadNextScene();
-                    }
+                        LoadNextScene();
+                    
+                }
                 }
             }
 
