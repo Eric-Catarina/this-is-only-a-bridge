@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
 
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
 
+        if (SceneManager.GetSceneByBuildIndex(currentIndex + 1).name == "Creditos")
+        {
+            DontDestroyCleaner.ClearAll();
+        }
+
         SceneManager.LoadScene(currentIndex + 1);
     }
 
@@ -54,7 +60,7 @@ public class GameManager : MonoBehaviour
     public void RestartScene()
     {
         if (LevelDeathManager.Instance != null)
-            LevelDeathManager.Instance.MarkLevelPassed();
+            LevelDeathManager.Instance.RegisterDeath();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }

@@ -137,14 +137,15 @@ public class LevelDeathManager : MonoBehaviour
         {
             if (messageText != null)
             {
-                messageText.text = "Você já passou essa fase";
+                messageText.text = "You alredy passed this level.";
                 messageText.gameObject.SetActive(true);
             }
 
             if (skipLevelButton != null)
             {
-                if (skipButtonText != null) skipButtonText.text = "Pular a fase";
+                if (skipButtonText != null) skipButtonText.text = "Skip level";
                 skipLevelButton.gameObject.SetActive(true);
+                skipLevelButton.Select();
             }
 
             return;
@@ -155,14 +156,15 @@ public class LevelDeathManager : MonoBehaviour
         {
             if (messageText != null)
             {
-                messageText.text = "Não consegue? Pule a fase!";
+                messageText.text = "You can not DO IT? Skip this level NOOB!";
                 messageText.gameObject.SetActive(true);
             }
 
             if (skipLevelButton != null)
             {
-                if (skipButtonText != null) skipButtonText.text = "Pular fase";
+                if (skipButtonText != null) skipButtonText.text = "Skip level";
                 skipLevelButton.gameObject.SetActive(true);
+                skipLevelButton.Select();
             }
         }
     }
