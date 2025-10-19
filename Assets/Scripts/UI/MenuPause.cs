@@ -22,21 +22,17 @@ public class MenuPause : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Update()
     {
         if (SceneManager.GetActiveScene().name == "Creditos")
         {
             Destroy(gameObject);
         }
 
-        if (SceneManager.GetActiveScene().name != "Main_Menu")
-            eventSystem.SetActive(true);
-    }
-
-    void Update()
-    {
         if (SceneManager.GetActiveScene().name == "Main_Menu")
             return;
+        else if (!eventSystem.activeSelf)
+            eventSystem.SetActive(true);
 
         if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
         {

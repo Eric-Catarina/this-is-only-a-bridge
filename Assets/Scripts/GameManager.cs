@@ -20,17 +20,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Update()
     {
         if (SceneManager.GetActiveScene().name == "Creditos")
         {
             Destroy(gameObject);
         }
-    }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
         {
             RestartScene();
         }

@@ -44,11 +44,6 @@ public class LevelDeathManager : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Creditos")
-        {
-            Destroy(gameObject);
-        }
-
         // Inicializa para a cena atual (Start roda uma vez; OnSceneLoaded cuida das trocas futuras)
         InitKeysForScene(SceneManager.GetActiveScene().name);
         LoadValuesFromPrefs();
@@ -63,6 +58,11 @@ public class LevelDeathManager : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Creditos")
+        {
+            Destroy(gameObject);
+        }
+
         if (!hudFather.activeSelf)
         {
             if(SceneManager.GetActiveScene().name != "Main_Menu")

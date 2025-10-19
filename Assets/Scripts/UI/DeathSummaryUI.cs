@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System.Text;
+using System.IO;
 
 public class DeathSummaryUI : MonoBehaviour
 {
@@ -40,26 +41,35 @@ public class DeathSummaryUI : MonoBehaviour
         sb.AppendLine("<size=140%><b>Resumo de Mortes</b></size>\n");
         sb.AppendLine("<b>Por fase:</b>");
 
-        bool hasAnyDeath = false;
+        bool hasAnyLevel = false;
 
         // Percorre todas as cenas do Build Settings
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-            string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+            string sceneName = Path.GetFileNameWithoutExtension(scenePath);
 
-            string levelDeathsKey = $"Deaths_Level_{sceneName}";
-            int levelDeaths = PlayerPrefs.GetInt(levelDeathsKey, 0);
+            string deathKey = $"Deaths_Level_{sceneName}";
+            string passedKey = $"LevelPassed_{sceneName}";
+            string skippedKey = $"LevelSkipped_{sceneName}";
 
-            if (levelDeaths > 0)
-            {
-                hasAnyDeath = true;
-                sb.AppendLine($"• <b>{sceneName}</b>: {levelDeaths} mortes");
-            }
+            int levelDeaths = PlayerPrefs.GetInt(deathKey, 0);
+            bool levelPassed = PlayerPrefs.GetInt(passedKey, 0) == 1;
+            bool levelSkipped = PlayerPrefs.GetInt(skippedKey, 0) == 1;
+
+            // Monta status
+            string status = "";
+            if (levelPassed)
+                status = " (Completed)";
+            else if (levelSkipped)
+                status = " (Skipped)";
+
+            sb.AppendLine($"• <b>{sceneName}</b>: {levelDeaths}{status}");
+            hasAnyLevel = true;
         }
 
-        if (!hasAnyDeath)
-            sb.AppendLine("<i>Nenhuma morte registrada ainda!</i>");
+        if (!hasAnyLevel)
+            sb.AppendLine("<i>Nenhuma fase encontrada!</i>");
 
         sb.AppendLine("\n────────────────────────────");
         sb.AppendLine($"<size=110%><b>Total de mortes:</b> {totalDeaths}</size>");
@@ -74,10 +84,11 @@ public class DeathSummaryUI : MonoBehaviour
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-            string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+            string sceneName = Path.GetFileNameWithoutExtension(scenePath);
 
             PlayerPrefs.DeleteKey($"Deaths_Level_{sceneName}");
             PlayerPrefs.DeleteKey($"LevelPassed_{sceneName}");
+            PlayerPrefs.DeleteKey($"LevelSkipped_{sceneName}");
         }
 
         PlayerPrefs.DeleteKey("TotalDeaths");
