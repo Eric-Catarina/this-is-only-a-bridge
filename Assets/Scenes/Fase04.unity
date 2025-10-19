@@ -1253,9 +1253,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5089343719336451809, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 5089343719336451809, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142753541821801099, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142753541821801099, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6769859476623478803, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Name
       value: Core
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9082687542472939564, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_Mass
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214105334318831960, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: brakeTorque
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 9214105334318831960, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: motorTorque
+      value: 1500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1384,19 +1420,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: sceneNames.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: 'sceneNames.Array.data[0]'
-      value: Bridge
+      value: Fase05
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: 'sceneNames.Array.data[1]'
-      value: Bridge_EmersonSid
+      value: Control Reverse
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: 'sceneNames.Array.data[2]'
-      value: Control Reverse
+      value: Bridge_Double_curve
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: 'sceneNames.Array.data[3]'
@@ -2044,13 +2080,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelEnd
       objectReference: {fileID: 0}
+    - target: {fileID: 2864402968202766009, guid: c334c50116ff1d394bd419ef314db870, type: 3}
+      propertyPath: specificSceneName
+      value: Fase05
+      objectReference: {fileID: 0}
     - target: {fileID: 8893256142340710919, guid: c334c50116ff1d394bd419ef314db870, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8893256142340710919, guid: c334c50116ff1d394bd419ef314db870, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.25
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 8893256142340710919, guid: c334c50116ff1d394bd419ef314db870, type: 3}
       propertyPath: m_LocalPosition.z
