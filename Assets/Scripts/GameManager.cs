@@ -41,7 +41,8 @@ public class GameManager : MonoBehaviour
     // Carrega próxima cena na lista
     public void LoadNextScene()
     {
-        LevelDeathManager.Instance.MarkLevelPassed();
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.MarkLevelPassed();
         SceneManager.LoadScene(sceneNames[nextSceneIndex]);
         nextSceneIndex++;
     }
@@ -60,7 +61,8 @@ public class GameManager : MonoBehaviour
     // Reinicia a cena atual
     public void RestartScene()
     {
-        LevelDeathManager.Instance.RegisterDeath();
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.MarkLevelPassed();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
