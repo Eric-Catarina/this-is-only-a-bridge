@@ -14,6 +14,9 @@ public class CarController : MonoBehaviour
     [Tooltip("Força de frenagem aplicada quando não há aceleração, simulando atrito e resistência do ar.")]
     [SerializeField] private float rollingResistance = 100f;
 
+    [Header("Áudio")]
+    [SerializeField] private AudioSource engineAudio;
+
     private WheelController[] wheels;
     private Rigidbody rb;
 
@@ -21,6 +24,7 @@ public class CarController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         wheels = GetComponentsInChildren<WheelController>();
+        engineAudio = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -71,9 +75,38 @@ public class CarController : MonoBehaviour
                 wheel.WheelCollider.motorTorque = 0f;
                 wheel.WheelCollider.brakeTorque = rollingResistance;
             }
+
         }
+
+        // Detecta se o carro está acelerando
+        bool currentlyAccelerating = false;
+
+        foreach (var wheel in wheels)
+        {
+            // ... (código que já está aí)
+
+            if (Mathf.Abs(verticalInput) > 0.001f && wheel.motorized)
+            {
+                currentlyAccelerating = true;
+            }
+        }
+
+        // Toca ou para o som
+        if (currentlyAccelerating && !engineAudio.isPlaying)
+        {
+            engineAudio.Play();
+        }
+        else if (!currentlyAccelerating && engineAudio.isPlaying)
+        {
+            engineAudio.Stop();
+        }
+
+
+
         // Add gravity
         rb.AddForce(Physics.gravity * rb.mass);
+
     }
+
 
 }
