@@ -1272,26 +1272,6 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.007185976
       objectReference: {fileID: 0}
-    - target: {fileID: 9082687542472939564, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
-      propertyPath: m_Mass
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214105334318831960, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
-      propertyPath: brakeTorque
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214105334318831960, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
-      propertyPath: motorTorque
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214105334318831960, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
-      propertyPath: steeringRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 9214105334318831960, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
-      propertyPath: rollingResistance
-      value: 5000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

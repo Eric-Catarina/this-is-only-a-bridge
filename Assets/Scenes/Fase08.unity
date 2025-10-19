@@ -947,13 +947,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1569019040}
     m_Modifications:
+    - target: {fileID: 1111374306795014197, guid: f09879364a51f7428a425f4c920b097d, type: 3}
+      propertyPath: safeSpeedKmh
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1718783517611068908, guid: f09879364a51f7428a425f4c920b097d, type: 3}
       propertyPath: m_Name
       value: LandMine
       objectReference: {fileID: 0}
     - target: {fileID: 8723022264318135447, guid: f09879364a51f7428a425f4c920b097d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5350248
+      value: 0.6749558
       objectReference: {fileID: 0}
     - target: {fileID: 8723022264318135447, guid: f09879364a51f7428a425f4c920b097d, type: 3}
       propertyPath: m_LocalScale.y
@@ -965,7 +969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8723022264318135447, guid: f09879364a51f7428a425f4c920b097d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.055479623
+      value: 0.018
       objectReference: {fileID: 0}
     - target: {fileID: 8723022264318135447, guid: f09879364a51f7428a425f4c920b097d, type: 3}
       propertyPath: m_LocalPosition.y
