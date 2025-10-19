@@ -2155,11 +2155,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6147068364009281374, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: brakeTorque
-      value: 2000
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 6147068364009281374, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: motorTorque
-      value: 2000
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 6147068364009281374, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: steeringRange
