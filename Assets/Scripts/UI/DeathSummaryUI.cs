@@ -86,4 +86,9 @@ public class DeathSummaryUI : MonoBehaviour
         ShowDeathSummary();
         Debug.Log("Histórico de mortes resetado!");
     }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
+    }
 }

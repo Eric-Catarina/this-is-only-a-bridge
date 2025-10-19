@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -34,6 +35,11 @@ public class GameManager : MonoBehaviour
             LevelDeathManager.Instance.MarkLevelPassed();
 
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (SceneManager.GetSceneByBuildIndex(currentIndex + 1).name == "Creditos")
+        {
+            DontDestroyCleaner.ClearAll();
+        }
 
         SceneManager.LoadScene(currentIndex + 1);
     }
