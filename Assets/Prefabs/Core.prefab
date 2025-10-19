@@ -210,7 +210,7 @@ MonoBehaviour:
   wheelModels:
   - {fileID: 2348183808680658210}
   steerable: 1
-  motorized: 0
+  motorized: 1
 --- !u!1 &2505061561176642515
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +260,7 @@ MonoBehaviour:
   wheelModels:
   - {fileID: 6565798399151185660}
   steerable: 1
-  motorized: 0
+  motorized: 1
 --- !u!146 &2046524596857340466
 WheelCollider:
   m_ObjectHideFlags: 0
@@ -2151,7 +2151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6147068364009281374, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: maxSpeed
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6147068364009281374, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: brakeTorque
