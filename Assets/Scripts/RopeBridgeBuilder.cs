@@ -16,10 +16,10 @@ public class RopeBridgeBuilder : MonoBehaviour
 
     [Header("Physics Properties")]
     [Tooltip("How much the bridge sags in the middle.")]
-    [SerializeField] private float sag = 2f;
-    [SerializeField] private float plankMass = 5f;
-    [SerializeField] private float jointSpring = 100f;
-    [SerializeField] private float jointDamper = 10f;
+    [SerializeField] private float sag = 0f;
+    [SerializeField] private float plankMass = 0f;
+    [SerializeField] private float jointSpring = 0f;
+    [SerializeField] private float jointDamper = 0f;
 
     [Header("Rope Visuals")]
     [SerializeField] private Material ropeMaterial;
@@ -44,7 +44,6 @@ public class RopeBridgeBuilder : MonoBehaviour
         var rightRopePoints = new List<Transform> { startPoint };
 
         Vector3 bridgeDirection = endPoint.position - startPoint.position;
-        float totalDistance = bridgeDirection.magnitude;
         Vector3 step = bridgeDirection / (plankCount + 1);
 
         Rigidbody previousRigidbody = CreateAnchor(startPoint, bridgeRoot.transform, "StartAnchor");
@@ -133,8 +132,8 @@ public class RopeBridgeBuilder : MonoBehaviour
             spring = jointSpring,
             damper = jointDamper
         };
-        // joint.spring = spring;
-        // joint.useSpring = true;
+        joint.spring = spring;
+        joint.useSpring = true;
     }
 
     private Rigidbody CreateAnchor(Transform anchorTransform, Transform parent, string name)

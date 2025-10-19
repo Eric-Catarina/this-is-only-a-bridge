@@ -10,6 +10,10 @@ public class CarController : MonoBehaviour
     [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
     [SerializeField] private float centreOfGravityOffset = -1f;
 
+    [Header("Parâmetros de Atrito")]
+    [Tooltip("Força de frenagem aplicada quando não há aceleração, simulando atrito e resistência do ar.")]
+    [SerializeField] private float rollingResistance = 100f;
+
     private WheelController[] wheels;
     private Rigidbody rb;
 
@@ -44,7 +48,7 @@ public class CarController : MonoBehaviour
                 wheel.WheelCollider.steerAngle = horizontalInput * currentSteerAngle;
             }
 
-            if (Mathf.Abs(verticalInput) > 0.1f)
+            if (Mathf.Abs(verticalInput) > 0.001f)
             {
                 bool isBraking = (forwardSpeed > 0.1f && verticalInput < -0.1f) || (forwardSpeed < -0.1f && verticalInput > 0.1f);
 
@@ -65,7 +69,7 @@ public class CarController : MonoBehaviour
             else
             {
                 wheel.WheelCollider.motorTorque = 0f;
-                wheel.WheelCollider.brakeTorque = 0f;
+                wheel.WheelCollider.brakeTorque = rollingResistance;
             }
         }
     }

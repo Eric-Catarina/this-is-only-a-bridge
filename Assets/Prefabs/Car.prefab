@@ -2399,11 +2399,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motorTorque: 2500
-  brakeTorque: 1000
+  brakeTorque: 2500
   maxSpeed: 80
   steeringRange: 30
   steeringRangeAtMaxSpeed: 10
   centreOfGravityOffset: -1
+  rollingResistance: 3000
 --- !u!1 &8177815600697083890
 GameObject:
   m_ObjectHideFlags: 0
