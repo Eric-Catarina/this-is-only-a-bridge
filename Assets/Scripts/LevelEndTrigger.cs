@@ -7,9 +7,6 @@ public class LevelEndTrigger : MonoBehaviour
     [Tooltip("Tag do objeto que pode ativar o gatilho. Certifique-se que seu carro tenha esta tag.")]
     [SerializeField] private string playerTag = "Player";
 
-    [Tooltip("Nome da cena específica para carregar. Se deixado em branco, carregará a próxima cena da lista do GameManager.")]
-    [SerializeField] private string specificSceneName;
-
     [Tooltip("Garante que o gatilho seja ativado apenas uma vez.")]
     [SerializeField] private bool triggerOnce = true;
 
@@ -30,19 +27,7 @@ public class LevelEndTrigger : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             hasBeenTriggered = true;
-            //LoadTargetScene();
             GameManager.Instance.LoadNextScene();
         }
-    }
-
-    private void LoadTargetScene()
-    {
-        if (GameManager.Instance == null)
-        {
-            Debug.LogError("GameManager.Instance não foi encontrado. O gatilho não pode funcionar.");
-            return;
-        }
-        GameManager.Instance.LoadSceneByName(specificSceneName != "" ? specificSceneName : null);
-
     }
 }

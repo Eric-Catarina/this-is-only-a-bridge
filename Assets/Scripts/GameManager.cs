@@ -1,15 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Configurações de Cena")]
-    [Tooltip("Lista de cenas do jogo. Use o nome exato das cenas adicionadas no Build Settings.")]
-    public string[] sceneNames;
-
-    int nextSceneIndex;
-
     public static GameManager Instance;
 
     private void Awake()
@@ -25,14 +20,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        nextSceneIndex = 0;
-    }
-
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
+        if (SceneManager.GetActiveScene().name == "Creditos")
+        {
+            Destroy(gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
         {
             RestartScene();
         }
@@ -41,15 +36,19 @@ public class GameManager : MonoBehaviour
     // Carrega próxima cena na lista
     public void LoadNextScene()
     {
-        LevelDeathManager.Instance.MarkLevelPassed();
-        SceneManager.LoadScene(sceneNames[nextSceneIndex]);
-        nextSceneIndex++;
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.MarkLevelPassed();
+
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentIndex + 1);
     }
 
     public void SkipLevel()
     {
-        SceneManager.LoadScene(sceneNames[nextSceneIndex]);
-        nextSceneIndex++;
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentIndex + 1);
     }
 
     public void LoadSceneByName(string sceneName)
@@ -60,7 +59,8 @@ public class GameManager : MonoBehaviour
     // Reinicia a cena atual
     public void RestartScene()
     {
-        LevelDeathManager.Instance.RegisterDeath();
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.RegisterDeath();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
