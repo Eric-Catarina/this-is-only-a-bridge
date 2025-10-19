@@ -10960,6 +10960,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelEnd
       objectReference: {fileID: 0}
+    - target: {fileID: 2507132744789244470, guid: c334c50116ff1d394bd419ef314db870, type: 3}
+      propertyPath: m_Name
+      value: BandeiraQuadriculada
+      objectReference: {fileID: 0}
+    - target: {fileID: 2990618155935195276, guid: c334c50116ff1d394bd419ef314db870, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 32.22
+      objectReference: {fileID: 0}
     - target: {fileID: 8893256142340710919, guid: c334c50116ff1d394bd419ef314db870, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.37
