@@ -38,23 +38,24 @@ public class MenuPause : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Main_Menu")
             return;
 
-        ControlCanvas();
-    }
-
-    void ControlCanvas()
-    {
         if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
         {
-            if (menuObject.activeSelf)
-            {
-                Time.timeScale = 1f;
-                menuObject.SetActive(false);
-            }
-            else
-            {
-                Time.timeScale = 0f;
-                menuObject.SetActive(true);
-            }
+            ControlCanvas();
+        }
+    }
+
+    public void ControlCanvas()
+    {
+        if (menuObject.activeSelf)
+        {
+            Time.timeScale = 1f;
+            menuObject.SetActive(false);
+            LevelDeathManager.Instance.skipLevelButton.Select();
+        }
+        else
+        {
+            Time.timeScale = 0f;
+            menuObject.SetActive(true);
         }
     }
 
