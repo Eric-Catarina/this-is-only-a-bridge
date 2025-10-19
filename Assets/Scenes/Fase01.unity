@@ -10722,7 +10722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1259725730598565976, guid: bb094a41abac517ef905246bf73136be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5000007
+      value: -3.6500008
       objectReference: {fileID: 0}
     - target: {fileID: 1259725730598565976, guid: bb094a41abac517ef905246bf73136be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10760,6 +10760,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Outdoor
       objectReference: {fileID: 0}
+    - target: {fileID: 2948756477251503410, guid: bb094a41abac517ef905246bf73136be, type: 3}
+      propertyPath: m_text
+      value: "Level 01 - \n\"This is a bridge!\""
+      objectReference: {fileID: 0}
+    - target: {fileID: 7751640937982186567, guid: bb094a41abac517ef905246bf73136be, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0886977e7123aeb4eb6b0fe66599b1ab, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23024,7 +23032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 936320819363176791, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.7000003
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 936320819363176791, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23246,7 +23254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5989355962563014656, guid: 6940816dec0f08041956ef092659a01c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.77
+      value: -6.92
       objectReference: {fileID: 0}
     - target: {fileID: 5989355962563014656, guid: 6940816dec0f08041956ef092659a01c, type: 3}
       propertyPath: m_LocalPosition.z
