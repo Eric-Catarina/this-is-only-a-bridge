@@ -21,12 +21,40 @@ public class MenuPause : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        HandleCursorState(SceneManager.GetActiveScene());
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        HandleCursorState(scene);
+    }
+    
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Main_Menu")
+        if (IsMenuScene())
             return;
 
         ControlCanvas();
+    }
+
+    private void HandleCursorState(Scene scene)
+    {
+        if (IsMenuScene())
+        {
+            UnlockCursor();
+        }
+        else
+        {
+            LockCursor();
+        }
     }
 
     void ControlCanvas()
@@ -35,26 +63,55 @@ public class MenuPause : MonoBehaviour
         {
             if (menuObject.activeSelf)
             {
-                Time.timeScale = 1f;
-                menuObject.SetActive(false);
+                ResumeGame();
             }
             else
             {
-                Time.timeScale = 0f;
-                menuObject.SetActive(true);
+                PauseGame();
             }
         }
     }
 
-    public void Restart()
+    private void PauseGame()
     {
-        GameManager.Instance.RestartScene();
+        Time.timeScale = 0f;
+        menuObject.SetActive(true);
+        UnlockCursor();
+    }
+
+    private void ResumeGame()
+    {
         Time.timeScale = 1f;
         menuObject.SetActive(false);
+        LockCursor();
+    }
+
+    public void Restart()
+    {
+        ResumeGame();
+        GameManager.Instance.RestartScene();
     }
 
     public void Quit()
     {
         GameManager.Instance.QuitGame();
+    }
+
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private bool IsMenuScene()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        return currentScene == "Main_Menu" || currentScene == "Creditos";
     }
 }

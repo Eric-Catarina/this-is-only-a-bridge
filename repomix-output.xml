@@ -45,336 +45,36 @@ The content is organized as follows:
 Assets/
   Scripts/
     Audio/
+      AudioManager.cs
+      PlaySound.cs
       VolumeManager.cs
     UI/
+      DeathSummaryUI.cs
+      DontDestroyClear.cs
       MenuPause.cs
+    VFX/
+      CarSmokeVFXController.cs
     ActionsManager.cs
+    ActivateOnTrigger.cs
     CarController.cs
     CarControllerReverse.cs
+    CarReset.cs
+    DeathTime.cs
     GameManager.cs
+    LandmineTrigger.cs
+    LevadicaScript.cs
+    LevelDeathManager.cs
     LevelEndTrigger.cs
+    Magnetic.cs
     RopeBridgeBuilder.cs
     RopeVisualizer.cs
+    SimplePusher.cs
+    SimplePusherOil.cs
     WheelController.cs
 </directory_structure>
 
 <files>
 This section contains the contents of the repository's files.
-
-<file path="Assets/Scripts/ActionsManager.cs">
-using System;
-using UnityEngine;
-
-public class ActionsManager
-{
-    private static ActionsManager instance;
-
-    #region Properties
-
-    public static ActionsManager Instance
-    {
-        get 
-        {
-            if (instance == null)
-            {
-                instance = new ActionsManager();
-            }
-            return instance; 
-        }
-        private set { instance = value; }
-    }
-
-    #endregion
-
-    public Action onPlayerDeath;
-    public Action onPlayerEnterCar;
-    public Action onPlayerExitCar;
-
-    public Action<Vector2> onPlayerMoveInput;
-    public Action<float> onPlayerSprintInput;
-    public Action<float> onPlayerJumpInput;
-    public Action<float> onPlayerInteractInput;
-
-    public Action onPlayerRagdollActivate;
-    public Action onPlayerRagdollDeactivate;
-
-    public Action<float, Vector3> onPlayerChangeSpeed;
-}
-</file>
-
-<file path="Assets/Scripts/CarController.cs">
-using UnityEngine;
-
-public class CarController : MonoBehaviour
-{
-    [Header("Parâmetros de Força")]
-    [SerializeField] private float motorTorque = 2000f;
-    [SerializeField] private float brakeTorque = 2000f;
-    [SerializeField] private float maxSpeed = 20f;
-    [SerializeField] private float steeringRange = 30f;
-    [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
-    [SerializeField] private float centreOfGravityOffset = -1f;
-
-    private WheelController[] wheels;
-    private Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        wheels = GetComponentsInChildren<WheelController>();
-    }
-
-    private void Start()
-    {
-        Vector3 centerOfMass = rb.centerOfMass;
-        centerOfMass.y += centreOfGravityOffset;
-        rb.centerOfMass = centerOfMass;
-    }
-
-    private void FixedUpdate()
-    {
-        float verticalInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
-
-        float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
-        float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));
-
-        float currentMotorTorque = Mathf.Lerp(motorTorque, 0f, speedFactor);
-        float currentSteerAngle = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
-
-        foreach (var wheel in wheels)
-        {
-            if (wheel.steerable)
-            {
-                wheel.WheelCollider.steerAngle = horizontalInput * currentSteerAngle;
-            }
-
-            if (Mathf.Abs(verticalInput) > 0.1f)
-            {
-                bool isBraking = (forwardSpeed > 0.1f && verticalInput < -0.1f) || (forwardSpeed < -0.1f && verticalInput > 0.1f);
-
-                if (isBraking)
-                {
-                    wheel.WheelCollider.motorTorque = 0f;
-                    wheel.WheelCollider.brakeTorque = Mathf.Abs(verticalInput) * brakeTorque;
-                }
-                else
-                {
-                    if (wheel.motorized)
-                    {
-                        wheel.WheelCollider.motorTorque = verticalInput * currentMotorTorque;
-                    }
-                    wheel.WheelCollider.brakeTorque = 0f;
-                }
-            }
-            else
-            {
-                wheel.WheelCollider.motorTorque = 0f;
-                wheel.WheelCollider.brakeTorque = 0f;
-            }
-        }
-    }
-}
-</file>
-
-<file path="Assets/Scripts/CarControllerReverse.cs">
-using UnityEngine;
-
-public class CarControllerReverse : MonoBehaviour
-{
-    [Header("Parâmetros de Força")]
-    [SerializeField] private float motorTorque = 2000f;
-    [SerializeField] private float brakeTorque = 2000f;
-    [SerializeField] private float maxSpeed = 20f;
-    [SerializeField] private float steeringRange = 30f;
-    [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
-    [SerializeField] private float centreOfGravityOffset = -1f;
-
-    private WheelController[] wheel;
-    private Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        wheel = GetComponentsInChildren<WheelController>();
-    }
-
-    private void Start()
-    {
-        Vector3 centerOfMass = rb.centerOfMass;
-        centerOfMass.y += centreOfGravityOffset;
-        rb.centerOfMass = centerOfMass;
-    }
-
-    private void FixedUpdate()
-    {
-        float verticalInput = -Input.GetAxis("Vertical");
-        float horizontalInput = -Input.GetAxis("Horizontal");
-
-        float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
-        float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));
-
-        float currentMotorTorque = Mathf.Lerp(motorTorque, 0f, speedFactor);
-        float currentSteerAngle = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
-
-        foreach (var wheel in wheel)
-        {
-            if (wheel.steerable)
-            {
-                wheel.WheelCollider.steerAngle = horizontalInput * currentSteerAngle;
-            }
-
-            if (Mathf.Abs(verticalInput) > 0.1f)
-            {
-                bool isBraking = (forwardSpeed > 0.1f && verticalInput < -0.1f) || (forwardSpeed < -0.1f && verticalInput > 0.1f);
-
-                if (isBraking)
-                {
-                    wheel.WheelCollider.motorTorque = 0f;
-                    wheel.WheelCollider.brakeTorque = Mathf.Abs(verticalInput) * brakeTorque;
-                }
-                else
-                {
-                    if (wheel.motorized)
-                    {
-                        wheel.WheelCollider.motorTorque = verticalInput * currentMotorTorque;
-                    }
-                    wheel.WheelCollider.brakeTorque = 0f;
-                }
-            }
-            else
-            {
-                wheel.WheelCollider.motorTorque = 0f;
-                wheel.WheelCollider.brakeTorque = 0f;
-            }
-        }
-    }
-}
-</file>
-
-<file path="Assets/Scripts/LevelEndTrigger.cs">
-using UnityEngine;
-
-[RequireComponent(typeof(Collider))]
-public class LevelEndTrigger : MonoBehaviour
-{
-    [Header("Configuração do Gatilho")]
-    [Tooltip("Tag do objeto que pode ativar o gatilho. Certifique-se que seu carro tenha esta tag.")]
-    [SerializeField] private string playerTag = "Player";
-
-    [Tooltip("Nome da cena específica para carregar. Se deixado em branco, carregará a próxima cena da lista do GameManager.")]
-    [SerializeField] private string specificSceneName;
-
-    [Tooltip("Garante que o gatilho seja ativado apenas uma vez.")]
-    [SerializeField] private bool triggerOnce = true;
-
-    private bool hasBeenTriggered = false;
-
-    private void Awake()
-    {
-        GetComponent<Collider>().isTrigger = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (triggerOnce && hasBeenTriggered)
-        {
-            return;
-        }
-
-        if (other.CompareTag(playerTag))
-        {
-            hasBeenTriggered = true;
-            LoadTargetScene();
-        }
-    }
-
-    private void LoadTargetScene()
-    {
-        if (GameManager.Instance == null)
-        {
-            Debug.LogError("GameManager.Instance não foi encontrado. O gatilho não pode funcionar.");
-            return;
-        }
-GameManager gameManager = GameManager.Instance;
-        gameManager.LoadNextScene();
-    }
-}
-</file>
-
-<file path="Assets/Scripts/RopeVisualizer.cs">
-using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
-
-[RequireComponent(typeof(LineRenderer))]
-public class RopeVisualizer : MonoBehaviour
-{
-    private LineRenderer lineRenderer;
-    private List<Transform> anchorPoints;
-
-    public void Initialize(List<Transform> points, Material material, float width)
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-        anchorPoints = points.Where(p => p != null).ToList();
-
-        lineRenderer.material = material;
-        lineRenderer.startWidth = width;
-        lineRenderer.endWidth = width;
-        lineRenderer.useWorldSpace = true;
-        lineRenderer.positionCount = anchorPoints.Count;
-    }
-
-    private void LateUpdate()
-    {
-        if (anchorPoints == null || anchorPoints.Count == 0) return;
-
-        for (int i = 0; i < anchorPoints.Count; i++)
-        {
-            if (anchorPoints[i] != null)
-            {
-                lineRenderer.SetPosition(i, anchorPoints[i].position);
-            }
-        }
-    }
-}
-</file>
-
-<file path="Assets/Scripts/WheelController.cs">
-using UnityEngine;
-
-public class WheelController : MonoBehaviour
-{
-    [HideInInspector] public WheelCollider WheelCollider;
-    public Transform[] wheelModels;
-    public bool steerable = false;
-    public bool motorized = false;
-
-    private Vector3 wheelPosition;
-    private Quaternion wheelRotation;
-
-    void Awake()
-    {
-        WheelCollider = GetComponent<WheelCollider>();
-    }
-
-    void Update()
-    {
-        if (WheelCollider == null) return;
-        
-        WheelCollider.GetWorldPose(out wheelPosition, out wheelRotation);
-
-        for (int i = 0; i < wheelModels.Length; i++)
-        {
-            if (wheelModels[i] != null)
-            {
-                wheelModels[i].position = wheelPosition;
-                wheelModels[i].rotation = wheelRotation;
-            }
-        }
-    }
-}
-</file>
 
 <file path="Assets/Scripts/Audio/VolumeManager.cs">
 using UnityEngine;
@@ -469,20 +169,16 @@ public class VolumeManager : MonoBehaviour
 }
 </file>
 
-<file path="Assets/Scripts/GameManager.cs">
+<file path="Assets/Scripts/UI/MenuPause.cs">
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class MenuPause : MonoBehaviour
 {
-    [Header("Configuraушes de Cena")]
-    [Tooltip("Lista de cenas do jogo. Use o nome exato das cenas adicionadas no Build Settings.")]
-    public string[] sceneNames;
-    public string forceNextScene;
+    public GameObject menuObject;
 
-    int nextSceneIndex;
-
-    public static GameManager Instance;
+    public static MenuPause Instance;
 
     private void Awake()
     {
@@ -497,47 +193,173 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Main_Menu")
+            return;
+
+        ControlCanvas();
+    }
+
+    void ControlCanvas()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
+        {
+            if (menuObject.activeSelf)
+            {
+                Time.timeScale = 1f;
+                menuObject.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0f;
+                menuObject.SetActive(true);
+            }
+        }
+    }
+
+    public void Restart()
+    {
+        GameManager.Instance.RestartScene();
+        Time.timeScale = 1f;
+        menuObject.SetActive(false);
+    }
+
+    public void Quit()
+    {
+        GameManager.Instance.QuitGame();
+    }
+}
+</file>
+
+<file path="Assets/Scripts/ActionsManager.cs">
+using System;
+using UnityEngine;
+
+public class ActionsManager
+{
+    private static ActionsManager instance;
+
+    #region Properties
+
+    public static ActionsManager Instance
+    {
+        get 
+        {
+            if (instance == null)
+            {
+                instance = new ActionsManager();
+            }
+            return instance; 
+        }
+        private set { instance = value; }
+    }
+
+    #endregion
+
+    public Action onPlayerDeath;
+    public Action onPlayerEnterCar;
+    public Action onPlayerExitCar;
+
+    public Action<Vector2> onPlayerMoveInput;
+    public Action<float> onPlayerSprintInput;
+    public Action<float> onPlayerJumpInput;
+    public Action<float> onPlayerInteractInput;
+
+    public Action onPlayerRagdollActivate;
+    public Action onPlayerRagdollDeactivate;
+
+    public Action<float, Vector3> onPlayerChangeSpeed;
+}
+</file>
+
+<file path="Assets/Scripts/CarControllerReverse.cs">
+using UnityEngine;
+
+public class CarControllerReverse : MonoBehaviour
+{
+    [Header("Parâmetros de Força")]
+    [SerializeField] private float motorTorque = 2000f;
+    [SerializeField] private float brakeTorque = 2000f;
+    [SerializeField] private float maxSpeed = 20f;
+    [SerializeField] private float steeringRange = 30f;
+    [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
+    [SerializeField] private float centreOfGravityOffset = -1f;
+
+    private WheelController[] wheel;
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        wheel = GetComponentsInChildren<WheelController>();
+    }
+
     private void Start()
     {
-        nextSceneIndex = 0;
+        Vector3 centerOfMass = rb.centerOfMass;
+        centerOfMass.y += centreOfGravityOffset;
+        rb.centerOfMass = centerOfMass;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        float verticalInput = -Input.GetAxis("Vertical");
+        float horizontalInput = -Input.GetAxis("Horizontal");
+
+        float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
+        float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));
+
+        float currentMotorTorque = Mathf.Lerp(motorTorque, 0f, speedFactor);
+        float currentSteerAngle = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
+
+        foreach (var wheel in wheel)
         {
-            RestartScene();
+            if (wheel.steerable)
+            {
+                wheel.WheelCollider.steerAngle = horizontalInput * currentSteerAngle;
+            }
+
+            if (Mathf.Abs(verticalInput) > 0.1f)
+            {
+                bool isBraking = (forwardSpeed > 0.1f && verticalInput < -0.1f) || (forwardSpeed < -0.1f && verticalInput > 0.1f);
+
+                if (isBraking)
+                {
+                    wheel.WheelCollider.motorTorque = 0f;
+                    wheel.WheelCollider.brakeTorque = Mathf.Abs(verticalInput) * brakeTorque;
+                }
+                else
+                {
+                    if (wheel.motorized)
+                    {
+                        wheel.WheelCollider.motorTorque = verticalInput * currentMotorTorque;
+                    }
+                    wheel.WheelCollider.brakeTorque = 0f;
+                }
+            }
+            else
+            {
+                wheel.WheelCollider.motorTorque = 0f;
+                wheel.WheelCollider.brakeTorque = 0f;
+            }
         }
     }
+}
+</file>
 
-    // Carrega prзxima cena na lista
-    public void LoadNextScene()
+<file path="Assets/Scripts/CarReset.cs">
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class DetectTriggerOnColison : MonoBehaviour
+{
+    private void OnTriggerEnter(Collider other)
     {
-        if (forceNextScene != "")
+        if (other.CompareTag("Obstacle"))
         {
-            SceneManager.LoadScene(forceNextScene);
-            return;
+            GameManager.Instance.RestartScene();
         }
-        SceneManager.LoadScene(sceneNames[nextSceneIndex]);
-        nextSceneIndex++;
-    }
-
-    public void LoadSceneByName(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    // Reinicia a cena atual
-    public void RestartScene()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
-    }
-
-    // Sai do jogo
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 }
 </file>
@@ -561,10 +383,10 @@ public class RopeBridgeBuilder : MonoBehaviour
 
     [Header("Physics Properties")]
     [Tooltip("How much the bridge sags in the middle.")]
-    [SerializeField] private float sag = 2f;
-    [SerializeField] private float plankMass = 5f;
-    [SerializeField] private float jointSpring = 100f;
-    [SerializeField] private float jointDamper = 10f;
+    [SerializeField] private float sag = 0f;
+    [SerializeField] private float plankMass = 0f;
+    [SerializeField] private float jointSpring = 0f;
+    [SerializeField] private float jointDamper = 0f;
 
     [Header("Rope Visuals")]
     [SerializeField] private Material ropeMaterial;
@@ -711,16 +533,184 @@ public class RopeBridgeBuilder : MonoBehaviour
 }
 </file>
 
-<file path="Assets/Scripts/UI/MenuPause.cs">
+<file path="Assets/Scripts/RopeVisualizer.cs">
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using System.Linq;
+
+[RequireComponent(typeof(LineRenderer))]
+public class RopeVisualizer : MonoBehaviour
+{
+    private LineRenderer lineRenderer;
+    private List<Transform> anchorPoints;
+
+    public void Initialize(List<Transform> points, Material material, float width)
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        anchorPoints = points.Where(p => p != null).ToList();
+
+        lineRenderer.material = material;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.positionCount = anchorPoints.Count;
+    }
+
+    private void LateUpdate()
+    {
+        if (anchorPoints == null || anchorPoints.Count == 0) return;
+
+        for (int i = 0; i < anchorPoints.Count; i++)
+        {
+            if (anchorPoints[i] != null)
+            {
+                lineRenderer.SetPosition(i, anchorPoints[i].position);
+            }
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/SimplePusher.cs">
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody))]
+public class SimplePusher : MonoBehaviour
+{
+    [Header("Configuração do Empurrão")]
+    [Tooltip("O intervalo (Mínimo e Máximo) da força a ser aplicada aleatoriamente.")]
+    [SerializeField] private Vector2 pushForceRange = new Vector2(0f, 5f);
+
+    [Tooltip("O eixo local do empurrão. A direção será aleatoriamente positiva ou negativa ao longo deste eixo.")]
+    [SerializeField] private Vector3 localPushAxis = Vector3.right;
+
+    [Tooltip("O tipo de força a ser aplicada (Force para contínuo, Impulse para súbito).")]
+    private ForceMode forceMode = ForceMode.VelocityChange;
+
+    [Header("Ativação")]
+    [Tooltip("Se marcado, aplica a força continuamente a cada frame de física.")]
+    [SerializeField] private bool pushContinuously = false;
+    
+    [Tooltip("Se marcado, aplica um único empurrão quando a cena começa.")]
+    [SerializeField] private bool pushOnStart = false;
+
+    private Rigidbody rb;
+    private int randomSign;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+
+        if (pushOnStart)
+        {
+            ApplyPush();
+        }
+
+        randomSign = (Random.value < 0.5f) ? 1 : -1;
+    }
+
+    private void FixedUpdate()
+    {
+        if (pushContinuously)
+        {
+            ApplyPush();
+        }
+    }
+    
+    public void ApplyPush()
+    {
+        if (rb == null) return;
+        
+        float randomForce = Random.Range(pushForceRange.x, pushForceRange.y);
+        
+        Vector3 randomizedLocalDirection = localPushAxis.normalized * randomSign;
+
+        Vector3 worldPushDirection = transform.TransformDirection(randomizedLocalDirection);
+        
+        rb.AddForce(worldPushDirection * randomForce, forceMode);
+    }
+}
+</file>
+
+<file path="Assets/Scripts/SimplePusherOil.cs">
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody))]
+public class SimplePusherOil : MonoBehaviour
+{
+    [Header("Configuração do Empurrão")]
+    [Tooltip("O intervalo (Mínimo e Máximo) da força a ser aplicada aleatoriamente.")]
+    [SerializeField] private Vector2 pushForceRange = new Vector2(0f, 5f);
+
+    [Tooltip("O eixo local do empurrão. A direção será aleatoriamente positiva ou negativa ao longo deste eixo.")]
+    [SerializeField] private Vector3 localPushAxis = Vector3.right;
+
+    [Tooltip("O tipo de força a ser aplicada (Force para contínuo, Impulse para súbito).")]
+    private ForceMode forceMode = ForceMode.VelocityChange;
+
+    [Header("Ativação")]
+    [Tooltip("Se marcado, aplica a força continuamente a cada frame de física.")]
+    [SerializeField] private bool pushContinuously = false;
+    
+    [Tooltip("Se marcado, aplica um único empurrão quando a cena começa.")]
+    [SerializeField] private bool pushOnStart = false;
+
+    private Rigidbody rb;
+    private int randomSign;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+
+        if (pushOnStart)
+        {
+            ApplyPush();
+        }
+
+        randomSign = (Random.value < 0.5f) ? 1 : -1;
+    }
+
+    private void FixedUpdate()
+    {
+        if (pushContinuously)
+        {
+            ApplyPush();
+        }
+    }
+    
+    public void ApplyPush()
+    {
+        if (rb == null) return;
+        
+        float randomForce = Random.Range(pushForceRange.x, pushForceRange.y);
+        
+        Vector3 randomizedLocalDirection = localPushAxis.normalized * randomSign;
+
+        Vector3 worldPushDirection = transform.TransformDirection(randomizedLocalDirection);
+        
+        rb.AddForce(worldPushDirection * randomForce, forceMode);
+    }
+}
+</file>
+
+<file path="Assets/Scripts/Audio/AudioManager.cs">
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuPause : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    public GameObject menuObject;
+    public AudioSource bgmSource;
+    public AudioSource sfxSource;
 
-    public static MenuPause Instance;
+    public static AudioManager Instance;
 
     private void Awake()
     {
@@ -735,29 +725,1006 @@ public class MenuPause : MonoBehaviour
         }
     }
 
-    void Update()
+    public void PlayBGM(AudioClip clip)
     {
-        if (SceneManager.GetActiveScene().name == "Main_Menu")
-            return;
-
-        ControlCanvas();
+        bgmSource.clip = clip;
+        bgmSource.Play();
     }
 
-    void ControlCanvas()
+    public void PlaySFX(AudioClip clip)
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current.startButton.wasPressedThisFrame) // OU PRESSIONAR BOTÃO 'START' NO JOYSTICK
+        sfxSource.PlayOneShot(clip);
+    }
+}
+</file>
+
+<file path="Assets/Scripts/Audio/PlaySound.cs">
+using UnityEngine;
+
+public class PlaySound : MonoBehaviour
+{
+    public AudioSource audioSource;
+
+    public bool playOneTime;
+
+    private void Awake()
+    {
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        if (playOneTime)
         {
-            if (menuObject.activeSelf)
+            if (!audioSource.isPlaying)
+                audioSource.PlayOneShot(clip);
+        }
+        else
+            audioSource.PlayOneShot(clip);
+    }
+}
+</file>
+
+<file path="Assets/Scripts/UI/DontDestroyClear.cs">
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public static class DontDestroyCleaner
+{
+    public static void ClearAll()
+    {
+        // Cria uma cena temporária
+        var tempScene = SceneManager.CreateScene("TempScene");
+
+        // Cria um objeto temporário para conseguir mover os outros
+        var tempObj = new GameObject("TempCleaner");
+
+        // Move o objeto temporário para a cena DontDestroyOnLoad
+        Scene dontDestroyScene = GetDontDestroyOnLoadScene();
+        SceneManager.MoveGameObjectToScene(tempObj, dontDestroyScene);
+
+        // Pega todos os root objects dessa cena
+        GameObject[] rootObjects = dontDestroyScene.GetRootGameObjects();
+
+        // Destroi todos, exceto o próprio tempObj (pra não causar erro)
+        foreach (GameObject obj in rootObjects)
+        {
+            if (obj != tempObj)
+                Object.Destroy(obj);
+        }
+
+        // Finalmente, destrói o temporário também
+        Object.Destroy(tempObj);
+
+        Debug.Log("🧹 Todos os objetos no DontDestroyOnLoad foram destruídos.");
+    }
+
+    // Função auxiliar para pegar a cena interna de DontDestroyOnLoad
+    private static Scene GetDontDestroyOnLoadScene()
+    {
+        GameObject temp = new GameObject("SceneFinder");
+        Object.DontDestroyOnLoad(temp);
+        Scene scene = temp.scene;
+        Object.DestroyImmediate(temp);
+        return scene;
+    }
+}
+</file>
+
+<file path="Assets/Scripts/ActivateOnTrigger.cs">
+using UnityEngine;
+
+[RequireComponent(typeof(Collider))]
+public class ActivateOnTrigger : MonoBehaviour
+{
+    [Header("Configuração")]
+    [Tooltip("O GameObject a ser ativado quando o gatilho for acionado.")]
+    [SerializeField] private GameObject targetObjectToActivate;
+
+    [Tooltip("Se especificado, apenas objetos com esta tag podem acionar o gatilho. Deixe em branco para permitir qualquer objeto.")]
+    [SerializeField] private string triggeringTag = "Player";
+
+    [Tooltip("Se verdadeiro, o gatilho funcionará apenas uma vez.")]
+    [SerializeField] private bool triggerOnce = true;
+
+    private bool hasBeenTriggered = false;
+
+    private void Awake()
+    {
+        GetComponent<Collider>().isTrigger = true;
+
+        if (targetObjectToActivate != null)
+        {
+            targetObjectToActivate.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (triggerOnce && hasBeenTriggered)
+        {
+            return;
+        }
+
+        bool canTrigger = string.IsNullOrEmpty(triggeringTag) || other.CompareTag(triggeringTag);
+
+        if (canTrigger)
+        {
+            if (targetObjectToActivate != null)
             {
-                Time.timeScale = 1f;
-                menuObject.SetActive(false);
+                targetObjectToActivate.SetActive(true);
+                hasBeenTriggered = true;
             }
             else
             {
-                Time.timeScale = 0f;
-                menuObject.SetActive(true);
+                Debug.LogWarning("Target Object to Activate não está atribuído neste gatilho.", this);
             }
         }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/CarController.cs">
+using UnityEngine;
+
+public class CarController : MonoBehaviour
+{
+    [Header("Parâmetros de Força")]
+    [SerializeField] private float motorTorque = 2000f;
+    [SerializeField] private float brakeTorque = 2000f;
+    [SerializeField] private float maxSpeed = 20f;
+    [SerializeField] private float steeringRange = 30f;
+    [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
+    [SerializeField] private float centreOfGravityOffset = -1f;
+
+    [Header("Parâmetros de Atrito")]
+    [Tooltip("Força de frenagem aplicada quando não há aceleração, simulando atrito e resistência do ar.")]
+    [SerializeField] private float rollingResistance = 100f;
+
+    private WheelController[] wheels;
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        wheels = GetComponentsInChildren<WheelController>();
+    }
+
+    private void Start()
+    {
+        Vector3 centerOfMass = rb.centerOfMass;
+        centerOfMass.y += centreOfGravityOffset;
+        rb.centerOfMass = centerOfMass;
+    }
+
+    private void FixedUpdate()
+    {
+        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
+        float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));
+
+        float currentMotorTorque = Mathf.Lerp(motorTorque, 0f, speedFactor);
+        float currentSteerAngle = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
+
+        foreach (var wheel in wheels)
+        {
+            if (wheel.steerable)
+            {
+                wheel.WheelCollider.steerAngle = horizontalInput * currentSteerAngle;
+            }
+
+            if (Mathf.Abs(verticalInput) > 0.001f)
+            {
+                bool isBraking = (forwardSpeed > 0.1f && verticalInput < -0.1f) || (forwardSpeed < -0.1f && verticalInput > 0.1f);
+
+                if (isBraking)
+                {
+                    wheel.WheelCollider.motorTorque = 0f;
+                    wheel.WheelCollider.brakeTorque = Mathf.Abs(verticalInput) * brakeTorque;
+                }
+                else
+                {
+                    if (wheel.motorized)
+                    {
+                        wheel.WheelCollider.motorTorque = verticalInput * currentMotorTorque;
+                    }
+                    wheel.WheelCollider.brakeTorque = 0f;
+                }
+            }
+            else
+            {
+                wheel.WheelCollider.motorTorque = 0f;
+                wheel.WheelCollider.brakeTorque = rollingResistance;
+            }
+        }
+        // Add gravity
+        rb.AddForce(Physics.gravity * rb.mass);
+    }
+
+}
+</file>
+
+<file path="Assets/Scripts/DeathTime.cs">
+using UnityEngine;
+
+public class InactivityTimer : MonoBehaviour
+{
+    public float inactiveTimeLimit = 7f; // tempo necessбrio sem movimento
+    private float inactivityTimer = 0f;
+
+    void Update()
+    {
+        // Captura os eixos padrгo
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        // Se houver qualquer movimento, zera o cronфmetro
+        if (Mathf.Abs(horizontal) > 0.01f || Mathf.Abs(vertical) > 0.01f)
+        {
+            inactivityTimer = 0f;
+        }
+        else
+        {
+            // Incrementa o tempo de inatividade
+            inactivityTimer += Time.deltaTime;
+
+            // (Opcional) Debug do tempo atual
+            Debug.Log($"Inatividade: {inactivityTimer:F2} segundos");
+
+            if (inactivityTimer >= inactiveTimeLimit)
+            {
+                // Jogador ficou inativo por 7 segundos
+                Debug.Log("Jogador inativo por 7 segundos!");
+                // Aqui vocк pode chamar uma funзгo, ativar algo, etc.
+            }
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/LandmineTrigger.cs">
+using UnityEngine;
+
+[RequireComponent(typeof(Collider))]
+public class LandmineTrigger : MonoBehaviour
+{
+    [Header("Configuração da Mina")]
+    [Tooltip("Tag do objeto que pode ativar a mina. Certifique-se que seu carro tenha esta tag.")]
+    [SerializeField] private string playerTag = "Player";
+    
+    [Tooltip("Velocidade máxima em Km/h para passar em segurança.")]
+    [SerializeField] private float safeSpeedKmh = 5f;
+
+    [Header("Efeitos da Explosão")]
+    [Tooltip("A força do impulso aplicado ao objeto na explosão.")]
+    [SerializeField] private float explosionForce = 700f;
+
+    [Tooltip("O raio da explosão. Afeta Rigidbodies dentro desta área.")]
+    [SerializeField] private float explosionRadius = 5f;
+
+    [Tooltip("Modificador que adiciona uma força vertical para lançar o objeto para cima.")]
+    [SerializeField] private float upwardsModifier = 2.0f;
+
+    [Header("Feedback Visual e Sonoro (Opcional)")]
+    [Tooltip("Prefab do sistema de partículas para instanciar na explosão.")]
+    [SerializeField] private GameObject explosionVFX;
+    
+    [Tooltip("Som da explosão.")]
+    [SerializeField] private AudioClip explosionSFX;
+
+    private bool hasExploded = false;
+
+    private void Awake()
+    {
+        GetComponent<Collider>().isTrigger = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (hasExploded || !other.CompareTag(playerTag))
+        {
+            return;
+        }
+
+        Rigidbody targetRigidbody = other.GetComponent<Rigidbody>();
+        if (targetRigidbody == null)
+        {
+            Debug.LogWarning("O objeto com a tag 'Player' não possui Rigidbody. A mina não pode funcionar.", other);
+            return;
+        }
+
+        float speedMps = targetRigidbody.linearVelocity.magnitude;
+        float speedKmh = speedMps * 3.6f;
+
+        if (speedKmh >= safeSpeedKmh)
+        {
+            Detonate(targetRigidbody);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        OnTriggerEnter(other);
+    }
+
+    private void Detonate(Rigidbody target)
+    {
+        hasExploded = true;
+        
+        target.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardsModifier, ForceMode.Impulse);
+
+        if (explosionVFX != null)
+        {
+            Instantiate(explosionVFX, transform.position, Quaternion.identity);
+        }
+        
+        if (explosionSFX != null)
+        {
+            AudioSource.PlayClipAtPoint(explosionSFX, transform.position);
+        }
+
+        Destroy(gameObject);
+    }
+}
+</file>
+
+<file path="Assets/Scripts/LevelDeathManager.cs">
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+
+public class LevelDeathManager : MonoBehaviour
+{
+    public static LevelDeathManager Instance;
+
+    [Header("UI (atribua no Inspector - esses objetos serão filhos deste GameObject)")]
+    public GameObject hudFather;
+    public TextMeshProUGUI deathsThisLevelText;
+    public TextMeshProUGUI deathsTotalText;
+    public TextMeshProUGUI messageText;
+    public Button skipLevelButton;
+    public TextMeshProUGUI skipButtonText;
+
+    [Header("Config")]
+    public int deathsToOfferSkip = 10;
+
+    private string levelDeathsKey;
+    private string levelPassedKey;
+    private const string totalDeathsKey = "TotalDeaths";
+
+    private int deathsThisLevel = 0;
+    private int deathsTotal = 0;
+    private bool levelPassed = false;
+
+    private void Awake()
+    {
+        // Singleton padrão
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    private void Start()
+    {
+        // Inicializa para a cena atual (Start roda uma vez; OnSceneLoaded cuida das trocas futuras)
+        InitKeysForScene(SceneManager.GetActiveScene().name);
+        LoadValuesFromPrefs();
+
+        if (skipLevelButton != null)
+        {
+            skipLevelButton.onClick.AddListener(OnSkipLevelButtonPressed);
+        }
+
+        UpdateUI();
+    }
+
+    private void Update()
+    {
+        if (!hudFather.activeSelf)
+        {
+            if(SceneManager.GetActiveScene().name != "Main_Menu")
+                hudFather.SetActive(true);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        if (skipLevelButton != null)
+            skipLevelButton.onClick.RemoveListener(OnSkipLevelButtonPressed);
+    }
+
+    // Chamado sempre que uma cena é carregada
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Atualiza chaves e carrega valores da nova cena
+        InitKeysForScene(scene.name);
+        LoadValuesFromPrefs();
+        UpdateUI();
+    }
+
+    private void InitKeysForScene(string sceneName)
+    {
+        levelDeathsKey = $"Deaths_Level_{sceneName}";
+        levelPassedKey = $"LevelPassed_{sceneName}";
+    }
+
+    private void LoadValuesFromPrefs()
+    {
+        deathsThisLevel = PlayerPrefs.GetInt(levelDeathsKey, 0);
+        deathsTotal = PlayerPrefs.GetInt(totalDeathsKey, 0);
+        levelPassed = PlayerPrefs.GetInt(levelPassedKey, 0) == 1;
+    }
+
+    public void RegisterDeath()
+    {
+        deathsThisLevel++;
+        deathsTotal++;
+
+        PlayerPrefs.SetInt(levelDeathsKey, deathsThisLevel);
+        PlayerPrefs.SetInt(totalDeathsKey, deathsTotal);
+        PlayerPrefs.Save();
+
+        UpdateUI();
+    }
+
+    public void MarkLevelPassed()
+    {
+        levelPassed = true;
+        PlayerPrefs.SetInt(levelPassedKey, 1);
+        PlayerPrefs.Save();
+
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        if (deathsThisLevelText != null)
+            deathsThisLevelText.text = "Level deaths: " + deathsThisLevel.ToString();
+
+        if (deathsTotalText != null)
+            deathsTotalText.text = "Total deaths: " + deathsTotal.ToString();
+
+        // Oculta por padrão
+        if (messageText != null)
+            messageText.gameObject.SetActive(false);
+
+        if (skipLevelButton != null)
+            skipLevelButton.gameObject.SetActive(false);
+
+        // Prioridade: se já passou -> mostrar "Você já passou essa fase" + botão "Pular a fase"
+        if (levelPassed)
+        {
+            if (messageText != null)
+            {
+                messageText.text = "You alredy passed this level.";
+                messageText.gameObject.SetActive(true);
+            }
+
+            if (skipLevelButton != null)
+            {
+                if (skipButtonText != null) skipButtonText.text = "Skip level";
+                skipLevelButton.gameObject.SetActive(true);
+                skipLevelButton.Select();
+            }
+
+            return;
+        }
+
+        // Se não passou e já acumulou mortes suficientes -> sugerir pular
+        if (deathsThisLevel >= deathsToOfferSkip)
+        {
+            if (messageText != null)
+            {
+                messageText.text = "You can not DO IT? Skip this level NOOB!";
+                messageText.gameObject.SetActive(true);
+            }
+
+            if (skipLevelButton != null)
+            {
+                if (skipButtonText != null) skipButtonText.text = "Skip level";
+                skipLevelButton.gameObject.SetActive(true);
+                skipLevelButton.Select();
+            }
+        }
+    }
+
+    private void OnSkipLevelButtonPressed()
+    {
+        //// Marca como passado e avança para a próxima cena (build index + 1)
+        //PlayerPrefs.SetInt(levelPassedKey, 1);
+        //PlayerPrefs.Save();
+
+        //int current = SceneManager.GetActiveScene().buildIndex;
+        //int next = current + 1;
+
+        //if (next < SceneManager.sceneCountInBuildSettings)
+        //{
+        //    SceneManager.LoadScene(next);
+        //}
+        //else
+        //{
+        //    Debug.Log("Última cena — não há próxima cena nas Build Settings.");
+        //    // opcional: carregar menu principal
+        //    // SceneManager.LoadScene("Main_Menu");
+        //}
+        GameManager.Instance.SkipLevel();
+    }
+
+    // Métodos utilitários (debug / editor)
+    public void ResetLevelDeaths()
+    {
+        deathsThisLevel = 0;
+        PlayerPrefs.DeleteKey(levelDeathsKey);
+        PlayerPrefs.Save();
+        UpdateUI();
+    }
+
+    public void ResetTotalDeaths()
+    {
+        deathsTotal = 0;
+        PlayerPrefs.DeleteKey(totalDeathsKey);
+        PlayerPrefs.Save();
+        UpdateUI();
+    }
+}
+</file>
+
+<file path="Assets/Scripts/Magnetic.cs">
+using UnityEngine;
+
+using UnityEngine;
+using System.Collections.Generic;
+
+public class MagnetEffect : MonoBehaviour
+{
+    public Transform magnetPoint; // Arraste o objeto ímã para esta variável no Inspetor
+    public float attractForce = 10f;
+    public float attractRadius = 5f;
+
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        if (magnetPoint == null)
+            return;
+
+        float distance = Vector3.Distance(transform.position, magnetPoint.position);
+        
+        if (distance < attractRadius)
+        {
+            Vector3 direction = (magnetPoint.position - transform.position).normalized;
+            rb.AddForce(direction * attractForce, ForceMode.Force);
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/WheelController.cs">
+using UnityEngine;
+
+public class WheelController : MonoBehaviour
+{
+    [HideInInspector] public WheelCollider WheelCollider;
+    public Transform[] wheelModels;
+    public bool steerable = false;
+    public bool motorized = false;
+
+    private Vector3 wheelPosition;
+    Vector3 positionOffset = new Vector3(0, 0.05f, 0);
+    private Quaternion wheelRotation;
+
+    void Awake()
+    {
+        WheelCollider = GetComponent<WheelCollider>();
+    }
+
+    void Update()
+    {
+        if (WheelCollider == null) return;
+        
+        WheelCollider.GetWorldPose(out wheelPosition, out wheelRotation);
+
+        for (int i = 0; i < wheelModels.Length; i++)
+        {
+            if (wheelModels[i] != null)
+            {
+                wheelModels[i].position = wheelPosition - positionOffset;
+                wheelModels[i].rotation = wheelRotation;
+            }
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/UI/DeathSummaryUI.cs">
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+using System.Text;
+
+public class DeathSummaryUI : MonoBehaviour
+{
+    [Header("Referências de UI")]
+    [Tooltip("Texto único para mostrar o resumo completo de mortes")]
+    public TextMeshProUGUI summaryText;
+    [Tooltip("Botão para resetar todo o histórico de mortes")]
+    public Button resetButton;
+
+    private void Start()
+    {
+        if (resetButton != null)
+            resetButton.onClick.AddListener(ResetAllDeaths);
+
+        ShowDeathSummary();
+    }
+
+    private void OnDestroy()
+    {
+        if (resetButton != null)
+            resetButton.onClick.RemoveListener(ResetAllDeaths);
+    }
+
+    private void OnEnable()
+    {
+        ShowDeathSummary();
+    }
+
+    private void ShowDeathSummary()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        int totalDeaths = PlayerPrefs.GetInt("TotalDeaths", 0);
+
+        sb.AppendLine("<size=140%><b>Resumo de Mortes</b></size>\n");
+        sb.AppendLine("<b>Por fase:</b>");
+
+        bool hasAnyDeath = false;
+
+        // Percorre todas as cenas do Build Settings
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+
+            string levelDeathsKey = $"Deaths_Level_{sceneName}";
+            int levelDeaths = PlayerPrefs.GetInt(levelDeathsKey, 0);
+
+            if (levelDeaths > 0)
+            {
+                hasAnyDeath = true;
+                sb.AppendLine($"• <b>{sceneName}</b>: {levelDeaths} mortes");
+            }
+        }
+
+        if (!hasAnyDeath)
+            sb.AppendLine("<i>Nenhuma morte registrada ainda!</i>");
+
+        sb.AppendLine("\n────────────────────────────");
+        sb.AppendLine($"<size=110%><b>Total de mortes:</b> {totalDeaths}</size>");
+
+        if (summaryText != null)
+            summaryText.text = sb.ToString();
+    }
+
+    private void ResetAllDeaths()
+    {
+        // Apaga todas as chaves relacionadas
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            string sceneName = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+
+            PlayerPrefs.DeleteKey($"Deaths_Level_{sceneName}");
+            PlayerPrefs.DeleteKey($"LevelPassed_{sceneName}");
+        }
+
+        PlayerPrefs.DeleteKey("TotalDeaths");
+        PlayerPrefs.Save();
+
+        ShowDeathSummary();
+        Debug.Log("Histórico de mortes resetado!");
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
+    }
+}
+</file>
+
+<file path="Assets/Scripts/VFX/CarSmokeVFXController.cs">
+using Unity.Burst;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.VFX;
+
+public class CarSmokeVFXController : MonoBehaviour
+{
+    public float burstDuration;
+    public VisualEffect[] burstSmokes;
+    public VisualEffect[] loopSmokes;
+
+    InputSystem_Actions inputActions;
+    InputAction moveAction;
+
+    bool isMoving;
+    bool onBurst;
+    float burstTimer;
+
+    void Start()
+    {
+        inputActions = new InputSystem_Actions();
+        inputActions.Player.Enable();
+        moveAction = inputActions.Player.SmokeVFX;
+
+        moveAction.performed += PlayBurst;
+        moveAction.canceled += StopAllVFX;
+
+        burstTimer = 0;
+        isMoving = false;
+    }
+
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
+
+        moveAction.performed -= PlayBurst;
+        moveAction.canceled -= StopAllVFX;
+    }
+
+    void Update()
+    {
+        if (isMoving)
+        {
+            burstTimer += Time.deltaTime;
+        }
+
+        if (onBurst && burstTimer > burstDuration)
+        {
+            PlayLoop();
+        }
+    }
+
+    void PlayBurst(InputAction.CallbackContext context)
+    {
+        foreach (VisualEffect vfx in burstSmokes)
+        {
+            vfx.Play();
+        }
+
+        isMoving = true;
+        onBurst = true;
+    }
+
+    void PlayLoop()
+    {
+        onBurst = false;
+
+        foreach (VisualEffect vfx in burstSmokes)
+        {
+            vfx.Stop();
+        }
+
+        foreach (VisualEffect vfx in loopSmokes)
+        {
+            vfx.Play();
+        }
+    }
+
+    void StopAllVFX(InputAction.CallbackContext context)
+    {
+        isMoving = false;
+        burstTimer = 0;
+
+        if (onBurst)
+        {
+            foreach (VisualEffect vfx in burstSmokes)
+            {
+                vfx.Stop();
+            }
+        }
+        else
+        {
+            foreach (VisualEffect vfx in loopSmokes)
+            {
+                vfx.Stop();
+            }
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/LevadicaScript.cs">
+using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.UIElements;
+
+public class LevadicaScript : MonoBehaviour
+{
+    [Header("Rotation Controller")]
+    [SerializeField] private GameObject targetObject1;
+    [SerializeField] private GameObject targetObject2;
+
+    [Tooltip("Rotação alvo em ângulos de Euler (graus)")]
+    public Vector3 targetEulerAngles1;
+    public Vector3 targetEulerAngles2;
+
+    public float rotationDuration = 1.0f;
+
+    private bool isRotating = false;
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !isRotating)
+        {
+            StartCoroutine(RotateObjects());
+        }
+    }
+
+    IEnumerator RotateObjects()
+    {
+        isRotating = true;
+
+        Quaternion initialRotation1 = targetObject1.transform.rotation;
+        Quaternion targetRotation1 = Quaternion.Euler(targetEulerAngles1);
+
+        Quaternion initialRotation2 = targetObject2.transform.rotation;
+        Quaternion targetRotation2 = Quaternion.Euler(targetEulerAngles2);
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < rotationDuration)
+        {
+            float t = elapsedTime / rotationDuration;
+
+            targetObject1.transform.rotation = Quaternion.Slerp(initialRotation1, targetRotation1, t);
+            targetObject2.transform.rotation = Quaternion.Slerp(initialRotation2, targetRotation2, t);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Garantir rotação final exata
+        targetObject1.transform.rotation = targetRotation1;
+        targetObject2.transform.rotation = targetRotation2;
+
+        isRotating = false;
+    }
+
+}
+</file>
+
+<file path="Assets/Scripts/LevelEndTrigger.cs">
+using UnityEngine;
+
+[RequireComponent(typeof(Collider))]
+public class LevelEndTrigger : MonoBehaviour
+{
+    [Header("Configuração do Gatilho")]
+    [Tooltip("Tag do objeto que pode ativar o gatilho. Certifique-se que seu carro tenha esta tag.")]
+    [SerializeField] private string playerTag = "Player";
+
+    [Tooltip("Garante que o gatilho seja ativado apenas uma vez.")]
+    [SerializeField] private bool triggerOnce = true;
+
+    private bool hasBeenTriggered = false;
+
+    private void Awake()
+    {
+        GetComponent<Collider>().isTrigger = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (triggerOnce && hasBeenTriggered)
+        {
+            return;
+        }
+
+        if (other.CompareTag(playerTag))
+        {
+            hasBeenTriggered = true;
+            GameManager.Instance.LoadNextScene();
+        }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/GameManager.cs">
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
+        {
+            RestartScene();
+        }
+    }
+
+    // Carrega próxima cena na lista
+    public void LoadNextScene()
+    {
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.MarkLevelPassed();
+
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (SceneManager.GetSceneByBuildIndex(currentIndex + 1).name == "Creditos")
+        {
+            DontDestroyCleaner.ClearAll();
+        }
+
+        SceneManager.LoadScene(currentIndex + 1);
+    }
+
+    public void SkipLevel()
+    {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentIndex + 1);
+    }
+
+    public void LoadSceneByName(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // Reinicia a cena atual
+    public void RestartScene()
+    {
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.RegisterDeath();
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
+
+    // Sai do jogo
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
 </file>
