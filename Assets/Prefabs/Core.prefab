@@ -940,7 +940,7 @@ Transform:
   m_GameObject: {fileID: 4761661871100285038}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2534013, y: -0.0000000066454646, z: 0.000000002744884, w: 0.9673613}
-  m_LocalPosition: {x: -0.1022926, y: 30.66, z: -10.41}
+  m_LocalPosition: {x: -0.1022926, y: 3.97, z: -10.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1481,7 +1481,7 @@ Transform:
   m_GameObject: {fileID: 5638276922905070561}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2534013, y: -0.000000006363062, z: 0.000000001666811, w: 0.9673613}
-  m_LocalPosition: {x: -0.1022926, y: 30.66, z: -10.41}
+  m_LocalPosition: {x: -0.1022926, y: 3.97, z: -10.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2135,7 +2135,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6097282164783355434, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: m_Mass
-      value: 3000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6097282164783355434, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: m_ImplicitCom
@@ -2179,7 +2179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7912665086615891085, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 28.41
+      value: 1.72
       objectReference: {fileID: 0}
     - target: {fileID: 7912665086615891085, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2293,9 +2293,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8128745100654382104, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 359364594526847144}
-    - targetCorrespondingSourceObject: {fileID: 8128745100654382104, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5377106124552975963}
   m_SourcePrefab: {fileID: 100100000, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
 --- !u!4 &5142753541821801099 stripped
 Transform:
@@ -2326,22 +2323,3 @@ MonoBehaviour:
   loopSmokes:
   - {fileID: 7705222556763617868}
   - {fileID: 4689625154034771240}
---- !u!114 &5377106124552975963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6511870232170594846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54b6bf5344c182143ab360fc7e08c702, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  motorTorque: 1500
-  brakeTorque: 400
-  maxSpeed: 30
-  steeringRange: 25
-  steeringRangeAtMaxSpeed: 15
-  centreOfGravityOffset: -1
-  rollingResistance: 100

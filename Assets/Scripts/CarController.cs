@@ -72,5 +72,8 @@ public class CarController : MonoBehaviour
                 wheel.WheelCollider.brakeTorque = rollingResistance;
             }
         }
+        // Add gravity
+        rb.AddForce(Physics.gravity * rb.mass);
     }
+
 }

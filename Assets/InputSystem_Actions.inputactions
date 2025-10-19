@@ -86,6 +86,8 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+<<<<<<< HEAD
+=======
                 },
                 {
                     "name": "SmokeVFX",
@@ -95,6 +97,7 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+>>>>>>> origin/lucca
                 }
             ],
             "bindings": [
@@ -482,6 +485,8 @@
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
+<<<<<<< HEAD
+=======
                 },
                 {
                     "name": "W/S",
@@ -548,6 +553,7 @@
                     "action": "SmokeVFX",
                     "isComposite": false,
                     "isPartOfComposite": true
+>>>>>>> origin/lucca
                 }
             ]
         },
