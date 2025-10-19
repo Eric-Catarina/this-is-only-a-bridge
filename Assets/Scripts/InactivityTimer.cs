@@ -2,35 +2,52 @@ using UnityEngine;
 
 public class InactivityTimer : MonoBehaviour
 {
+    [Tooltip("Nome da cena específica para carregar. Se deixado em branco, carregará a próxima cena da lista do GameManager.")]
+    [SerializeField] private string specificSceneName;
     public float inactiveTimeLimit = 7f; // tempo necessário sem movimento
     private float inactivityTimer = 0f;
-
-    void Update()
-    {
-        // Captura os eixos padrão
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        // Se houver qualquer movimento, zera o cronômetro
-        if (Mathf.Abs(horizontal) > 0.01f || Mathf.Abs(vertical) > 0.01f)
+        void Update()
         {
-            inactivityTimer = 0f;
-        }
-        else
-        {
-            // Incrementa o tempo de inatividade
-            inactivityTimer += Time.deltaTime;
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-            // (Opcional) Debug do tempo atual
-            Debug.Log($"Inatividade: {inactivityTimer:F2} segundos");
+            Debug.Log($"Input: H={horizontal}, V={vertical}");
 
-            if (inactivityTimer >= inactiveTimeLimit)
+            if (Mathf.Abs(horizontal) > 0.01f || Mathf.Abs(vertical) > 0.01f)
             {
-                GameManager.Instance.LoadNextScene();
-                // Jogador ficou inativo por 7 segundos
-                //Debug.Log("Jogador inativo por 7 segundos!");
-                // Aqui você pode chamar uma função, ativar algo, etc.
+                inactivityTimer = 0f;
             }
+            else
+            {
+                inactivityTimer += Time.deltaTime;
+                Debug.Log($"Inatividade: {inactivityTimer:F2}");
+
+                if (inactivityTimer >= inactiveTimeLimit)
+                {
+                    if (GameManager.Instance == null)
+                    {
+                        Debug.LogError("GameManager.Instance está null!");
+                    }
+                    else
+                    {
+                        Debug.Log("Carregando próxima cena...");
+                        GameManager.Instance.LoadNextScene();
+                    }
+                }
+            }
+
+
         }
+
+    private void LoadTargetScene()
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance não foi encontrado. O gatilho não pode funcionar.");
+            return;
+        }
+        GameManager.Instance.LoadSceneByName(specificSceneName != "" ? specificSceneName : null);
+
     }
+
 }
