@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bridge_Double_curve.unity
     guid: 75ba4ef5a67a0a44187458bd3d94036f
+  - enabled: 1
+    path: Assets/Scenes/Bridge_curve.unity
+    guid: 8ec179153a7b478418e2aaf6ed88958c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

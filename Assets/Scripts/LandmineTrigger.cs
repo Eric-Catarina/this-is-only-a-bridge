@@ -57,6 +57,11 @@ public class LandmineTrigger : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        OnTriggerEnter(other);
+    }
+
     private void Detonate(Rigidbody target)
     {
         hasExploded = true;
