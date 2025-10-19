@@ -2304,6 +2304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuObject: {fileID: 5770048353733411253}
+  eventSystem: {fileID: 8786028220458314426}
 --- !u!1 &7063746113817799594
 GameObject:
   m_ObjectHideFlags: 0
@@ -3050,7 +3051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7642240732021736041
 Transform:
   m_ObjectHideFlags: 0

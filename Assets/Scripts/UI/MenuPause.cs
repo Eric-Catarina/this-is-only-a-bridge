@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class MenuPause : MonoBehaviour
 {
     public GameObject menuObject;
+    public GameObject eventSystem;
 
     public static MenuPause Instance;
 
@@ -19,6 +20,17 @@ public class MenuPause : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "Creditos")
+        {
+            Destroy(gameObject);
+        }
+
+        if (SceneManager.GetActiveScene().name != "Main_Menu")
+            eventSystem.SetActive(true);
     }
 
     void Update()
