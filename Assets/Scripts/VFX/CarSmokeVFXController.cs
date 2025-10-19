@@ -79,15 +79,21 @@ public class CarSmokeVFXController : MonoBehaviour
     void StopAllVFX(InputAction.CallbackContext context)
     {
         isMoving = false;
+        burstTimer = 0;
 
-        foreach (VisualEffect vfx in burstSmokes)
+        if (onBurst)
         {
-            vfx.Stop();
+            foreach (VisualEffect vfx in burstSmokes)
+            {
+                vfx.Stop();
+            }
         }
-
-        foreach (VisualEffect vfx in loopSmokes)
+        else
         {
-            vfx.Stop();
+            foreach (VisualEffect vfx in loopSmokes)
+            {
+                vfx.Stop();
+            }
         }
     }
 }
