@@ -58,6 +58,11 @@ public class LevelDeathManager : MonoBehaviour
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Creditos")
+        {
+            Destroy(gameObject);
+        }
+
         if (!hudFather.activeSelf)
         {
             if(SceneManager.GetActiveScene().name != "Main_Menu")
@@ -137,14 +142,15 @@ public class LevelDeathManager : MonoBehaviour
         {
             if (messageText != null)
             {
-                messageText.text = "Você já passou essa fase";
+                messageText.text = "You alredy passed this level.";
                 messageText.gameObject.SetActive(true);
             }
 
             if (skipLevelButton != null)
             {
-                if (skipButtonText != null) skipButtonText.text = "Pular a fase";
+                if (skipButtonText != null) skipButtonText.text = "Skip level";
                 skipLevelButton.gameObject.SetActive(true);
+                skipLevelButton.Select();
             }
 
             return;
@@ -155,37 +161,29 @@ public class LevelDeathManager : MonoBehaviour
         {
             if (messageText != null)
             {
-                messageText.text = "Não consegue? Pule a fase!";
+                messageText.text = "You can not DO IT? Skip this level NOOB!";
                 messageText.gameObject.SetActive(true);
             }
 
             if (skipLevelButton != null)
             {
-                if (skipButtonText != null) skipButtonText.text = "Pular fase";
+                if (skipButtonText != null) skipButtonText.text = "Skip level";
                 skipLevelButton.gameObject.SetActive(true);
+                skipLevelButton.Select();
             }
         }
     }
 
     private void OnSkipLevelButtonPressed()
     {
-        //// Marca como passado e avança para a próxima cena (build index + 1)
-        //PlayerPrefs.SetInt(levelPassedKey, 1);
-        //PlayerPrefs.Save();
+        // Marca como "skipped" e salva
+        string sceneName = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetInt($"LevelSkipped_{sceneName}", 1);
 
-        //int current = SceneManager.GetActiveScene().buildIndex;
-        //int next = current + 1;
+        PlayerPrefs.Save();
 
-        //if (next < SceneManager.sceneCountInBuildSettings)
-        //{
-        //    SceneManager.LoadScene(next);
-        //}
-        //else
-        //{
-        //    Debug.Log("Última cena — não há próxima cena nas Build Settings.");
-        //    // opcional: carregar menu principal
-        //    // SceneManager.LoadScene("Main_Menu");
-        //}
+        // Chama o método que muda de fase
+
         GameManager.Instance.SkipLevel();
     }
 
