@@ -9579,20 +9579,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1887185592531247842, guid: bb094a41abac517ef905246bf73136be, type: 3}
       propertyPath: m_Name
-      value: Outdoor 1
+      value: Outdoor
       objectReference: {fileID: 0}
-    - target: {fileID: 2948756477251503410, guid: bb094a41abac517ef905246bf73136be, type: 3}
-      propertyPath: m_text
-      value: '"This is a bridge!"'
-      objectReference: {fileID: 0}
-    - target: {fileID: 6567040622193624980, guid: bb094a41abac517ef905246bf73136be, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: ee9a3f2007afdcc48a9dad80fada7b87, type: 2}
-    - target: {fileID: 7751640937982186567, guid: bb094a41abac517ef905246bf73136be, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: ee9a3f2007afdcc48a9dad80fada7b87, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16846,14 +16834,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloudPlane
       objectReference: {fileID: 0}
-    - target: {fileID: 1328419641213090447, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1328419641213090447, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
-      propertyPath: 'm_Materials.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d49706f25f425ae42b0ab57b7ba600aa, type: 2}
     - target: {fileID: 8539238981786605610, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.8
