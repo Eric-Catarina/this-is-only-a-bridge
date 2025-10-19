@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     public void RestartScene()
     {
         if (LevelDeathManager.Instance != null)
-            LevelDeathManager.Instance.MarkLevelPassed();
+            LevelDeathManager.Instance.RegisterDeath();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }
