@@ -114,7 +114,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -176,7 +176,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""SmokeVFX"",
                     ""type"": ""Value"",
-                    ""id"": ""70075140-2b3a-42e3-bbae-4cdf1f91bc79"",
+                    ""id"": ""4023d3df-7b8a-4bb5-833c-6a240230c119"",
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -571,7 +571,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""W/S"",
-                    ""id"": ""2d94171b-65d7-4343-94eb-28f2d0b129db"",
+                    ""id"": ""ecd1dbc1-132f-4299-829c-5a116c0ef11a"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -582,7 +582,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""a1030e50-da63-485b-88d7-a474b7ccfc24"",
+                    ""id"": ""cb965128-a3b2-4678-8713-a3cd3d6d1e19"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -593,7 +593,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""4dfce8b2-9d10-4ebe-96cd-1220fa0dc851"",
+                    ""id"": ""0a1698e5-9db3-4bd0-b0c1-2ee4aa053dd1"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -604,7 +604,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Gamepad"",
-                    ""id"": ""d293afee-d1f3-4a1d-98b1-ebef4b24da55"",
+                    ""id"": ""5da93d2f-46b2-4504-8f25-41224ad986ae"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -615,7 +615,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""59d50251-a754-4c10-a8a2-806b915c0b25"",
+                    ""id"": ""bff32ea4-4ae5-4a13-8ad1-86717a113596"",
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -626,7 +626,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""8669d4af-159b-41c0-aa71-ad2407129450"",
+                    ""id"": ""ea5cde18-2e94-4023-afbd-025be8c23c4a"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
