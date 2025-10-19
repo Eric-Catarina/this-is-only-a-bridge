@@ -638,8 +638,8 @@
     "m_ObjectId": "17634e8a951b4a1e98d2a1c0b1ee190b",
     "m_Title": "Difuse Light",
     "m_Position": {
-        "x": -1372.9998779296875,
-        "y": 788.0
+        "x": -1373.0001220703125,
+        "y": 788.0001220703125
     }
 }
 
@@ -649,7 +649,7 @@
     "m_ObjectId": "1e2fe008fbb7450aa83f7d4f76376e8e",
     "m_Title": "Realtime shadows on Baked geometry",
     "m_Position": {
-        "x": -336.9998779296875,
+        "x": -337.0,
         "y": -774.9999389648438
     }
 }
@@ -1618,7 +1618,7 @@
     "m_ObjectId": "79b2d24f70714d82a98f657f5d0f31f2",
     "m_Title": "Main Light",
     "m_Position": {
-        "x": -2054.999755859375,
+        "x": -2055.0,
         "y": 326.0001220703125
     }
 }
@@ -1840,7 +1840,7 @@
     "m_ObjectId": "9b7ff95788ff476386144b5d619718c3",
     "m_Title": "Main Light colour contribution",
     "m_Position": {
-        "x": -243.9998779296875,
+        "x": -244.0,
         "y": 639.0001220703125
     }
 }
@@ -2346,8 +2346,8 @@
     "m_ObjectId": "cd0b39e80944447dac145819dfd6084d",
     "m_Title": "Additional Lights",
     "m_Position": {
-        "x": -836.9998779296875,
-        "y": -175.00001525878907
+        "x": -837.0,
+        "y": -174.99993896484376
     }
 }
 
