@@ -1119,6 +1119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4f44dca2483f34dbf9f3e9325530e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specificSceneName: Fase11
   inactiveTimeLimit: 7
 --- !u!4 &1901285842
 Transform:
@@ -1225,7 +1226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.9755957
+      value: 3.97
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.z

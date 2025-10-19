@@ -39,15 +39,4 @@ public class InactivityTimer : MonoBehaviour
 
         }
 
-    private void LoadTargetScene()
-    {
-        if (GameManager.Instance == null)
-        {
-            Debug.LogError("GameManager.Instance não foi encontrado. O gatilho não pode funcionar.");
-            return;
-        }
-        GameManager.Instance.LoadSceneByName(specificSceneName != "" ? specificSceneName : null);
-
-    }
-
 }
