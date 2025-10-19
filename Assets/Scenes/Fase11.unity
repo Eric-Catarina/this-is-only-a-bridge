@@ -11001,12 +11001,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
+      propertyPath: sceneNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: 'sceneNames.Array.data[0]'
-      value: Bridge
+      value: Creditos
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: 'sceneNames.Array.data[1]'
-      value: Bridge_EmersonSid
+      value: Control Reverse
       objectReference: {fileID: 0}
     - target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
       propertyPath: 'sceneNames.Array.data[2]'
@@ -14078,7 +14082,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2864402968202766009, guid: c334c50116ff1d394bd419ef314db870, type: 3}
       propertyPath: specificSceneName
-      value: Control Reverse
+      value: Creditos
       objectReference: {fileID: 0}
     - target: {fileID: 8893256142340710919, guid: c334c50116ff1d394bd419ef314db870, type: 3}
       propertyPath: m_LocalPosition.x
