@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class SimplePusher : MonoBehaviour
+public class SimplePusherOil : MonoBehaviour
 {
     [Header("Configuração do Empurrão")]
     [Tooltip("O intervalo (Mínimo e Máximo) da força a ser aplicada aleatoriamente.")]
