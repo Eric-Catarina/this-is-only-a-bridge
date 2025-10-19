@@ -371,6 +371,7 @@ MonoBehaviour:
   steeringRange: 25
   steeringRangeAtMaxSpeed: 15
   centreOfGravityOffset: -1
+  rollingResistance: 100
 --- !u!1 &678365366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,7 +1619,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873116612}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.008676254, z: -0, w: 0.99996245}
+  m_LocalRotation: {x: 0, y: 0.008674223, z: 0, w: 0.9999624}
   m_LocalPosition: {x: 12.5, y: -2.8155975, z: 74.1}
   m_LocalScale: {x: 13.48, y: 1, z: 22.93798}
   m_ConstrainProportionsScale: 0
@@ -1635,7 +1636,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 804426740523845784, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 804426740523845784, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_SidewaysFriction.m_ExtremumSlip
@@ -1687,7 +1688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3196555179871576418, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3196555179871576418, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_SidewaysFriction.m_ExtremumSlip
@@ -1728,6 +1729,10 @@ PrefabInstance:
     - target: {fileID: 5083689041541058145, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.0000000056083422
+      objectReference: {fileID: 0}
+    - target: {fileID: 5089343719336451809, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30.66
       objectReference: {fileID: 0}
     - target: {fileID: 5142753541821801099, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1775,27 +1780,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 34.51
+      value: 30.66
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.41
+      value: -10.41
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9627314
+      value: 0.9673613
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.2704592
+      value: 0.2534013
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000001039564
+      value: -0.000000006363062
       objectReference: {fileID: 0}
     - target: {fileID: 8096839025897270324, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -2.9204372e-10
+      value: 0.000000001666811
       objectReference: {fileID: 0}
     - target: {fileID: 9082687542472939564, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Mass
