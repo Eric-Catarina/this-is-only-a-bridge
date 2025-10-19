@@ -22,48 +22,104 @@ public class MenuPause : MonoBehaviour
         }
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (SceneManager.GetActiveScene().name == "Creditos")
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        HandleCursorForScene(SceneManager.GetActiveScene());
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        HandleCursorForScene(scene);
+
+        if (scene.name == "Creditos" && Instance == this)
         {
             Destroy(gameObject);
         }
-
-        if (SceneManager.GetActiveScene().name == "Main_Menu")
-            return;
-        else if (!eventSystem.activeSelf)
-            eventSystem.SetActive(true);
-
-        if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
-        {
-            ControlCanvas();
-        }
     }
 
-    public void ControlCanvas()
+    private void HandleCursorForScene(Scene scene)
     {
-        if (menuObject.activeSelf)
+        bool isMenuScene = scene.name == "Main_Menu" || scene.name == "Creditos";
+        
+        if (isMenuScene)
         {
-            Time.timeScale = 1f;
-            menuObject.SetActive(false);
-            LevelDeathManager.Instance.skipLevelButton.Select();
+            UnlockCursor();
+            if (eventSystem != null) eventSystem.SetActive(true);
         }
         else
         {
-            Time.timeScale = 0f;
-            menuObject.SetActive(true);
+            LockCursor();
+            if (eventSystem != null) eventSystem.SetActive(true);
         }
+    }
+
+    void Update()
+    {
+        bool isMenuScene = SceneManager.GetActiveScene().name == "Main_Menu" || SceneManager.GetActiveScene().name == "Creditos";
+        if (isMenuScene) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))
+        {
+            TogglePause();
+        }
+    }
+
+    public void TogglePause()
+    {
+        if (menuObject.activeSelf)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0f;
+        menuObject.SetActive(true);
+        UnlockCursor();
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        menuObject.SetActive(false);
+        LockCursor();
     }
 
     public void Restart()
     {
+        ResumeGame(); 
         GameManager.Instance.RestartScene();
-        Time.timeScale = 1f;
-        menuObject.SetActive(false);
     }
 
     public void Quit()
     {
         GameManager.Instance.QuitGame();
+    }
+
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
