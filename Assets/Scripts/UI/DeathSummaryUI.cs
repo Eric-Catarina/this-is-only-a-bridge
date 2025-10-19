@@ -43,11 +43,16 @@ public class DeathSummaryUI : MonoBehaviour
 
         bool hasAnyLevel = false;
 
-        // Percorre todas as cenas do Build Settings
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
             string sceneName = Path.GetFileNameWithoutExtension(scenePath);
+
+            // Ignora o menu principal
+            if (sceneName == "Main_Menu")
+                continue;
+            if (sceneName == "Creditos")
+                continue;
 
             string deathKey = $"Deaths_Level_{sceneName}";
             string passedKey = $"LevelPassed_{sceneName}";
@@ -57,12 +62,11 @@ public class DeathSummaryUI : MonoBehaviour
             bool levelPassed = PlayerPrefs.GetInt(passedKey, 0) == 1;
             bool levelSkipped = PlayerPrefs.GetInt(skippedKey, 0) == 1;
 
-            // Monta status
             string status = "";
             if (levelPassed)
-                status = " (Completed)";
-            else if (levelSkipped)
-                status = " (Skipped)";
+                status = " <color=#5EFF5E>(Completed)</color>"; // Verde
+            else
+                status = " <color=#FFD65E>(Git gud)</color>"; // Amarelo
 
             sb.AppendLine($"• <b>{sceneName}</b>: {levelDeaths}{status}");
             hasAnyLevel = true;
@@ -80,11 +84,13 @@ public class DeathSummaryUI : MonoBehaviour
 
     private void ResetAllDeaths()
     {
-        // Apaga todas as chaves relacionadas
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
             string sceneName = Path.GetFileNameWithoutExtension(scenePath);
+
+            if (sceneName == "Main_Menu")
+                continue;
 
             PlayerPrefs.DeleteKey($"Deaths_Level_{sceneName}");
             PlayerPrefs.DeleteKey($"LevelPassed_{sceneName}");
