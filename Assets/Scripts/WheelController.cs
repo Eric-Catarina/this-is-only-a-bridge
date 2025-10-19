@@ -8,6 +8,7 @@ public class WheelController : MonoBehaviour
     public bool motorized = false;
 
     private Vector3 wheelPosition;
+    Vector3 positionOffset = new Vector3(0, 0.05f, 0);
     private Quaternion wheelRotation;
 
     void Awake()
@@ -25,7 +26,7 @@ public class WheelController : MonoBehaviour
         {
             if (wheelModels[i] != null)
             {
-                wheelModels[i].position = wheelPosition;
+                wheelModels[i].position = wheelPosition - positionOffset;
                 wheelModels[i].rotation = wheelRotation;
             }
         }
