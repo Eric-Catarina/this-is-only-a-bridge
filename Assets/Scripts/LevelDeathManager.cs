@@ -176,23 +176,14 @@ public class LevelDeathManager : MonoBehaviour
 
     private void OnSkipLevelButtonPressed()
     {
-        //// Marca como passado e avança para a próxima cena (build index + 1)
-        //PlayerPrefs.SetInt(levelPassedKey, 1);
-        //PlayerPrefs.Save();
+        // Marca como "skipped" e salva
+        string sceneName = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetInt($"LevelSkipped_{sceneName}", 1);
 
-        //int current = SceneManager.GetActiveScene().buildIndex;
-        //int next = current + 1;
+        PlayerPrefs.Save();
 
-        //if (next < SceneManager.sceneCountInBuildSettings)
-        //{
-        //    SceneManager.LoadScene(next);
-        //}
-        //else
-        //{
-        //    Debug.Log("Última cena — não há próxima cena nas Build Settings.");
-        //    // opcional: carregar menu principal
-        //    // SceneManager.LoadScene("Main_Menu");
-        //}
+        // Chama o método que muda de fase
+
         GameManager.Instance.SkipLevel();
     }
 

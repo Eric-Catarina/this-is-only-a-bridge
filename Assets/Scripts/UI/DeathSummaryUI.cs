@@ -65,7 +65,7 @@ public class DeathSummaryUI : MonoBehaviour
             string status = "";
             if (levelPassed)
                 status = " <color=#5EFF5E>(Completed)</color>"; // Verde
-            else
+            else if (levelSkipped)
                 status = " <color=#FFD65E>(Git gud)</color>"; // Amarelo
 
             sb.AppendLine($"• <b>{sceneName}</b>: {levelDeaths}{status}");
