@@ -20,15 +20,17 @@ public class LevelDeathManager : MonoBehaviour
 
     private string levelDeathsKey;
     private string levelPassedKey;
+    private string levelTimeKey;
     private const string totalDeathsKey = "TotalDeaths";
+    private const string totalTimeKey = "TotalTimePlayed";
 
     private int deathsThisLevel = 0;
     private int deathsTotal = 0;
     private bool levelPassed = false;
+    private float levelStartTime = 0f;
 
     private void Awake()
     {
-        // Singleton padrão
         if (Instance == null)
         {
             Instance = this;
@@ -44,14 +46,13 @@ public class LevelDeathManager : MonoBehaviour
 
     private void Start()
     {
-        // Inicializa para a cena atual (Start roda uma vez; OnSceneLoaded cuida das trocas futuras)
         InitKeysForScene(SceneManager.GetActiveScene().name);
         LoadValuesFromPrefs();
 
         if (skipLevelButton != null)
-        {
             skipLevelButton.onClick.AddListener(OnSkipLevelButtonPressed);
-        }
+
+        levelStartTime = Time.time;
 
         UpdateUI();
     }
@@ -63,11 +64,8 @@ public class LevelDeathManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (!hudFather.activeSelf)
-        {
-            if(SceneManager.GetActiveScene().name != "Main_Menu")
-                hudFather.SetActive(true);
-        }
+        if (!hudFather.activeSelf && SceneManager.GetActiveScene().name != "Main_Menu")
+            hudFather.SetActive(true);
     }
 
     private void OnDestroy()
@@ -79,12 +77,11 @@ public class LevelDeathManager : MonoBehaviour
             skipLevelButton.onClick.RemoveListener(OnSkipLevelButtonPressed);
     }
 
-    // Chamado sempre que uma cena é carregada
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Atualiza chaves e carrega valores da nova cena
         InitKeysForScene(scene.name);
         LoadValuesFromPrefs();
+        levelStartTime = Time.time;
         UpdateUI();
     }
 
@@ -92,6 +89,7 @@ public class LevelDeathManager : MonoBehaviour
     {
         levelDeathsKey = $"Deaths_Level_{sceneName}";
         levelPassedKey = $"LevelPassed_{sceneName}";
+        levelTimeKey = $"LevelTime_{sceneName}";
     }
 
     private void LoadValuesFromPrefs()
@@ -116,7 +114,14 @@ public class LevelDeathManager : MonoBehaviour
     public void MarkLevelPassed()
     {
         levelPassed = true;
+
+        float timeTaken = Time.time - levelStartTime;
+        float totalTime = PlayerPrefs.GetFloat(totalTimeKey, 0f);
+        totalTime += timeTaken;
+
         PlayerPrefs.SetInt(levelPassedKey, 1);
+        PlayerPrefs.SetFloat(levelTimeKey, timeTaken);
+        PlayerPrefs.SetFloat(totalTimeKey, totalTime);
         PlayerPrefs.Save();
 
         UpdateUI();
@@ -125,24 +130,21 @@ public class LevelDeathManager : MonoBehaviour
     private void UpdateUI()
     {
         if (deathsThisLevelText != null)
-            deathsThisLevelText.text = "Level deaths: " + deathsThisLevel.ToString();
+            deathsThisLevelText.text = "Level deaths: " + deathsThisLevel;
 
         if (deathsTotalText != null)
-            deathsTotalText.text = "Total deaths: " + deathsTotal.ToString();
+            deathsTotalText.text = "Total deaths: " + deathsTotal;
 
-        // Oculta por padrão
         if (messageText != null)
             messageText.gameObject.SetActive(false);
-
         if (skipLevelButton != null)
             skipLevelButton.gameObject.SetActive(false);
 
-        // Prioridade: se já passou -> mostrar "Você já passou essa fase" + botão "Pular a fase"
         if (levelPassed)
         {
             if (messageText != null)
             {
-                messageText.text = "You alredy passed this level.";
+                messageText.text = "You already passed this level.";
                 messageText.gameObject.SetActive(true);
             }
 
@@ -152,11 +154,9 @@ public class LevelDeathManager : MonoBehaviour
                 skipLevelButton.gameObject.SetActive(true);
                 skipLevelButton.Select();
             }
-
             return;
         }
 
-        // Se não passou e já acumulou mortes suficientes -> sugerir pular
         if (deathsThisLevel >= deathsToOfferSkip)
         {
             if (messageText != null)
@@ -176,18 +176,12 @@ public class LevelDeathManager : MonoBehaviour
 
     private void OnSkipLevelButtonPressed()
     {
-        // Marca como "skipped" e salva
         string sceneName = SceneManager.GetActiveScene().name;
         PlayerPrefs.SetInt($"LevelSkipped_{sceneName}", 1);
-
         PlayerPrefs.Save();
-
-        // Chama o método que muda de fase
-
         GameManager.Instance.SkipLevel();
     }
 
-    // Métodos utilitários (debug / editor)
     public void ResetLevelDeaths()
     {
         deathsThisLevel = 0;
