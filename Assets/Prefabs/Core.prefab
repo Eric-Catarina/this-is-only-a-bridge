@@ -46,7 +46,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 45000
     damper: 6700
-    targetPosition: 0.25
+    targetPosition: 0.7
   m_SuspensionDistance: 0.26
   m_ForceAppPointDistance: -1
   m_Mass: 20
@@ -168,7 +168,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 45000
     damper: 6700
-    targetPosition: 0.25
+    targetPosition: 0.7
   m_SuspensionDistance: 0.26
   m_ForceAppPointDistance: -1
   m_Mass: 20
@@ -274,7 +274,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 45000
     damper: 6700
-    targetPosition: 0.25
+    targetPosition: 0.7
   m_SuspensionDistance: 0.26
   m_ForceAppPointDistance: -1
   m_Mass: 20
@@ -939,8 +939,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4761661871100285038}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2534013, y: -0.0000000066454646, z: 0.000000002744884, w: 0.9673613}
-  m_LocalPosition: {x: -0.1022926, y: 3.96, z: -10.41}
+  m_LocalRotation: {x: 0.25329942, y: -0.02743251, z: 0.0071859756, w: 0.9669723}
+  m_LocalPosition: {x: 0.12448084, y: 3.8899999, z: -10.403566}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1480,8 +1480,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5638276922905070561}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2534013, y: -0.000000006363062, z: 0.000000001666811, w: 0.9673613}
-  m_LocalPosition: {x: -0.1022926, y: 3.96, z: -10.41}
+  m_LocalRotation: {x: 0.25329947, y: -0.027432507, z: 0.007185976, w: 0.96697223}
+  m_LocalPosition: {x: 0.12448084, y: 3.8899999, z: -10.403566}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1664,7 +1664,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 936320819363176791}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Core
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1735,7 +1735,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 45000
     damper: 6700
-    targetPosition: 0.25
+    targetPosition: 0.7
   m_SuspensionDistance: 0.26
   m_ForceAppPointDistance: -1
   m_Mass: 20
@@ -2183,7 +2183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7912665086615891085, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.71
+      value: 1.64
       objectReference: {fileID: 0}
     - target: {fileID: 7912665086615891085, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2341,7 +2341,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 637305f490f7f994fba70a1e8c93cc5f, type: 3}
+  m_Resource: {fileID: 8300000, guid: f5e4f87f3ffb43d018573184cdf475f9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
