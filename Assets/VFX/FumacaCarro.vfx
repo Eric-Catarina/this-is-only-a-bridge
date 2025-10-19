@@ -37,9 +37,9 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 166
+    x: 586
     y: -1430
-    width: 1160
+    width: 740
     height: 2085
 --- !u!114 &114350483966674976
 MonoBehaviour:
@@ -1175,7 +1175,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 150
+      m_SerializableObject: 250
     m_Space: -1
   m_Property:
     name: _Circle_Density
@@ -1209,7 +1209,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1.1
+      m_SerializableObject: 30
     m_Space: -1
   m_Property:
     name: _Rotation
@@ -1243,7 +1243,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 3.11
+      m_SerializableObject: 1
     m_Space: -1
   m_Property:
     name: _Lit_Threshold
@@ -1277,7 +1277,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 5.59
+      m_SerializableObject: 5
     m_Space: -1
   m_Property:
     name: _Falloff_Threshold
@@ -1311,7 +1311,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2.76
+      m_SerializableObject: 1
     m_Space: -1
   m_Property:
     name: _Softness
