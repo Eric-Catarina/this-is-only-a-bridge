@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [SerializeField] private AudioSource engineAudio;
 
     private void Awake()
     {
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        engineAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -30,7 +33,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
         {
             RestartScene();
+            engineAudio.Play();
+            engineAudio.Stop();
         }
+
+
     }
 
     // Carrega próxima cena na lista
@@ -42,6 +49,8 @@ public class GameManager : MonoBehaviour
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
 
         SceneManager.LoadScene(currentIndex + 1);
+        engineAudio.Play();
+        engineAudio.Stop();
     }
 
     public void SkipLevel()
@@ -49,11 +58,15 @@ public class GameManager : MonoBehaviour
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
 
         SceneManager.LoadScene(currentIndex + 1);
+        engineAudio.Play();
+        engineAudio.Stop();
     }
 
     public void LoadSceneByName(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        engineAudio.Play();
+        engineAudio.Stop();
     }
 
     // Reinicia a cena atual
@@ -63,6 +76,8 @@ public class GameManager : MonoBehaviour
             LevelDeathManager.Instance.RegisterDeath();
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
+        engineAudio.Play();
+        engineAudio.Stop();
     }
 
     // Sai do jogo
