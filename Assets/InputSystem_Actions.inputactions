@@ -86,18 +86,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-<<<<<<< HEAD
-=======
-                },
-                {
-                    "name": "SmokeVFX",
-                    "type": "Value",
-                    "id": "70075140-2b3a-42e3-bbae-4cdf1f91bc79",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
->>>>>>> origin/lucca
                 }
             ],
             "bindings": [
@@ -485,75 +473,6 @@
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
-<<<<<<< HEAD
-=======
-                },
-                {
-                    "name": "W/S",
-                    "id": "2d94171b-65d7-4343-94eb-28f2d0b129db",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SmokeVFX",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "a1030e50-da63-485b-88d7-a474b7ccfc24",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "SmokeVFX",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "4dfce8b2-9d10-4ebe-96cd-1220fa0dc851",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "SmokeVFX",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Gamepad",
-                    "id": "d293afee-d1f3-4a1d-98b1-ebef4b24da55",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SmokeVFX",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "59d50251-a754-4c10-a8a2-806b915c0b25",
-                    "path": "<Gamepad>/leftStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "SmokeVFX",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "8669d4af-159b-41c0-aa71-ad2407129450",
-                    "path": "<Gamepad>/leftStick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "SmokeVFX",
-                    "isComposite": false,
-                    "isPartOfComposite": true
->>>>>>> origin/lucca
                 }
             ]
         },
