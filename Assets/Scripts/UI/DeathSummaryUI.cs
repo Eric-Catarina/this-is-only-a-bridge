@@ -8,9 +8,7 @@ using System.IO;
 public class DeathSummaryUI : MonoBehaviour
 {
     [Header("Referências de UI")]
-    [Tooltip("Texto único para mostrar o resumo completo de mortes")]
     public TextMeshProUGUI summaryText;
-    [Tooltip("Botão para resetar todo o histórico de mortes")]
     public Button resetButton;
 
     private void Start()
@@ -37,71 +35,66 @@ public class DeathSummaryUI : MonoBehaviour
         StringBuilder sb = new StringBuilder();
 
         int totalDeaths = PlayerPrefs.GetInt("TotalDeaths", 0);
+        float totalTime = PlayerPrefs.GetFloat("TotalTimePlayed", 0f);
 
-        sb.AppendLine("<size=140%><b>Resumo de Mortes</b></size>\n");
+        sb.AppendLine("<size=140%><b>Resumo de Progresso</b></size>\n");
         sb.AppendLine("<b>Por fase:</b>");
-
-        bool hasAnyLevel = false;
 
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
-            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-            string sceneName = Path.GetFileNameWithoutExtension(scenePath);
-
-            // Ignora o menu principal
-            if (sceneName == "Main_Menu")
-                continue;
-            if (sceneName == "Creditos")
+            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            string sceneName = Path.GetFileNameWithoutExtension(path);
+            if (sceneName == "Main_Menu" || sceneName == "Creditos")
                 continue;
 
-            string deathKey = $"Deaths_Level_{sceneName}";
-            string passedKey = $"LevelPassed_{sceneName}";
-            string skippedKey = $"LevelSkipped_{sceneName}";
-
-            int levelDeaths = PlayerPrefs.GetInt(deathKey, 0);
-            bool levelPassed = PlayerPrefs.GetInt(passedKey, 0) == 1;
-            bool levelSkipped = PlayerPrefs.GetInt(skippedKey, 0) == 1;
+            int deaths = PlayerPrefs.GetInt($"Deaths_Level_{sceneName}", 0);
+            bool passed = PlayerPrefs.GetInt($"LevelPassed_{sceneName}", 0) == 1;
+            bool skipped = PlayerPrefs.GetInt($"LevelSkipped_{sceneName}", 0) == 1;
+            float time = PlayerPrefs.GetFloat($"LevelTime_{sceneName}", 0f);
 
             string status = "";
-            if (levelPassed)
-                status = " <color=#5EFF5E>(Completed)</color>"; // Verde
-            else if (levelSkipped)
-                status = " <color=#FFD65E>(Git gud)</color>"; // Amarelo
+            if (passed)
+                status = $" <color=#5EFF5E>(Completed)</color> <size=80%>({FormatTime(time)})</size>";
+            else if (skipped)
+                status = " <color=#FFD65E>(Git gud)</color>";
 
-            sb.AppendLine($"• <b>{sceneName}</b>: {levelDeaths}{status}");
-            hasAnyLevel = true;
+            sb.AppendLine($"• <b>{sceneName}</b>: {deaths}{status}");
         }
 
-        if (!hasAnyLevel)
-            sb.AppendLine("<i>Nenhuma fase encontrada!</i>");
-
         sb.AppendLine("\n────────────────────────────");
-        sb.AppendLine($"<size=110%><b>Total de mortes:</b> {totalDeaths}</size>");
+        sb.AppendLine($"<b>Total deaths:</b> {totalDeaths}");
+        sb.AppendLine($"<b>Total time played:</b> {FormatTime(totalTime)}");
 
-        if (summaryText != null)
-            summaryText.text = sb.ToString();
+        summaryText.text = sb.ToString();
+    }
+
+    private string FormatTime(float seconds)
+    {
+        int mins = Mathf.FloorToInt(seconds / 60);
+        int secs = Mathf.FloorToInt(seconds % 60);
+        return $"{mins:00}:{secs:00}";
     }
 
     private void ResetAllDeaths()
     {
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
-            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-            string sceneName = Path.GetFileNameWithoutExtension(scenePath);
-
-            if (sceneName == "Main_Menu")
+            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            string sceneName = Path.GetFileNameWithoutExtension(path);
+            if (sceneName == "Main_Menu" || sceneName == "Creditos")
                 continue;
 
             PlayerPrefs.DeleteKey($"Deaths_Level_{sceneName}");
             PlayerPrefs.DeleteKey($"LevelPassed_{sceneName}");
             PlayerPrefs.DeleteKey($"LevelSkipped_{sceneName}");
+            PlayerPrefs.DeleteKey($"LevelTime_{sceneName}");
         }
 
         PlayerPrefs.DeleteKey("TotalDeaths");
+        PlayerPrefs.DeleteKey("TotalTimePlayed");
         PlayerPrefs.Save();
 
         ShowDeathSummary();
-        Debug.Log("Histórico de mortes resetado!");
     }
 
     public void GoToMainMenu()
