@@ -3390,6 +3390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloudPlane
       objectReference: {fileID: 0}
+    - target: {fileID: 590501453944064258, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
+      propertyPath: m_TagString
+      value: Sky
+      objectReference: {fileID: 0}
     - target: {fileID: 8539238981786605610, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.8
@@ -3433,8 +3437,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 590501453944064258, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1452688387}
   m_SourcePrefab: {fileID: 100100000, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
+--- !u!1 &1452688386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 590501453944064258, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
+  m_PrefabInstance: {fileID: 1452688385}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1452688387
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452688386}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 299.99216, y: 5.822199, z: 299.99216}
+  m_Center: {x: 0, y: -4.0858235, z: 0}
 --- !u!1 &1459133545
 GameObject:
   m_ObjectHideFlags: 0
