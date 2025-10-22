@@ -1981,7 +1981,7 @@ Transform:
   - {fileID: 701305280}
   - {fileID: 2473154}
   - {fileID: 976471546}
-  m_Father: {fileID: 668411154}
+  m_Father: {fileID: 1440359286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &259294504
 GameObject:
@@ -3876,7 +3876,7 @@ Transform:
   - {fileID: 1247550356}
   - {fileID: 1579582689}
   - {fileID: 1293580066}
-  m_Father: {fileID: 668411154}
+  m_Father: {fileID: 1440359286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
@@ -5714,7 +5714,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6511870232170594846, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
   m_PrefabInstance: {fileID: 4483944679452891163}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &625293263
+--- !u!114 &625293269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5723,17 +5723,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 625293257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54b6bf5344c182143ab360fc7e08c702, type: 3}
+  m_Script: {fileID: 11500000, guid: c79cbe4ddff7ef12987a484aebd37db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorTorque: 2000
-  brakeTorque: 2000
-  maxSpeed: 20
-  steeringRange: 30
-  steeringRangeAtMaxSpeed: 10
-  centreOfGravityOffset: -1
-  rollingResistance: 100
-  engineAudio: {fileID: 0}
+  targetObjectToActivate: {fileID: 849358428}
+  requiredStandstillTime: 5
+  velocityThreshold: 1
+  playerTag: Player
 --- !u!1 &630770696
 GameObject:
   m_ObjectHideFlags: 0
@@ -5911,7 +5907,7 @@ Transform:
   - {fileID: 1417155278}
   - {fileID: 4353464}
   - {fileID: 415422866}
-  m_Father: {fileID: 668411154}
+  m_Father: {fileID: 1440359286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &634736672
 GameObject:
@@ -6129,12 +6125,7 @@ Transform:
   - {fileID: 516655223}
   - {fileID: 2102453093}
   - {fileID: 1222945244}
-  - {fileID: 409933763}
-  - {fileID: 630770702}
-  - {fileID: 718531149}
-  - {fileID: 258733590}
-  - {fileID: 757210377}
-  - {fileID: 1954506600}
+  - {fileID: 1440359286}
   - {fileID: 1670959296}
   - {fileID: 851580216}
   - {fileID: 2097451028}
@@ -7346,7 +7337,7 @@ Transform:
   - {fileID: 2082802020}
   - {fileID: 1034205058}
   - {fileID: 273339134}
-  m_Father: {fileID: 668411154}
+  m_Father: {fileID: 1440359286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &734321801
 GameObject:
@@ -7760,7 +7751,7 @@ Transform:
   - {fileID: 61168791}
   - {fileID: 1941512893}
   - {fileID: 2123550211}
-  m_Father: {fileID: 668411154}
+  m_Father: {fileID: 1440359286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &759471279
 GameObject:
@@ -8536,6 +8527,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840803690}
   m_Mesh: {fileID: 6109861468084830791, guid: 3f4e604163ac8a348b44d73c69b64f04, type: 3}
+--- !u!1 &849358428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 391831460319688694, guid: c334c50116ff1d394bd419ef314db870, type: 3}
+  m_PrefabInstance: {fileID: 1185068073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &851580210
 GameObject:
   m_ObjectHideFlags: 0
@@ -8989,6 +8985,10 @@ PrefabInstance:
     - target: {fileID: 6788758565887938103, guid: 84248bbf7e9eeff4696f2829e00cf0b3, type: 3}
       propertyPath: m_Name
       value: Canvas_MenuPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068011981611174083, guid: 84248bbf7e9eeff4696f2829e00cf0b3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11546,6 +11546,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelEnd
       objectReference: {fileID: 0}
+    - target: {fileID: 391831460319688694, guid: c334c50116ff1d394bd419ef314db870, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2507132744789244470, guid: c334c50116ff1d394bd419ef314db870, type: 3}
       propertyPath: m_Name
       value: BandeiraQuadriculada
@@ -13628,6 +13632,43 @@ Transform:
   - {fileID: 518339153}
   - {fileID: 1517852454}
   - {fileID: 825758546}
+  m_Father: {fileID: 668411154}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1440359285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1440359286}
+  m_Layer: 0
+  m_Name: RipasDesativadas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1440359286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440359285}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 409933763}
+  - {fileID: 630770702}
+  - {fileID: 718531149}
+  - {fileID: 258733590}
+  - {fileID: 757210377}
+  - {fileID: 1954506600}
   m_Father: {fileID: 668411154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1453413276
@@ -17015,7 +17056,7 @@ Transform:
   - {fileID: 608867522}
   - {fileID: 1901043002}
   - {fileID: 2098471060}
-  m_Father: {fileID: 668411154}
+  m_Father: {fileID: 1440359286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1959363577
 GameObject:
@@ -19428,6 +19469,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1271253432400791714, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5083689041541058145, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.10229254
@@ -19534,7 +19579,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6511870232170594846, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 625293263}
+      addedObject: {fileID: 625293269}
   m_SourcePrefab: {fileID: 100100000, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
