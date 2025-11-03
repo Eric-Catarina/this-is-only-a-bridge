@@ -1004,8 +1004,8 @@
     "m_ObjectId": "02132db6bf5c4ee492a412be57d4fe1a",
     "m_Title": "Additional Lights",
     "m_Position": {
-        "x": -3435.0,
-        "y": -211.0
+        "x": -3435.000244140625,
+        "y": -211.00003051757813
     }
 }
 
@@ -4402,8 +4402,8 @@
     "m_ObjectId": "aa3d919501604768b4fbdffc5147ee0a",
     "m_Title": "Main Light",
     "m_Position": {
-        "x": -4651.0,
-        "y": 539.0
+        "x": -4651.0009765625,
+        "y": 539.0000610351563
     }
 }
 
@@ -5012,7 +5012,7 @@
     "m_Title": "Difuse Light",
     "m_Position": {
         "x": -3683.0,
-        "y": 536.0
+        "y": 536.0000610351563
     }
 }
 
@@ -5431,7 +5431,7 @@
     "m_Title": "Correct Screen Space",
     "m_Position": {
         "x": -2244.0,
-        "y": 1060.0
+        "y": 1060.0001220703125
     }
 }
 
