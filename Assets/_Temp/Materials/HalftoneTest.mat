@@ -109,12 +109,12 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Falloff_Threshold: 2.52
+    - _Falloff_Threshold: 2.5
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _LIGHTMAP: 0
-    - _Lit_Threshold: 1.16
+    - _Lit_Threshold: 0.8
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
     - _Metallic: 0
