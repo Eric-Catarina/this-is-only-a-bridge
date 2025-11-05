@@ -741,7 +741,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4715048991354627021}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: d16628fde9501e149a3b671de63d6a1f, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 765761c2a7b761d419c247640e1d8507, type: 3}
   m_InitialEventName: 
   m_InitialEventNameOverriden: 1
   m_StartSeed: 0
@@ -750,7 +750,13 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.1
+        m_Name: Min Lifetime
+        m_Overridden: 1
+      - m_Value: 0.3
+        m_Name: Max Lifetime
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -805,30 +811,21 @@ VisualEffect:
             outWeight: 0
           - serializedVersion: 3
             time: 0.34233874
-            value: 0.06
+            value: 0.056226417
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.5648377
-            value: 0
-            inSlope: -0.2660947
-            outSlope: 0
-            tangentMode: 1
-            weightedMode: 0
-            inWeight: 0.22118169
-            outWeight: 0.33333334
+            weightedMode: 3
+            inWeight: 0.23144878
+            outWeight: 0.29975963
           - serializedVersion: 3
             time: 0.75
             value: 0
-            inSlope: 0
-            outSlope: 0
+            inSlope: -0.053271525
+            outSlope: -0.053271525
             tangentMode: 0
             weightedMode: 0
-            inWeight: 0
+            inWeight: 0.2410979
             outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
@@ -860,6 +857,67 @@ VisualEffect:
           m_PostInfinity: 2
           m_RotationOrder: 4
         m_Name: Z position over life
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0.6264151
+            outSlope: 0.6264151
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.0625
+            value: 0.039150942
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0.039150942
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: Y velocity over life
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: Z velocity over life
         m_Overridden: 1
     m_Gradient:
       m_Array: []
@@ -939,8 +997,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4761661871100285038}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25329942, y: -0.02743251, z: 0.0071859756, w: 0.9669723}
-  m_LocalPosition: {x: 0.12448084, y: 3.8899999, z: -10.403566}
+  m_LocalRotation: {x: 0.25340134, y: 0.0000000038654733, z: -0.0000000019178066, w: 0.9673613}
+  m_LocalPosition: {x: -0.1022926, y: 3.8899999, z: -10.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1197,7 +1255,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5357293167493678173}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: d16628fde9501e149a3b671de63d6a1f, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 765761c2a7b761d419c247640e1d8507, type: 3}
   m_InitialEventName: 
   m_InitialEventNameOverriden: 1
   m_StartSeed: 0
@@ -1206,7 +1264,13 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.1
+        m_Name: Min Lifetime
+        m_Overridden: 1
+      - m_Value: 0.3
+        m_Name: Max Lifetime
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -1261,30 +1325,21 @@ VisualEffect:
             outWeight: 0
           - serializedVersion: 3
             time: 0.34233874
-            value: 0.06
+            value: 0.056226417
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 0.5648377
-            value: 0
-            inSlope: -0.2660947
-            outSlope: 0
-            tangentMode: 1
-            weightedMode: 0
-            inWeight: 0.22118169
-            outWeight: 0.33333334
+            weightedMode: 3
+            inWeight: 0.23144878
+            outWeight: 0.29975963
           - serializedVersion: 3
             time: 0.75
             value: 0
-            inSlope: 0
-            outSlope: 0
+            inSlope: -0.053271525
+            outSlope: -0.053271525
             tangentMode: 0
             weightedMode: 0
-            inWeight: 0
+            inWeight: 0.2410979
             outWeight: 0
           m_PreInfinity: 2
           m_PostInfinity: 2
@@ -1316,6 +1371,67 @@ VisualEffect:
           m_PostInfinity: 2
           m_RotationOrder: 4
         m_Name: Z position over life
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0.6264151
+            outSlope: 0.6264151
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.0625
+            value: 0.039150942
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0.039150942
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: Y velocity over life
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: Z velocity over life
         m_Overridden: 1
     m_Gradient:
       m_Array: []
@@ -1480,8 +1596,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5638276922905070561}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25329947, y: -0.027432507, z: 0.007185976, w: 0.96697223}
-  m_LocalPosition: {x: 0.12448084, y: 3.8899999, z: -10.403566}
+  m_LocalRotation: {x: 0.25340134, y: 0.000000003610874, z: -9.458725e-10, w: 0.9673613}
+  m_LocalPosition: {x: -0.1022926, y: 3.8899999, z: -10.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1905,7 +2021,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8237984297951440081}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: d16628fde9501e149a3b671de63d6a1f, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 765761c2a7b761d419c247640e1d8507, type: 3}
   m_InitialEventName: 
   m_InitialEventNameOverriden: 1
   m_StartSeed: 0
@@ -1928,7 +2044,33 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: Z velocity over life
+        m_Overridden: 1
     m_Gradient:
       m_Array: []
     m_NamedObject:
@@ -2052,7 +2194,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8885017998789885376}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: d16628fde9501e149a3b671de63d6a1f, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 765761c2a7b761d419c247640e1d8507, type: 3}
   m_InitialEventName: 
   m_InitialEventNameOverriden: 1
   m_StartSeed: 0
@@ -2075,7 +2217,33 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: Z velocity over life
+        m_Overridden: 1
     m_Gradient:
       m_Array: []
     m_NamedObject:
