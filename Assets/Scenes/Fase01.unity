@@ -23140,6 +23140,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.64
       objectReference: {fileID: 0}
+    - target: {fileID: 6264854729903724352, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 6694685993846083728, guid: a3506b18cbeeb894f9805c8dc9255e9c, type: 3}
     - target: {fileID: 6511870232170594846, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -23148,6 +23152,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6654955087325535870, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -1558969931935302587, guid: a3506b18cbeeb894f9805c8dc9255e9c, type: 3}
     - target: {fileID: 6769859476623478803, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Name
       value: Core
