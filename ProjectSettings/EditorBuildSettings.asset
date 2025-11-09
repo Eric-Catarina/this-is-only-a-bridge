@@ -6,37 +6,37 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main_Menu.unity
+    path: Assets/#Scenes/Main_Menu.unity
     guid: e151e53e45139394a8e3d9d5412a7fde
   - enabled: 1
-    path: Assets/Scenes/Fase01.unity
+    path: Assets/#Scenes/Fase01.unity
     guid: e047bd586c6e85142b8db6e3e76a2220
   - enabled: 1
-    path: Assets/Scenes/Fase02.unity
+    path: Assets/#Scenes/Fase02.unity
     guid: 8ec179153a7b478418e2aaf6ed88958c
   - enabled: 1
-    path: Assets/Scenes/Fase03.unity
+    path: Assets/#Scenes/Fase03.unity
     guid: f77945a124725dc5e8c847f7fdd663ec
   - enabled: 1
-    path: Assets/Scenes/Fase04.unity
+    path: Assets/#Scenes/Fase04.unity
     guid: 75ba4ef5a67a0a44187458bd3d94036f
   - enabled: 1
-    path: Assets/Scenes/Fase05.unity
+    path: Assets/#Scenes/Fase05.unity
     guid: 3514b75d45568a545b325150ec46d368
   - enabled: 1
-    path: Assets/Scenes/Fase06.unity
+    path: Assets/#Scenes/Fase06.unity
     guid: 51a6441d7ab4f33459b8b77e291d70c3
   - enabled: 1
-    path: Assets/Scenes/Fase08.unity
+    path: Assets/#Scenes/Fase08.unity
     guid: ecbb0b1a4fae9bb509dcaefcecb97333
   - enabled: 1
-    path: Assets/Scenes/Fase09.unity
+    path: Assets/#Scenes/Fase09.unity
     guid: 98d4b486ed00653a39764f9b1d397ad5
   - enabled: 1
-    path: Assets/Scenes/Fase11.unity
+    path: Assets/#Scenes/Fase11.unity
     guid: 4db1431896c410c88810ff0bb2aeda3c
   - enabled: 1
-    path: Assets/Scenes/Creditos.unity
+    path: Assets/#Scenes/Creditos.unity
     guid: 541775d685b265a49b240d11b425c9b0
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
