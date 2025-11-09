@@ -21274,17 +21274,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5123494685607474687, guid: af4e6de9a60f77541b716d251304fff9, type: 3}
-      propertyPath: m_SortingOrder
-      value: 24
-      objectReference: {fileID: 0}
     - target: {fileID: 6487807873610180980, guid: af4e6de9a60f77541b716d251304fff9, type: 3}
       propertyPath: m_Name
       value: LevelDeathManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6913106399628127010, guid: af4e6de9a60f77541b716d251304fff9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
