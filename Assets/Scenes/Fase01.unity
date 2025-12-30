@@ -23135,7 +23135,7 @@ PrefabInstance:
     - target: {fileID: 6264854729903724352, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 6694685993846083728, guid: a3506b18cbeeb894f9805c8dc9255e9c, type: 3}
+      objectReference: {fileID: -4157934861366745760, guid: a3506b18cbeeb894f9805c8dc9255e9c, type: 3}
     - target: {fileID: 6511870232170594846, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -23147,7 +23147,7 @@ PrefabInstance:
     - target: {fileID: 6654955087325535870, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -1558969931935302587, guid: a3506b18cbeeb894f9805c8dc9255e9c, type: 3}
+      objectReference: {fileID: 2529396987817385375, guid: a3506b18cbeeb894f9805c8dc9255e9c, type: 3}
     - target: {fileID: 6769859476623478803, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
       propertyPath: m_Name
       value: Core
@@ -23180,6 +23180,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.020523563
       objectReference: {fileID: 0}
+    - target: {fileID: 8239550889238642886, guid: 54a1244164fe5fcc696c58569db3735a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4907144124304223592, guid: a3506b18cbeeb894f9805c8dc9255e9c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
