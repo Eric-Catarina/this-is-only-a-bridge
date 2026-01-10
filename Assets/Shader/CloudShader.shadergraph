@@ -44,25 +44,9 @@
         },
         {
             "m_Id": "273179fe431b410d934ec92c5552ced1"
-        },
-        {
-            "m_Id": "683ee29cd48341b48c186b4b8fe2befd"
-        },
-        {
-            "m_Id": "50531d3adee041d8814dc9c532873070"
-        },
-        {
-            "m_Id": "72c4bd40278c46a3bcaa42e59ea99d78"
-        },
-        {
-            "m_Id": "5e0b3197381242a1a96a9d7a067c36f0"
         }
     ],
-    "m_Keywords": [
-        {
-            "m_Id": "edb283605b3842dc89103cca24ae9513"
-        }
-    ],
+    "m_Keywords": [],
     "m_Dropdowns": [],
     "m_CategoryData": [
         {
@@ -3387,34 +3371,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "50531d3adee041d8814dc9c532873070",
-    "m_Guid": {
-        "m_GuidSerialized": "f5943368-95b4-4def-9e1c-3ad903d5d431"
-    },
-    "m_Name": "Cell Rotation",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Cell Rotation",
-    "m_DefaultReferenceName": "_Cell_Rotation",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 0.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "50df39428b8e440b898f69b14a2e45ca",
@@ -3473,10 +3429,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2308.0,
-            "y": 288.0,
-            "width": 124.000244140625,
-            "height": 173.0
+            "x": -2277.0,
+            "y": 254.99998474121095,
+            "width": 124.0,
+            "height": 173.00001525878907
         }
     },
     "m_Slots": [
@@ -3657,34 +3613,6 @@
     "m_DefaultRefNameVersion": 1,
     "m_RefNameGeneratedByDisplayName": "Fresnel Opacity",
     "m_DefaultReferenceName": "_Fresnel_Opacity",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 1.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "5e0b3197381242a1a96a9d7a067c36f0",
-    "m_Guid": {
-        "m_GuidSerialized": "65ba7e6b-03dc-4656-87ba-e9755def513a"
-    },
-    "m_Name": "Lit Threshold",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Lit Threshold",
-    "m_DefaultReferenceName": "_Lit_Threshold",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -3923,34 +3851,6 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.Alpha"
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "683ee29cd48341b48c186b4b8fe2befd",
-    "m_Guid": {
-        "m_GuidSerialized": "5886c398-d9a1-4fc8-89f3-eed0f0a83950"
-    },
-    "m_Name": "Cell Density",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Cell Density",
-    "m_DefaultReferenceName": "_Cell_Density",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 20.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
 }
 
 {
@@ -4220,34 +4120,6 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "72c4bd40278c46a3bcaa42e59ea99d78",
-    "m_Guid": {
-        "m_GuidSerialized": "2c1f08c3-1bcb-4872-a27d-2f10b9775be0"
-    },
-    "m_Name": "Falloff Threshold",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Falloff Threshold",
-    "m_DefaultReferenceName": "_Falloff_Threshold",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 2.5,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
 }
 
 {
@@ -4916,8 +4788,8 @@
     "m_ObjectId": "8539be6849c44349a4f7af9b34fcfadc",
     "m_Title": "Projecao",
     "m_Position": {
-        "x": -3040.0,
-        "y": 1087.0
+        "x": -3065.0,
+        "y": 911.9999389648438
     }
 }
 
@@ -4933,10 +4805,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2110.999755859375,
-            "y": 181.0,
-            "width": 207.9998779296875,
-            "height": 301.9999694824219
+            "x": -2080.0,
+            "y": 148.0,
+            "width": 208.0,
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -5458,10 +5330,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2558.0,
-            "y": 1146.0001220703125,
-            "width": 208.000244140625,
-            "height": 359.9998779296875
+            "x": -2583.0,
+            "y": 970.9999389648438,
+            "width": 208.0,
+            "height": 360.00006103515627
         }
     },
     "m_Slots": [
@@ -5561,10 +5433,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2723.999755859375,
-            "y": 1247.0001220703125,
+            "x": -2749.0,
+            "y": 1072.0,
             "width": 119.0,
-            "height": 33.9998779296875
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -7142,21 +7014,6 @@
         },
         {
             "m_Id": "273179fe431b410d934ec92c5552ced1"
-        },
-        {
-            "m_Id": "edb283605b3842dc89103cca24ae9513"
-        },
-        {
-            "m_Id": "683ee29cd48341b48c186b4b8fe2befd"
-        },
-        {
-            "m_Id": "50531d3adee041d8814dc9c532873070"
-        },
-        {
-            "m_Id": "5e0b3197381242a1a96a9d7a067c36f0"
-        },
-        {
-            "m_Id": "72c4bd40278c46a3bcaa42e59ea99d78"
         }
     ]
 }
@@ -7222,10 +7079,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2294.999755859375,
-            "y": 210.0,
+            "x": -2264.0,
+            "y": 177.0,
             "width": 109.0,
-            "height": 33.99998474121094
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -7903,10 +7760,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -3015.0,
-            "y": 1146.0001220703125,
-            "width": 208.000244140625,
-            "height": 314.0
+            "x": -3040.0,
+            "y": 970.9999389648438,
+            "width": 208.0,
+            "height": 314.00006103515627
         }
     },
     "m_Slots": [
@@ -7994,31 +7851,6 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
-}
-
-{
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.ShaderKeyword",
-    "m_ObjectId": "edb283605b3842dc89103cca24ae9513",
-    "m_Guid": {
-        "m_GuidSerialized": "519590e9-ada1-4414-90a0-52b85a33054a"
-    },
-    "m_Name": "Use Screen Space",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Use Screen Space",
-    "m_DefaultReferenceName": "_USE_SCREEN_SPACE",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_KeywordType": 0,
-    "m_KeywordDefinition": 0,
-    "m_KeywordScope": 0,
-    "m_KeywordStages": 63,
-    "m_Entries": [],
-    "m_Value": 1,
-    "m_IsEditable": true
 }
 
 {

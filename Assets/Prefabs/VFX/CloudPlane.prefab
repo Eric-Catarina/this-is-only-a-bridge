@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8518067780138286686}
   - component: {fileID: 1328419641213090447}
   - component: {fileID: 3877901894458231122}
+  - component: {fileID: 7943860633123473250}
   m_Layer: 0
   m_Name: CloudPlane
-  m_TagString: Untagged
+  m_TagString: Sky
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +67,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: eeeed6203b9bdfb47bed61f7fd72ddc2, type: 2}
-  - {fileID: 2100000, guid: d49706f25f425ae42b0ab57b7ba600aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,3 +100,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b9c12434708c7449e83713781bebc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &7943860633123473250
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590501453944064258}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 299.99216, y: 5.822199, z: 299.99216}
+  m_Center: {x: 0, y: -4.0858235, z: 0}
