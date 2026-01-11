@@ -12,6 +12,7 @@ public class CarControllerReverse : MonoBehaviour
 
     private WheelController[] wheel;
     private Rigidbody rb;
+    private Vector2 currentInput;
 
     private void Awake()
     {
@@ -26,10 +27,26 @@ public class CarControllerReverse : MonoBehaviour
         rb.centerOfMass = centerOfMass;
     }
 
+    private void OnEnable()
+    {
+        ActionsManager.Instance.onPlayerMoveInput += OnMoveInput;
+    }
+
+    private void OnDisable()
+    {
+        ActionsManager.Instance.onPlayerMoveInput -= OnMoveInput;
+    }
+
+    private void OnMoveInput(Vector2 input)
+    {
+        currentInput = input;
+    }
+
     private void FixedUpdate()
     {
-        float verticalInput = -Input.GetAxis("Vertical");
-        float horizontalInput = -Input.GetAxis("Horizontal");
+        // Nota: A lógica original inverte os inputs (-Input), mantivemos a inversão aqui
+        float verticalInput = -currentInput.y;
+        float horizontalInput = -currentInput.x;
 
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
         float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));

@@ -15351,6 +15351,22 @@ PrefabInstance:
       propertyPath: sag
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 629480339288512003, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9da0268ddd6e0b66481e9dbb9fb7c042, type: 3}
+    - target: {fileID: 629480339288512003, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 629480339288512003, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 629480339288512003, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 843613520171901799, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -15395,13 +15411,43 @@ PrefabInstance:
       propertyPath: m_Name
       value: ---ROOT---
       objectReference: {fileID: 0}
+    - target: {fileID: 4446911299599796752, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Name
+      value: MobileCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 5216452843422660698, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
       propertyPath: m_Name
       value: BridgeHardStraightPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 6360158671462864897, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544330497470955350, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218082638733386854, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 9218082638733386854, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9949352
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218082638733386854, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6087286
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218082638733386854, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+      propertyPath: m_Color.r
+      value: 0.34348586
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2474897927770203559, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+    - {fileID: 4446911299599796752, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
+    - {fileID: 9214543876476119241, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8629812821271087505, guid: bb08c2e53d25bcb97ac7eb46958e9bbe, type: 3}
       insertIndex: -1

@@ -54,6 +54,7 @@ Assets/
     VFX/
       CarSmokeVFXController.cs
     ActionsManager.cs
+    ActivateOnStandstill.cs
     ActivateOnTrigger.cs
     CarController.cs
     CarControllerReverse.cs
@@ -516,6 +517,82 @@ public class DetectTriggerOnColison : MonoBehaviour
         {
             GameManager.Instance.RestartScene();
         }
+    }
+}
+</file>
+
+<file path="Assets/Scripts/GameManager.cs">
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Creditos")
+        {
+            Destroy(gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
+        {
+            RestartScene();
+        }
+    }
+
+    // Carrega próxima cena na lista
+    public void LoadNextScene()
+    {
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.MarkLevelPassed();
+
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentIndex + 1);
+    }
+
+    public void SkipLevel()
+    {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentIndex + 1);
+    }
+
+    public void LoadSceneByName(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // Reinicia a cena atual
+    public void RestartScene()
+    {
+        if (LevelDeathManager.Instance != null)
+            LevelDeathManager.Instance.RegisterDeath();
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
+
+    // Sai do jogo
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
 </file>
@@ -1123,6 +1200,216 @@ public class WheelController : MonoBehaviour
 }
 </file>
 
+<file path="Assets/Scripts/UI/MenuPause.cs">
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+public class MenuPause : MonoBehaviour
+{
+    public GameObject menuObject;
+    public GameObject eventSystem;
+
+    public static MenuPause Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        HandleCursorForScene(SceneManager.GetActiveScene());
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        HandleCursorForScene(scene);
+
+        if (scene.name == "Creditos" && Instance == this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void HandleCursorForScene(Scene scene)
+    {
+        bool isMenuScene = scene.name == "Main_Menu" || scene.name == "Creditos";
+        
+        if (isMenuScene)
+        {
+            UnlockCursor();
+            if (eventSystem != null) eventSystem.SetActive(true);
+        }
+        else
+        {
+            LockCursor();
+            if (eventSystem != null) eventSystem.SetActive(true);
+        }
+    }
+
+    void Update()
+    {
+        bool isMenuScene = SceneManager.GetActiveScene().name == "Main_Menu" || SceneManager.GetActiveScene().name == "Creditos";
+        if (isMenuScene) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))
+        {
+            TogglePause();
+        }
+    }
+
+    public void TogglePause()
+    {
+        if (menuObject.activeSelf)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0f;
+        menuObject.SetActive(true);
+        UnlockCursor();
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        menuObject.SetActive(false);
+        LockCursor();
+    }
+
+    public void Restart()
+    {
+        ResumeGame(); 
+        GameManager.Instance.RestartScene();
+    }
+
+    public void Quit()
+    {
+        GameManager.Instance.QuitGame();
+    }
+
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+}
+</file>
+
+<file path="Assets/Scripts/ActivateOnStandstill.cs">
+using UnityEngine;
+
+public class ActivateOnStandstill : MonoBehaviour
+{
+    [Header("Configuração do Gatilho")]
+    [Tooltip("O GameObject que será ativado.")]
+    [SerializeField] private GameObject targetObjectToActivate;
+
+    [Tooltip("O tempo em segundos que o jogador precisa ficar parado para ativar o objeto.")]
+    [SerializeField] private float requiredStandstillTime = 5f;
+
+    [Header("Sensibilidade")]
+    [Tooltip("A velocidade máxima para ser considerado 'parado'. Ajuda a ignorar pequenos deslizes da física.")]
+    [SerializeField] private float velocityThreshold = 0.1f;
+
+    [Tooltip("Tag do objeto do jogador (o carro).")]
+    [SerializeField] private string playerTag = "Player";
+    
+    private Rigidbody playerRigidbody;
+    private float standstillTimer = 0f;
+    private bool hasBeenTriggered = false;
+
+    private void Awake()
+    {
+        if (targetObjectToActivate == null)
+        {
+            Debug.LogError("O 'Target Object To Activate' não foi atribuído neste script! Desativando componente.", this);
+            enabled = false;
+            return;
+        }
+
+        targetObjectToActivate.SetActive(false);
+    }
+
+    private void Start()
+    {
+        GameObject playerObject = gameObject;
+        if (playerObject != null)
+        {
+            playerRigidbody = playerObject.GetComponent<Rigidbody>();
+        }
+
+        if (playerRigidbody == null)
+        {
+            Debug.LogError($"Não foi possível encontrar um Rigidbody no objeto com a tag '{playerTag}'. Desativando componente.", this);
+            enabled = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (hasBeenTriggered || playerRigidbody == null)
+        {
+            return;
+        }
+
+        if (playerRigidbody.linearVelocity.magnitude < velocityThreshold)
+        {
+            standstillTimer += Time.deltaTime;
+
+            if (standstillTimer >= requiredStandstillTime)
+            {
+                ActivateTarget();
+            }
+        }
+        else
+        {
+            standstillTimer = 0f;
+        }
+    }
+
+    private void ActivateTarget()
+    {
+        targetObjectToActivate.SetActive(true);
+        hasBeenTriggered = true;
+        
+        enabled = false;
+    }
+}
+</file>
+
 <file path="Assets/Scripts/DontDestroyOnLoadGO.cs">
 using UnityEngine;
 
@@ -1252,317 +1539,6 @@ public class CarController : MonoBehaviour
         {
             GameManager.Instance.RestartScene();
         }
-    }
-}
-</file>
-
-<file path="Assets/Scripts/GameManager.cs">
-using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-
-public class GameManager : MonoBehaviour
-{
-    public static GameManager Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Update()
-    {
-        if (SceneManager.GetActiveScene().name == "Creditos")
-        {
-            Destroy(gameObject);
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
-        {
-            RestartScene();
-        }
-    }
-
-    // Carrega próxima cena na lista
-    public void LoadNextScene()
-    {
-        if (LevelDeathManager.Instance != null)
-            LevelDeathManager.Instance.MarkLevelPassed();
-
-        int currentIndex = SceneManager.GetActiveScene().buildIndex;
-
-        SceneManager.LoadScene(currentIndex + 1);
-    }
-
-    public void SkipLevel()
-    {
-        int currentIndex = SceneManager.GetActiveScene().buildIndex;
-
-        SceneManager.LoadScene(currentIndex + 1);
-    }
-
-    public void LoadSceneByName(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    // Reinicia a cena atual
-    public void RestartScene()
-    {
-        if (LevelDeathManager.Instance != null)
-            LevelDeathManager.Instance.RegisterDeath();
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
-    }
-
-    // Sai do jogo
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-}
-</file>
-
-<file path="Assets/Scripts/UI/DeathSummaryUI.cs">
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
-using System.Text;
-using System.IO;
-
-public class DeathSummaryUI : MonoBehaviour
-{
-    [Header("Referências de UI")]
-    public TextMeshProUGUI summaryText;
-    public Button resetButton;
-
-    private void Start()
-    {
-        if (resetButton != null)
-            resetButton.onClick.AddListener(ResetAllDeaths);
-
-        ShowDeathSummary();
-    }
-
-    private void OnDestroy()
-    {
-        if (resetButton != null)
-            resetButton.onClick.RemoveListener(ResetAllDeaths);
-    }
-
-    private void OnEnable()
-    {
-        ShowDeathSummary();
-    }
-
-    private void ShowDeathSummary()
-    {
-        StringBuilder sb = new StringBuilder();
-
-        int totalDeaths = PlayerPrefs.GetInt("TotalDeaths", 0);
-        float totalTime = PlayerPrefs.GetFloat("TotalTimePlayed", 0f);
-
-        sb.AppendLine("<size=140%><b>Resumo de Progresso</b></size>\n");
-        sb.AppendLine("<b>Por fase:</b>");
-
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            string path = SceneUtility.GetScenePathByBuildIndex(i);
-            string sceneName = Path.GetFileNameWithoutExtension(path);
-            if (sceneName == "Main_Menu" || sceneName == "Creditos")
-                continue;
-
-            int deaths = PlayerPrefs.GetInt($"Deaths_Level_{sceneName}", 0);
-            bool passed = PlayerPrefs.GetInt($"LevelPassed_{sceneName}", 0) == 1;
-            bool skipped = PlayerPrefs.GetInt($"LevelSkipped_{sceneName}", 0) == 1;
-            float time = PlayerPrefs.GetFloat($"LevelTime_{sceneName}", 0f);
-
-            string status = "";
-            if (passed)
-                status = $" <color=#5EFF5E>(Completed)</color> <size=80%>({FormatTime(time)})</size>";
-            else if (skipped)
-                status = " <color=#FFD65E>(Git gud)</color>";
-
-            sb.AppendLine($"• <b>{sceneName}</b>: {deaths}{status}");
-        }
-
-        sb.AppendLine("\n────────────────────────────");
-        sb.AppendLine($"<b>Total deaths:</b> {totalDeaths}");
-        sb.AppendLine($"<b>Total time played:</b> {FormatTime(totalTime)}");
-
-        summaryText.text = sb.ToString();
-    }
-
-    private string FormatTime(float seconds)
-    {
-        int mins = Mathf.FloorToInt(seconds / 60);
-        int secs = Mathf.FloorToInt(seconds % 60);
-        return $"{mins:00}:{secs:00}";
-    }
-
-    private void ResetAllDeaths()
-    {
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            string path = SceneUtility.GetScenePathByBuildIndex(i);
-            string sceneName = Path.GetFileNameWithoutExtension(path);
-            if (sceneName == "Main_Menu" || sceneName == "Creditos")
-                continue;
-
-            PlayerPrefs.DeleteKey($"Deaths_Level_{sceneName}");
-            PlayerPrefs.DeleteKey($"LevelPassed_{sceneName}");
-            PlayerPrefs.DeleteKey($"LevelSkipped_{sceneName}");
-            PlayerPrefs.DeleteKey($"LevelTime_{sceneName}");
-        }
-
-        PlayerPrefs.DeleteKey("TotalDeaths");
-        PlayerPrefs.DeleteKey("TotalTimePlayed");
-        PlayerPrefs.Save();
-
-        ShowDeathSummary();
-    }
-
-    public void GoToMainMenu()
-    {
-        SceneManager.LoadScene("Main_Menu");
-    }
-}
-</file>
-
-<file path="Assets/Scripts/UI/MenuPause.cs">
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-
-public class MenuPause : MonoBehaviour
-{
-    public GameObject menuObject;
-    public GameObject eventSystem;
-
-    public static MenuPause Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void Start()
-    {
-        HandleCursorForScene(SceneManager.GetActiveScene());
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        HandleCursorForScene(scene);
-
-        if (scene.name == "Creditos" && Instance == this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void HandleCursorForScene(Scene scene)
-    {
-        bool isMenuScene = scene.name == "Main_Menu" || scene.name == "Creditos";
-        
-        if (isMenuScene)
-        {
-            UnlockCursor();
-            if (eventSystem != null) eventSystem.SetActive(true);
-        }
-        else
-        {
-            LockCursor();
-            if (eventSystem != null) eventSystem.SetActive(true);
-        }
-    }
-
-    void Update()
-    {
-        bool isMenuScene = SceneManager.GetActiveScene().name == "Main_Menu" || SceneManager.GetActiveScene().name == "Creditos";
-        if (isMenuScene) return;
-
-        if (Input.GetKeyDown(KeyCode.Escape) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))
-        {
-            TogglePause();
-        }
-    }
-
-    public void TogglePause()
-    {
-        if (menuObject.activeSelf)
-        {
-            ResumeGame();
-        }
-        else
-        {
-            PauseGame();
-        }
-    }
-
-    private void PauseGame()
-    {
-        Time.timeScale = 0f;
-        menuObject.SetActive(true);
-        UnlockCursor();
-    }
-
-    private void ResumeGame()
-    {
-        Time.timeScale = 1f;
-        menuObject.SetActive(false);
-        LockCursor();
-    }
-
-    public void Restart()
-    {
-        ResumeGame(); 
-        GameManager.Instance.RestartScene();
-    }
-
-    public void Quit()
-    {
-        GameManager.Instance.QuitGame();
-    }
-
-    private void LockCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-    private void UnlockCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 }
 </file>
@@ -1766,6 +1742,113 @@ public class LevelDeathManager : MonoBehaviour
         PlayerPrefs.DeleteKey(totalDeathsKey);
         PlayerPrefs.Save();
         UpdateUI();
+    }
+}
+</file>
+
+<file path="Assets/Scripts/UI/DeathSummaryUI.cs">
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+using System.Text;
+using System.IO;
+
+public class DeathSummaryUI : MonoBehaviour
+{
+    [Header("Referências de UI")]
+    public TextMeshProUGUI summaryText;
+    public Button resetButton;
+
+    private void Start()
+    {
+        if (resetButton != null)
+            resetButton.onClick.AddListener(ResetAllDeaths);
+
+        ShowDeathSummary();
+    }
+
+    private void OnDestroy()
+    {
+        if (resetButton != null)
+            resetButton.onClick.RemoveListener(ResetAllDeaths);
+    }
+
+    private void OnEnable()
+    {
+        ShowDeathSummary();
+    }
+
+    private void ShowDeathSummary()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        int totalDeaths = PlayerPrefs.GetInt("TotalDeaths", 0);
+        float totalTime = PlayerPrefs.GetFloat("TotalTimePlayed", 0f);
+
+        sb.AppendLine("<size=140%><b>Resumo de Progresso</b></size>\n");
+        sb.AppendLine("<b>Por fase:</b>");
+
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            string sceneName = Path.GetFileNameWithoutExtension(path);
+            if (sceneName == "Main_Menu" || sceneName == "Creditos")
+                continue;
+
+            int deaths = PlayerPrefs.GetInt($"Deaths_Level_{sceneName}", 0);
+            bool passed = PlayerPrefs.GetInt($"LevelPassed_{sceneName}", 0) == 1;
+            bool skipped = PlayerPrefs.GetInt($"LevelSkipped_{sceneName}", 0) == 1;
+            float time = PlayerPrefs.GetFloat($"LevelTime_{sceneName}", 0f);
+
+            string status = "";
+            if (passed)
+                status = $" <color=#5EFF5E>(Completed)</color> <size=80%>({FormatTime(time)})</size>";
+            else if (skipped)
+                status = " <color=#FFD65E>(Git gud)</color>";
+
+            sb.AppendLine($"• <b>{sceneName}</b>: {deaths}{status}");
+        }
+
+        sb.AppendLine("\n────────────────────────────");
+        sb.AppendLine($"<b>Total deaths:</b> {totalDeaths}");
+        sb.AppendLine($"<b>Total time played:</b> {FormatTime(totalTime)}");
+
+        summaryText.text = sb.ToString();
+    }
+
+    private string FormatTime(float seconds)
+    {
+        int mins = Mathf.FloorToInt(seconds / 60);
+        int secs = Mathf.FloorToInt(seconds % 60);
+        return $"{mins:00}:{secs:00}";
+    }
+
+    private void ResetAllDeaths()
+    {
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            string sceneName = Path.GetFileNameWithoutExtension(path);
+            if (sceneName == "Main_Menu" || sceneName == "Creditos")
+                continue;
+
+            PlayerPrefs.DeleteKey($"Deaths_Level_{sceneName}");
+            PlayerPrefs.DeleteKey($"LevelPassed_{sceneName}");
+            PlayerPrefs.DeleteKey($"LevelSkipped_{sceneName}");
+            PlayerPrefs.DeleteKey($"LevelTime_{sceneName}");
+        }
+
+        PlayerPrefs.DeleteKey("TotalDeaths");
+        PlayerPrefs.DeleteKey("TotalTimePlayed");
+        PlayerPrefs.Save();
+
+        ShowDeathSummary();
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
     }
 }
 </file>

@@ -19,6 +19,7 @@ public class CarController : MonoBehaviour
 
     private WheelController[] wheels;
     private Rigidbody rb;
+    private Vector2 inputVector; // Armazena o input atual (Joystick)
 
     private void Awake()
     {
@@ -34,10 +35,28 @@ public class CarController : MonoBehaviour
         rb.centerOfMass = centerOfMass;
     }
 
+    private void OnEnable()
+    {
+        // Se inscreve no evento de movimento
+        ActionsManager.Instance.onPlayerMoveInput += UpdateInput;
+    }
+
+    private void OnDisable()
+    {
+        // Remove inscrição para evitar erros
+        ActionsManager.Instance.onPlayerMoveInput -= UpdateInput;
+    }
+
+    private void UpdateInput(Vector2 newInput)
+    {
+        inputVector = newInput;
+    }
+
     private void FixedUpdate()
     {
-        float verticalInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
+        // Usa o vetor recebido pelo evento (X = Horizontal, Y = Vertical)
+        float verticalInput = inputVector.y;
+        float horizontalInput = inputVector.x;
 
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
         float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));
@@ -54,6 +73,7 @@ public class CarController : MonoBehaviour
 
             if (Mathf.Abs(verticalInput) > 0.001f)
             {
+                // Lógica de freio vs ré
                 bool isBraking = (forwardSpeed > 0.1f && verticalInput < -0.1f) || (forwardSpeed < -0.1f && verticalInput > 0.1f);
 
                 if (isBraking)
@@ -75,23 +95,19 @@ public class CarController : MonoBehaviour
                 wheel.WheelCollider.motorTorque = 0f;
                 wheel.WheelCollider.brakeTorque = rollingResistance;
             }
-
         }
 
-        // Detecta se o carro está acelerando
+        // Áudio do motor
         bool currentlyAccelerating = false;
-
         foreach (var wheel in wheels)
         {
-            // ... (código que já está aí)
-
             if (Mathf.Abs(verticalInput) > 0.001f && wheel.motorized)
             {
                 currentlyAccelerating = true;
+                break;
             }
         }
 
-        // Toca ou para o som
         if (currentlyAccelerating && !engineAudio.isPlaying)
         {
             engineAudio.Play();
@@ -101,11 +117,7 @@ public class CarController : MonoBehaviour
             engineAudio.Stop();
         }
 
-
-
-        // Add gravity
         rb.AddForce(Physics.gravity * rb.mass);
-
     }
 
     private void OnTriggerEnter(Collider other)

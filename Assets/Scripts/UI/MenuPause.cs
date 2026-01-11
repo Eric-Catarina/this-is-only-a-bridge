@@ -34,12 +34,12 @@ public class MenuPause : MonoBehaviour
 
     private void Start()
     {
-        HandleCursorForScene(SceneManager.GetActiveScene());
+        SetupCursor();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        HandleCursorForScene(scene);
+        SetupCursor();
 
         if (scene.name == "Creditos" && Instance == this)
         {
@@ -47,20 +47,14 @@ public class MenuPause : MonoBehaviour
         }
     }
 
-    private void HandleCursorForScene(Scene scene)
+    private void SetupCursor()
     {
-        bool isMenuScene = scene.name == "Main_Menu" || scene.name == "Creditos";
+        // Para Mobile e testes no Editor simulando mobile, o cursor deve estar sempre livre e visível
+        // para interagir com o Joystick na UI.
+        UnlockCursor();
         
-        if (isMenuScene)
-        {
-            UnlockCursor();
-            if (eventSystem != null) eventSystem.SetActive(true);
-        }
-        else
-        {
-            LockCursor();
-            if (eventSystem != null) eventSystem.SetActive(true);
-        }
+        if (eventSystem != null) 
+            eventSystem.SetActive(true);
     }
 
     void Update()
@@ -68,6 +62,7 @@ public class MenuPause : MonoBehaviour
         bool isMenuScene = SceneManager.GetActiveScene().name == "Main_Menu" || SceneManager.GetActiveScene().name == "Creditos";
         if (isMenuScene) return;
 
+        // Suporte ao botão voltar do Android (Escape)
         if (Input.GetKeyDown(KeyCode.Escape) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))
         {
             TogglePause();
@@ -97,7 +92,7 @@ public class MenuPause : MonoBehaviour
     {
         Time.timeScale = 1f;
         menuObject.SetActive(false);
-        LockCursor();
+        UnlockCursor();
     }
 
     public void Restart()
@@ -109,12 +104,6 @@ public class MenuPause : MonoBehaviour
     public void Quit()
     {
         GameManager.Instance.QuitGame();
-    }
-
-    private void LockCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void UnlockCursor()
