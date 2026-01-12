@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -27,24 +28,14 @@ public class LandmineTrigger : MonoBehaviour
     [Tooltip("Som da explosão.")]
     [SerializeField] private AudioClip explosionSFX;
 
-    private bool hasExploded = false;
-
-    private void Awake()
+    void OnCollisionEnter(Collision other)
     {
-        GetComponent<Collider>().isTrigger = true;
-    }
+        Debug.Log("Colidiu");
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (hasExploded || !other.CompareTag(playerTag))
-        {
-            return;
-        }
-
-        Rigidbody targetRigidbody = other.GetComponent<Rigidbody>();
+        Rigidbody targetRigidbody = other.gameObject.GetComponent<Rigidbody>();
         if (targetRigidbody == null)
         {
-            Debug.LogWarning("O objeto com a tag 'Player' não possui Rigidbody. A mina não pode funcionar.", other);
+            Debug.LogWarning("O objeto com a tag 'Player' não possui Rigidbody. A mina não pode funcionar.", other.gameObject);
             return;
         }
 
@@ -57,15 +48,13 @@ public class LandmineTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    void OnCollisionStay(Collision other)
     {
-        OnTriggerEnter(other);
+        OnCollisionEnter(other);
     }
 
     private void Detonate(Rigidbody target)
-    {
-        hasExploded = true;
-        
+    {   
         target.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardsModifier, ForceMode.Impulse);
 
         if (explosionVFX != null)
@@ -77,7 +66,5 @@ public class LandmineTrigger : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(explosionSFX, transform.position);
         }
-
-        Destroy(gameObject);
     }
 }
