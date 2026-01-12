@@ -58,7 +58,7 @@ public class DeathSummaryUI : MonoBehaviour
             else if (skipped)
                 status = " <color=#FFD65E>(Git gud)</color>";
 
-            sb.AppendLine($"• <b>{sceneName}</b>: {deaths}{status}");
+            sb.AppendLine($"• <b>Level {i}</b>: {deaths}{status}");
         }
 
         sb.AppendLine("\n────────────────────────────");

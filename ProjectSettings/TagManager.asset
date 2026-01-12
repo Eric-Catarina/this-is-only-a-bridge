@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Sky
+  - Clouds Camera
+  - Wheel
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Wheel
   - Car
   - Plank
-  - 
+  - Trampolim
   - 
   - 
   - 

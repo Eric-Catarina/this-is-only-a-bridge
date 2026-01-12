@@ -30,10 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Fase07.unity
     guid: ecbb0b1a4fae9bb509dcaefcecb97333
   - enabled: 1
-    path: Assets/Scenes/Fase08.unity
-    guid: 98d4b486ed00653a39764f9b1d397ad5
-  - enabled: 1
-    path: Assets/Scenes/Fase09.unity
+    path: Assets/Scenes/Fase11.unity
     guid: 4db1431896c410c88810ff0bb2aeda3c
   - enabled: 1
     path: Assets/Scenes/Creditos.unity
