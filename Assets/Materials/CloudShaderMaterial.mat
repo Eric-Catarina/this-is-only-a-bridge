@@ -21,12 +21,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CloudShaderMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 9ca2feb8f4e8831468dcd89dac451761, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 8120a32e02ef45c43a5c50e3a4f9fdc0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _USE_SCREEN_SPACE
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
