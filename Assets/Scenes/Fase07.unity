@@ -889,7 +889,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4607091643690541475, guid: 6fd4815227643184ca679c251561241c, type: 3}
       propertyPath: safeSpeedKmh
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4607091643690541475, guid: 6fd4815227643184ca679c251561241c, type: 3}
       propertyPath: explosionForce
