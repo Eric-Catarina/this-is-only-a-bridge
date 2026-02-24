@@ -9,6 +9,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private float steeringRange = 30f;
     [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
     [SerializeField] private float centreOfGravityOffset = -1f;
+    float verticalInput;
+    float horizontalInput;
 
     [Header("Parâmetros de Atrito")]
     [Tooltip("Força de frenagem aplicada quando não há aceleração, simulando atrito e resistência do ar.")]
@@ -33,11 +35,15 @@ public class CarController : MonoBehaviour
         centerOfMass.y += centreOfGravityOffset;
         rb.centerOfMass = centerOfMass;
     }
+    private void Update()
+    {
+        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");
+        
+    }
 
     private void FixedUpdate()
     {
-        float verticalInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
 
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
         float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));
