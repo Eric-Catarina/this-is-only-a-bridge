@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CarControllerReverse : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class CarControllerReverse : MonoBehaviour
     [SerializeField] private float steeringRange = 30f;
     [SerializeField] private float steeringRangeAtMaxSpeed = 10f;
     [SerializeField] private float centreOfGravityOffset = -1f;
+    float verticalInput;
+    float horizontalInput;
 
     private WheelController[] wheel;
     private Rigidbody rb;
@@ -26,10 +29,12 @@ public class CarControllerReverse : MonoBehaviour
         rb.centerOfMass = centerOfMass;
     }
 
-    private void FixedUpdate()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        float verticalInput = -Input.GetAxis("Vertical");
-        float horizontalInput = -Input.GetAxis("Horizontal");
+        Vector2 inputVec = context.ReadValue<Vector2>();
+        horizontalInput = inputVec.x;
+        verticalInput = inputVec.y;
+        Debug.Log("Input recebido: " + inputVec);
 
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
         float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));

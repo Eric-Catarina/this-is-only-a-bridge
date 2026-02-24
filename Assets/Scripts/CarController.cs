@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class CarController : MonoBehaviour
 {
@@ -35,15 +37,12 @@ public class CarController : MonoBehaviour
         centerOfMass.y += centreOfGravityOffset;
         rb.centerOfMass = centerOfMass;
     }
-    private void Update()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        verticalInput = Input.GetAxis("Vertical");
-        horizontalInput = Input.GetAxis("Horizontal");
-        
-    }
-
-    private void FixedUpdate()
-    {
+        Vector2 inputVec = context.ReadValue<Vector2>();
+        horizontalInput = inputVec.x;
+        verticalInput = inputVec.y;
+        Debug.Log("Input recebido: " + inputVec);
 
         float forwardSpeed = Vector3.Dot(transform.forward, rb.linearVelocity);
         float speedFactor = Mathf.InverseLerp(0f, maxSpeed, Mathf.Abs(forwardSpeed));

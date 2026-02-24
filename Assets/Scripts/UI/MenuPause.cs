@@ -63,12 +63,12 @@ public class MenuPause : MonoBehaviour
         }
     }
 
-    void Update()
+    public void OnPause(InputAction.CallbackContext context)
     {
         bool isMenuScene = SceneManager.GetActiveScene().name == "Main_Menu" || SceneManager.GetActiveScene().name == "Creditos";
         if (isMenuScene) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape) || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame))
+        if (context.started)
         {
             TogglePause();
         }
