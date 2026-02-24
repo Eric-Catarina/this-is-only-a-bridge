@@ -30,7 +30,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: d7808856d2ada2f41b56d0468c46b0a5, type: 3}
+        m_Texture: {fileID: 2800000, guid: c0bf6b10aa67e5c4c819364ddf78900c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -134,6 +134,7 @@ Material:
     - _Surface: 0
     - _USE_SCREEN_SPACE: 1
     - _WorkflowMode: 1
+    - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
