@@ -1,11 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MenuPause : MonoBehaviour
 {
     public GameObject menuObject;
     public GameObject eventSystem;
+    public GameObject[] joysticks; 
 
     public static MenuPause Instance;
 
@@ -20,6 +24,17 @@ public class MenuPause : MonoBehaviour
         {
             Destroy(gameObject);
         }
+#if UNITY_EDITOR
+        foreach (GameObject joystick in joysticks)
+        {
+            joystick.SetActive(false);
+        }
+#elif UNITY_ANDROID || UNITY_IOS
+        foreach (GameObject joystick in joysticks) 
+        {
+            joystick.SetActive(true);
+        }
+#endif
     }
 
     private void OnEnable()

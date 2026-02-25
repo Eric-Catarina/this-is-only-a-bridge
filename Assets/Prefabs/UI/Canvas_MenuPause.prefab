@@ -2528,6 +2528,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuObject: {fileID: 5770048353733411253}
   eventSystem: {fileID: 8786028220458314426}
+  joysticks:
+  - {fileID: 8928958254484613133}
+  - {fileID: 8574641651464284643}
 --- !u!1 &7063746113817799594
 GameObject:
   m_ObjectHideFlags: 0
