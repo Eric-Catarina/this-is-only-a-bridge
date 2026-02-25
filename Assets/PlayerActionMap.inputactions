@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "CarMovement",
+    "name": "PlayerActionMap",
     "maps": [
         {
             "name": "CarMovement",
@@ -31,6 +31,15 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "OnMoveCamera",
+                    "type": "Value",
+                    "id": "11b786ea-df42-4a2d-8f86-5cce83666aea",
+                    "expectedControlType": "Vector2",
+                    "processors": "ScaleVector2(x=15,y=15)",
+                    "interactions": "",
                     "initialStateCheck": true
                 }
             ],
@@ -147,6 +156,17 @@
                 },
                 {
                     "name": "",
+                    "id": "65f1a7a9-8481-41f0-b7ee-ea0f96b47be3",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c1464fd7-f398-4e11-b691-dc3bc1cbb0b6",
                     "path": "<Keyboard>/escape",
                     "interactions": "Press(behavior=2)",
@@ -164,6 +184,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "OnRestartScene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "833f5b27-1be4-470c-830a-bb416136f518",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnMoveCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a24ca66-a0d7-49d9-bb06-495cb60ce4dd",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnMoveCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
