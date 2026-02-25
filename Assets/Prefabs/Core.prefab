@@ -813,7 +813,7 @@ Transform:
   m_GameObject: {fileID: 4629591089860516726}
   serializedVersion: 2
   m_LocalRotation: {x: -6.123234e-17, y: 1, z: 6.123234e-17, w: -3.7493994e-33}
-  m_LocalPosition: {x: 0, y: -0.203, z: 0.184}
+  m_LocalPosition: {x: 0, y: -0.275, z: 0.184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1686,7 +1686,7 @@ Transform:
   m_GameObject: {fileID: 5638276922905070561}
   serializedVersion: 2
   m_LocalRotation: {x: 0.25340134, y: 0.000000003610874, z: -9.458725e-10, w: 0.9673613}
-  m_LocalPosition: {x: -1.4622927, y: 4.46, z: -23.91}
+  m_LocalPosition: {x: -0.1022926, y: 3.8899999, z: -10.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2607,7 +2607,7 @@ PrefabInstance:
       addedObject: {fileID: 3201124558687525496}
     - targetCorrespondingSourceObject: {fileID: 8128745100654382104, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7035061002759153123}
+      addedObject: {fileID: 7774729093073858479}
   m_SourcePrefab: {fileID: 100100000, guid: ef665b5902a03ca479e52da1c5500ab5, type: 3}
 --- !u!4 &5142753541821801099 stripped
 Transform:
@@ -2755,7 +2755,7 @@ MonoBehaviour:
   centreOfGravityOffset: -1
   rollingResistance: 5000
   engineAudio: {fileID: 1271253432400791714}
---- !u!114 &7035061002759153123
+--- !u!114 &7774729093073858479
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2797,9 +2797,37 @@ MonoBehaviour:
     m_ActionId: 881645b7-32cf-47b7-9d02-ebb7d65d9534
     m_ActionName: 'CarMovement/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3201124558687525496}
+        m_TargetAssemblyTypeName: CarController, Assembly-CSharp
+        m_MethodName: ChamarPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c1ec8dca-29a2-403d-bc6f-f965befd8810
     m_ActionName: 'CarMovement/OnPause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnRestartScene
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6a5bf7f0-ee2f-4865-b4ca-1a65ab678641
+    m_ActionName: 'CarMovement/OnRestartScene[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: CarMovement

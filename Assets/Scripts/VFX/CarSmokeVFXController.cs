@@ -31,10 +31,18 @@ public class CarSmokeVFXController : MonoBehaviour
 
     void OnDisable()
     {
-        inputActions.Player.Disable();
+        
+        if (inputActions != null)
+        {
+            inputActions.Player.Disable();
 
-        moveAction.performed -= PlayBurst;
-        moveAction.canceled -= StopAllVFX;
+           
+            if (moveAction != null)
+            {
+                moveAction.performed -= PlayBurst;
+                moveAction.canceled -= StopAllVFX;
+            }
+        }
     }
 
     void Update()

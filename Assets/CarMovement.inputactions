@@ -21,7 +21,7 @@
                     "id": "c1ec8dca-29a2-403d-bc6f-f965befd8810",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": true
                 },
                 {
@@ -30,7 +30,7 @@
                     "id": "6a5bf7f0-ee2f-4865-b4ca-1a65ab678641",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": true
                 }
             ],
@@ -149,7 +149,7 @@
                     "name": "",
                     "id": "c1464fd7-f398-4e11-b691-dc3bc1cbb0b6",
                     "path": "<Keyboard>/escape",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "OnPause",
@@ -160,7 +160,7 @@
                     "name": "",
                     "id": "a577c81d-8f43-40f6-a9de-65fff370577a",
                     "path": "<Keyboard>/r",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "OnRestartScene",

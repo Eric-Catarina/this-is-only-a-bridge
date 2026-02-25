@@ -179,7 +179,7 @@ public class LevelDeathManager : MonoBehaviour
         string sceneName = SceneManager.GetActiveScene().name;
         PlayerPrefs.SetInt($"LevelSkipped_{sceneName}", 1);
         PlayerPrefs.Save();
-        GameManager.Instance.SkipLevel();
+        GameManager.gameManager.SkipLevel();
     }
 
     public void ResetLevelDeaths()

@@ -27,7 +27,7 @@ public class LevelEndTrigger : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             hasBeenTriggered = true;
-            GameManager.Instance.LoadNextScene();
+            GameManager.gameManager.LoadNextScene();
         }
     }
 }

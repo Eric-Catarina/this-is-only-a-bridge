@@ -24,14 +24,14 @@ public class InactivityTimer : MonoBehaviour
 
                 if (inactivityTimer >= inactiveTimeLimit)
                 {
-                    if (GameManager.Instance == null)
+                    if (GameManager.gameManager == null)
                     {
                         Debug.LogError("GameManager.Instance está null!");
                     }
                     else
                     {
                         Debug.Log("Carregando próxima cena...");
-                        GameManager.Instance.LoadNextScene();
+                        GameManager.gameManager.LoadNextScene();
                     }
                 }
             }

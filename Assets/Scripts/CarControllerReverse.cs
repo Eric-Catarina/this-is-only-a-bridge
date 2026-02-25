@@ -74,4 +74,12 @@ public class CarControllerReverse : MonoBehaviour
             }
         }
     }
+    public void ChamarPause(InputAction.CallbackContext context)
+    {
+        // O carro avisa o MenuPause global que o botão foi apertado!
+        if (MenuPause.Instance != null)
+        {
+            MenuPause.Instance.OnPause(context);
+        }
+    }
 }

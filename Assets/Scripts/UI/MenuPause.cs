@@ -25,6 +25,8 @@ public class MenuPause : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        //menuObject.SetActive(true);
+
     }
 
     private void OnDisable()
@@ -39,7 +41,14 @@ public class MenuPause : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+
         HandleCursorForScene(scene);
+
+        if (menuObject == null)
+        {
+            //
+            menuObject = GameObject.FindGameObjectWithTag("Options");
+        }
 
         if (scene.name == "Creditos" && Instance == this)
         {
@@ -103,12 +112,12 @@ public class MenuPause : MonoBehaviour
     public void Restart()
     {
         ResumeGame(); 
-        GameManager.Instance.RestartScene();
+        GameManager.gameManager.RestartScene();
     }
 
     public void Quit()
     {
-        GameManager.Instance.QuitGame();
+        GameManager.gameManager.QuitGame();
     }
 
     private void LockCursor()

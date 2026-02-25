@@ -7,7 +7,7 @@ public class DetectTriggerOnColison : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            GameManager.Instance.RestartScene();
+            GameManager.gameManager.RestartScene();
         }
     }
 }
