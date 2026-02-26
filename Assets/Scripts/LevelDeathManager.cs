@@ -11,7 +11,7 @@ public class LevelDeathManager : MonoBehaviour
     public GameObject hudFather;
     public TextMeshProUGUI deathsThisLevelText;
     public TextMeshProUGUI deathsTotalText;
-    public TextMeshProUGUI messageText;
+    //public TextMeshProUGUI messageText;
     public Button skipLevelButton;
     public TextMeshProUGUI skipButtonText;
 
@@ -135,23 +135,23 @@ public class LevelDeathManager : MonoBehaviour
         if (deathsTotalText != null)
             deathsTotalText.text = "Total deaths: " + deathsTotal;
 
-        if (messageText != null)
-            messageText.gameObject.SetActive(false);
+        //if (messageText != null)
+            //messageText.gameObject.SetActive(false);
         if (skipLevelButton != null)
             skipLevelButton.gameObject.SetActive(false);
 
         if (levelPassed)
         {
-            if (messageText != null)
+            //if (messageText != null)
             {
-                messageText.text = "You already passed this level.";
-                messageText.gameObject.SetActive(true);
+                //messageText.text = "You already passed this level.";
+                //messageText.gameObject.SetActive(true);
             }
 
             if (skipLevelButton != null)
             {
-                if (skipButtonText != null) skipButtonText.text = "Skip level";
-                skipLevelButton.gameObject.SetActive(true);
+                if (skipButtonText != null) skipButtonText.text = "Skip";
+                //skipLevelButton.gameObject.SetActive(true);
                 skipLevelButton.Select();
             }
             return;
@@ -159,10 +159,10 @@ public class LevelDeathManager : MonoBehaviour
 
         if (deathsThisLevel >= deathsToOfferSkip)
         {
-            if (messageText != null)
+            //if (messageText != null)
             {
-                messageText.text = "You can not DO IT? Skip this level NOOB!";
-                messageText.gameObject.SetActive(true);
+                //messageText.text = "You can not DO IT? Skip this level NOOB!";
+                //messageText.gameObject.SetActive(true);
             }
 
             if (skipLevelButton != null)

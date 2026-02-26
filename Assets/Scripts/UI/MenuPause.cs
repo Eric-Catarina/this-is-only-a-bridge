@@ -9,7 +9,8 @@ public class MenuPause : MonoBehaviour
 {
     public GameObject menuObject;
     public GameObject eventSystem;
-    public GameObject[] joysticks; 
+    public GameObject[] joysticks;
+    [SerializeField] GameObject pauseButton;
 
     public static MenuPause Instance;
 
@@ -25,11 +26,13 @@ public class MenuPause : MonoBehaviour
             Destroy(gameObject);
         }
 #if UNITY_EDITOR
+        pauseButton.SetActive(false);
         foreach (GameObject joystick in joysticks)
         {
             joystick.SetActive(false);
         }
 #elif UNITY_ANDROID || UNITY_IOS
+        pauseButton.SetActive(true);
         foreach (GameObject joystick in joysticks) 
         {
             joystick.SetActive(true);
@@ -86,12 +89,10 @@ public class MenuPause : MonoBehaviour
             if (eventSystem != null) eventSystem.SetActive(true);
         }
     }
-
     public void OnPause(InputAction.CallbackContext context)
     {
         bool isMenuScene = SceneManager.GetActiveScene().name == "Main_Menu" || SceneManager.GetActiveScene().name == "Creditos";
         if (isMenuScene) return;
-
         if (context.started)
         {
             TogglePause();
@@ -107,6 +108,7 @@ public class MenuPause : MonoBehaviour
         else
         {
             PauseGame();
+            
         }
     }
 
@@ -114,6 +116,7 @@ public class MenuPause : MonoBehaviour
     {
         Time.timeScale = 0f;
         menuObject.SetActive(true);
+        pauseButton.SetActive(false);
         UnlockCursor();
     }
 
@@ -121,6 +124,7 @@ public class MenuPause : MonoBehaviour
     {
         Time.timeScale = 1f;
         menuObject.SetActive(false);
+        pauseButton.SetActive(true);
         LockCursor();
     }
 

@@ -124,7 +124,7 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""11b786ea-df42-4a2d-8f86-5cce83666aea"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""ScaleVector2(x=15,y=15)"",
+                    ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
@@ -264,6 +264,17 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d129d84d-2d00-4388-bbae-ccf764f0cfc3"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnPause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a577c81d-8f43-40f6-a9de-65fff370577a"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": ""Press"",
@@ -278,7 +289,7 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
                     ""id"": ""833f5b27-1be4-470c-830a-bb416136f518"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=15,y=15)"",
                     ""groups"": """",
                     ""action"": ""OnMoveCamera"",
                     ""isComposite"": false,
@@ -289,7 +300,7 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
                     ""id"": ""2a24ca66-a0d7-49d9-bb06-495cb60ce4dd"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=15,y=15)"",
                     ""groups"": """",
                     ""action"": ""OnMoveCamera"",
                     ""isComposite"": false,
