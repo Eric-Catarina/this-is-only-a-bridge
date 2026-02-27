@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
-
 public class CarController : MonoBehaviour
 {
     [Header("Parâmetros de Força")]
@@ -129,7 +127,7 @@ public class CarController : MonoBehaviour
             GameManager.gameManager.RestartScene();
         }
     }
-    public void ChamarPause(InputAction.CallbackContext context)
+   /* public void ChamarPause(InputAction.CallbackContext context)
     {
         // Se o botão acabou de ser apertado
         if (context.started)
@@ -141,7 +139,7 @@ public class CarController : MonoBehaviour
                 MenuPause.menuPauseInstancec.TogglePause();
             }
         }
-    }
+    }*/
     private void OnDestroy()
     {
         if (MenuPause.menuPauseInstancec != null && playerInput != null)

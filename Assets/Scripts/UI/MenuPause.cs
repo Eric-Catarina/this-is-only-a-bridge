@@ -8,6 +8,7 @@ public class MenuPause : MonoBehaviour
     //public GameObject eventSystem;
     public GameObject[] joysticks;
     public GameObject pauseButton;
+    [SerializeField] GameObject restartButton;
     public static MenuPause menuPauseInstancec;
 
     private void Awake()
@@ -23,12 +24,14 @@ public class MenuPause : MonoBehaviour
         }
 #if UNITY_EDITOR
         pauseButton.SetActive(false);
+        restartButton.SetActive(false);
         foreach (GameObject joystick in joysticks)
         {
             joystick.SetActive(false);
         }
 #elif UNITY_ANDROID || UNITY_IOS
         pauseButton.SetActive(true);
+        restartButton.SetActive(true);
         foreach (GameObject joystick in joysticks) 
         {
             joystick.SetActive(true);
