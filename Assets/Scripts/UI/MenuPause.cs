@@ -59,7 +59,7 @@ public class MenuPause : MonoBehaviour
         
         HandleCursorForScene(scene);
 
-        GameObject canvasObj = GameObject.Find("Canvas_MenuPause");
+        GameObject canvasObj = GameObject.FindGameObjectWithTag("Canvas_MenuPause");
         if (canvasObj != null)
         {
             // Se 'Options' for filho direto do Canvas
