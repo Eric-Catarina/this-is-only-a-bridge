@@ -1,16 +1,13 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using System.Collections.Generic;
-
 public class MenuPause : MonoBehaviour
 {
     public GameObject menuObject;
-    public GameObject eventSystem;
+    //public GameObject eventSystem;
     public GameObject[] joysticks;
-    [SerializeField] GameObject pauseButton;
+    public GameObject pauseButton;
 
     public static MenuPause Instance;
 
@@ -40,6 +37,7 @@ public class MenuPause : MonoBehaviour
 #endif
     }
 
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -65,7 +63,7 @@ public class MenuPause : MonoBehaviour
         if (menuObject == null)
         {
             //
-            menuObject = GameObject.FindGameObjectWithTag("Options");
+            menuObject = GameObject.Find("Options");
         }
 
         if (scene.name == "Creditos" && Instance == this)
@@ -78,7 +76,7 @@ public class MenuPause : MonoBehaviour
     {
         bool isMenuScene = scene.name == "Main_Menu" || scene.name == "Creditos";
         
-        if (isMenuScene)
+        /*if (isMenuScene)
         {
             UnlockCursor();
             if (eventSystem != null) eventSystem.SetActive(true);
@@ -87,7 +85,7 @@ public class MenuPause : MonoBehaviour
         {
             LockCursor();
             if (eventSystem != null) eventSystem.SetActive(true);
-        }
+        }*/
     }
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -114,8 +112,8 @@ public class MenuPause : MonoBehaviour
 
     private void PauseGame()
     {
-        Time.timeScale = 0f;
         menuObject.SetActive(true);
+        Time.timeScale = 0f;
         pauseButton.SetActive(false);
         UnlockCursor();
     }
@@ -124,7 +122,11 @@ public class MenuPause : MonoBehaviour
     {
         Time.timeScale = 1f;
         menuObject.SetActive(false);
-        pauseButton.SetActive(true);
+        #if UNITY_EDITOR
+                pauseButton.SetActive(false);
+        #elif UNITY_ANDROID || UNITY_IOS
+            pauseButton.SetActive(false);
+        #endif
         LockCursor();
     }
 

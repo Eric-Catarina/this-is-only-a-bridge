@@ -1686,7 +1686,7 @@ Transform:
   m_GameObject: {fileID: 5638276922905070561}
   serializedVersion: 2
   m_LocalRotation: {x: 0.25340134, y: 0.000000003610874, z: -9.458725e-10, w: 0.9673613}
-  m_LocalPosition: {x: -1.4622927, y: 4.46, z: -23.91}
+  m_LocalPosition: {x: -0.1022926, y: 3.8899999, z: -10.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2798,9 +2798,9 @@ MonoBehaviour:
     m_ActionName: 'CarMovement/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3201124558687525496}
-        m_TargetAssemblyTypeName: CarController, Assembly-CSharp
-        m_MethodName: ChamarPause
+      - m_Target: {fileID: 4837027685307733127, guid: 84248bbf7e9eeff4696f2829e00cf0b3, type: 3}
+        m_TargetAssemblyTypeName: MenuPause, Assembly-CSharp
+        m_MethodName: OnPause
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2814,7 +2814,7 @@ MonoBehaviour:
     m_ActionName: 'CarMovement/OnPause[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
+      - m_Target: {fileID: 2622901181982898155, guid: a95dc9185a2272346b58d8f216490052, type: 3}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnRestartScene
         m_Mode: 0
