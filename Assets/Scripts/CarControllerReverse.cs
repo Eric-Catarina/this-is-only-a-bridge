@@ -76,10 +76,14 @@ public class CarControllerReverse : MonoBehaviour
     }
     public void ChamarPause(InputAction.CallbackContext context)
     {
-        // O carro avisa o MenuPause global que o botão foi apertado!
-        if (MenuPause.Instance != null)
+        // Se o botão acabou de ser apertado
+        if (context.started)
         {
-            MenuPause.Instance.OnPause(context);
+            // Usa o seu Singleton para acessar o menu de qualquer lugar!
+            if (MenuPause.menuPauseInstancec != null)
+            {
+                MenuPause.menuPauseInstancec.TogglePause();
+            }
         }
     }
 }

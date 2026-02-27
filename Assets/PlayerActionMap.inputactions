@@ -30,7 +30,7 @@
                     "id": "6a5bf7f0-ee2f-4865-b4ca-1a65ab678641",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "initialStateCheck": true
                 },
                 {
@@ -180,7 +180,7 @@
                     "name": "",
                     "id": "a577c81d-8f43-40f6-a9de-65fff370577a",
                     "path": "<Keyboard>/r",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "OnRestartScene",

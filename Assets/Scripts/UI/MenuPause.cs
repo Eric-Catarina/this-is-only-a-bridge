@@ -8,14 +8,13 @@ public class MenuPause : MonoBehaviour
     //public GameObject eventSystem;
     public GameObject[] joysticks;
     public GameObject pauseButton;
-
-    public static MenuPause Instance;
+    public static MenuPause menuPauseInstancec;
 
     private void Awake()
     {
-        if (Instance == null)
+        if (menuPauseInstancec == null)
         {
-            Instance = this;
+            menuPauseInstancec = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -57,16 +56,22 @@ public class MenuPause : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
+        
         HandleCursorForScene(scene);
 
-        if (menuObject == null)
+        GameObject canvasObj = GameObject.Find("Canvas_MenuPause");
+        if (canvasObj != null)
         {
-            //
-            menuObject = GameObject.Find("Options");
+            // Se 'Options' for filho direto do Canvas
+            Transform optionsTransform = canvasObj.transform.Find("Options");
+            if (optionsTransform != null)
+            {
+                menuObject = optionsTransform.gameObject;
+                menuObject.SetActive(false); // Começa escondido
+            }
         }
 
-        if (scene.name == "Creditos" && Instance == this)
+        if (scene.name == "Creditos" && menuPauseInstancec == this)
         {
             Destroy(gameObject);
         }
@@ -76,16 +81,16 @@ public class MenuPause : MonoBehaviour
     {
         bool isMenuScene = scene.name == "Main_Menu" || scene.name == "Creditos";
         
-        /*if (isMenuScene)
+        if (isMenuScene)
         {
             UnlockCursor();
-            if (eventSystem != null) eventSystem.SetActive(true);
+            //if (eventSystem != null) eventSystem.SetActive(true);
         }
         else
         {
             LockCursor();
-            if (eventSystem != null) eventSystem.SetActive(true);
-        }*/
+            //if (eventSystem != null) eventSystem.SetActive(true);
+        }
     }
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -152,4 +157,5 @@ public class MenuPause : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+    
 }
