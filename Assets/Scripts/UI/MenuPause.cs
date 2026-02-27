@@ -1,24 +1,20 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using System.Collections.Generic;
-
 public class MenuPause : MonoBehaviour
 {
     public GameObject menuObject;
-    public GameObject eventSystem;
+    //public GameObject eventSystem;
     public GameObject[] joysticks;
-    [SerializeField] GameObject pauseButton;
-
-    public static MenuPause Instance;
+    public GameObject pauseButton;
+    public static MenuPause menuPauseInstancec;
 
     private void Awake()
     {
-        if (Instance == null)
+        if (menuPauseInstancec == null)
         {
-            Instance = this;
+            menuPauseInstancec = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -40,6 +36,7 @@ public class MenuPause : MonoBehaviour
 #endif
     }
 
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -59,16 +56,22 @@ public class MenuPause : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
+        
         HandleCursorForScene(scene);
 
-        if (menuObject == null)
+        GameObject canvasObj = GameObject.Find("Canvas_MenuPause");
+        if (canvasObj != null)
         {
-            //
-            menuObject = GameObject.FindGameObjectWithTag("Options");
+            // Se 'Options' for filho direto do Canvas
+            Transform optionsTransform = canvasObj.transform.Find("Options");
+            if (optionsTransform != null)
+            {
+                menuObject = optionsTransform.gameObject;
+                menuObject.SetActive(false); // Começa escondido
+            }
         }
 
-        if (scene.name == "Creditos" && Instance == this)
+        if (scene.name == "Creditos" && menuPauseInstancec == this)
         {
             Destroy(gameObject);
         }
@@ -81,12 +84,12 @@ public class MenuPause : MonoBehaviour
         if (isMenuScene)
         {
             UnlockCursor();
-            if (eventSystem != null) eventSystem.SetActive(true);
+            //if (eventSystem != null) eventSystem.SetActive(true);
         }
         else
         {
             LockCursor();
-            if (eventSystem != null) eventSystem.SetActive(true);
+            //if (eventSystem != null) eventSystem.SetActive(true);
         }
     }
     public void OnPause(InputAction.CallbackContext context)
@@ -114,8 +117,8 @@ public class MenuPause : MonoBehaviour
 
     private void PauseGame()
     {
-        Time.timeScale = 0f;
         menuObject.SetActive(true);
+        Time.timeScale = 0f;
         pauseButton.SetActive(false);
         UnlockCursor();
     }
@@ -124,7 +127,11 @@ public class MenuPause : MonoBehaviour
     {
         Time.timeScale = 1f;
         menuObject.SetActive(false);
-        pauseButton.SetActive(true);
+        #if UNITY_EDITOR
+                pauseButton.SetActive(false);
+        #elif UNITY_ANDROID || UNITY_IOS
+            pauseButton.SetActive(false);
+        #endif
         LockCursor();
     }
 
@@ -150,4 +157,5 @@ public class MenuPause : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+    
 }

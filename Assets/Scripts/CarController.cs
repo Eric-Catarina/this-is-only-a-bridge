@@ -24,11 +24,14 @@ public class CarController : MonoBehaviour
     private WheelController[] wheels;
     private Rigidbody rb;
 
+    public PlayerInput playerInput;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         wheels = GetComponentsInChildren<WheelController>();
         engineAudio = GetComponent<AudioSource>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
@@ -36,6 +39,12 @@ public class CarController : MonoBehaviour
         Vector3 centerOfMass = rb.centerOfMass;
         centerOfMass.y += centreOfGravityOffset;
         rb.centerOfMass = centerOfMass;
+        if (playerInput != null && MenuPause.menuPauseInstancec != null)
+        {
+            // Remove antes de adicionar para garantir que não haja duplicatas
+            playerInput.actions["OnPause"].started -= MenuPause.menuPauseInstancec.OnPause;
+            playerInput.actions["OnPause"].started += MenuPause.menuPauseInstancec.OnPause;
+        }
     }
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -122,10 +131,36 @@ public class CarController : MonoBehaviour
     }
     public void ChamarPause(InputAction.CallbackContext context)
     {
-        // O carro avisa o MenuPause global que o botão foi apertado!
-        if (MenuPause.Instance != null)
+        // Se o botão acabou de ser apertado
+        if (context.started)
         {
-            MenuPause.Instance.OnPause(context);
+           
+            // Usa o seu Singleton para acessar o menu de qualquer lugar!
+            if (MenuPause.menuPauseInstancec != null)
+            {
+                MenuPause.menuPauseInstancec.TogglePause();
+            }
+        }
+    }
+    private void OnDestroy()
+    {
+        if (MenuPause.menuPauseInstancec != null && playerInput != null)
+        {
+            InputAction actionPause = playerInput.actions.FindAction("OnPause");
+
+            if (actionPause != null)
+            {
+                // Remove o link quando a cena reseta e esse carro morre
+                actionPause.started -= MenuPause.menuPauseInstancec.OnPause;
+            }
+        }
+    }
+    private void OnDisable()
+    {
+        // Quando o carro for destruído ou desativado (no Reset), limpamos o evento
+        if (playerInput != null && MenuPause.menuPauseInstancec != null)
+        {
+            playerInput.actions["OnPause"].started -= MenuPause.menuPauseInstancec.OnPause;
         }
     }
 }

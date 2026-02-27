@@ -14,6 +14,8 @@ public class LevelDeathManager : MonoBehaviour
     //public TextMeshProUGUI messageText;
     public Button skipLevelButton;
     public TextMeshProUGUI skipButtonText;
+    public GameObject restartText;
+
 
     [Header("Config")]
     public int deathsToOfferSkip = 10;
@@ -46,6 +48,11 @@ public class LevelDeathManager : MonoBehaviour
 
     private void Start()
     {
+        #if UNITY_EDITOR
+            restartText.SetActive(true);
+        #elif UNITY_ANDROID || UNITY_IOS
+        restartText.SetActive(false);
+        #endif
         InitKeysForScene(SceneManager.GetActiveScene().name);
         LoadValuesFromPrefs();
 

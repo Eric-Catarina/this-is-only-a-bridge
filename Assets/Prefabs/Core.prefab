@@ -1141,8 +1141,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4761661871100285038}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25340134, y: 0.0000000038654733, z: -0.0000000019178066, w: 0.9673613}
-  m_LocalPosition: {x: -0.1022926, y: 3.8899999, z: -10.41}
+  m_LocalRotation: {x: -0.19898506, y: 0.78797203, z: -0.32357943, w: -0.48456314}
+  m_LocalPosition: {x: 3.0565486, y: 5.1367593, z: -4.81289}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1225,7 +1225,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 0
+    Value: -116.821144
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1235,7 +1235,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 17.5
+    Value: 27.519821
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -1335,7 +1335,7 @@ MonoBehaviour:
         InputAction: {fileID: -4879813174818891508, guid: 32edd08b822d9034cb9631adb5025a4f, type: 3}
         Gain: -1
         CancelDeltaTime: 0
-      InputValue: 0
+      InputValue: -0
       Driver:
         AccelTime: 0.2
         DecelTime: 0.2
@@ -1346,7 +1346,7 @@ MonoBehaviour:
         InputAction: {fileID: -4879813174818891508, guid: 32edd08b822d9034cb9631adb5025a4f, type: 3}
         Gain: -1
         CancelDeltaTime: 0
-      InputValue: 0
+      InputValue: -0
       Driver:
         AccelTime: 0
         DecelTime: 0
@@ -1685,8 +1685,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5638276922905070561}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25340134, y: 0.000000003610874, z: -9.458725e-10, w: 0.9673613}
-  m_LocalPosition: {x: -1.4622927, y: 4.46, z: -23.91}
+  m_LocalRotation: {x: -0.19898504, y: 0.7879721, z: -0.3235794, w: -0.4845631}
+  m_LocalPosition: {x: 3.0565486, y: 5.1367593, z: -4.81289}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2755,6 +2755,7 @@ MonoBehaviour:
   centreOfGravityOffset: -1
   rollingResistance: 5000
   engineAudio: {fileID: 1271253432400791714}
+  playerInput: {fileID: 7774729093073858479}
 --- !u!114 &7774729093073858479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2797,24 +2798,12 @@ MonoBehaviour:
     m_ActionId: 881645b7-32cf-47b7-9d02-ebb7d65d9534
     m_ActionName: 'CarMovement/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3201124558687525496}
-        m_TargetAssemblyTypeName: CarController, Assembly-CSharp
-        m_MethodName: ChamarPause
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: c1ec8dca-29a2-403d-bc6f-f965befd8810
     m_ActionName: 'CarMovement/OnPause[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 572907078697851736, guid: a95dc9185a2272346b58d8f216490052, type: 3}
+      - m_Target: {fileID: 2622901181982898155, guid: a95dc9185a2272346b58d8f216490052, type: 3}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnRestartScene
         m_Mode: 0
