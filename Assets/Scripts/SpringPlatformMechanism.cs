@@ -38,17 +38,21 @@ public class SpringPlatformMechanism : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // Verifica se a mola já estourou e se quem pisou foi o player
-        if (!isTriggered && collision.gameObject.CompareTag(playerTag))
+        // Verifica se a mola não disparou e se o objeto tem a tag Player
+        if (!isTriggered && other.CompareTag(playerTag))
         {
-            Rigidbody playerRb = collision.gameObject.GetComponent<Rigidbody>();
+            // 'attachedRigidbody' é mágico: ele acha o Rigidbody do carro 
+            // mesmo que o colisor que encostou seja o da roda ou do para-choque
+            Rigidbody playerRb = other.attachedRigidbody;
 
             if (playerRb != null)
             {
-                // Verifica a velocidade de impacto
-                float playerSpeed = collision.relativeVelocity.magnitude;
+                // Aqui nós pegamos a velocidade de movimento REAL do carro no mundo
+                float playerSpeed = playerRb.linearVelocity.magnitude;
+
+                Debug.Log("Velocidade do carro ao passar: " + playerSpeed);
 
                 if (playerSpeed > speedThreshold)
                 {
@@ -61,10 +65,8 @@ public class SpringPlatformMechanism : MonoBehaviour
     private void ActivateSpring(Rigidbody playerRb)
     {
         isTriggered = true;
-
-        // Usamos 'transform.up' para jogar o player na direção que a prancha está apontando, e não no Y global
-        playerRb.AddForce(transform.up * launchForce, ForceMode.Impulse);
-
+        // VelocityChange aplica a força diretamente, ignorando se o carro pesa 1kg ou 2 toneladas
+        playerRb.AddForce(transform.up * launchForce, ForceMode.VelocityChange);
         Debug.Log("Mola ativada! Jogador ejetado.");
     }
 }
