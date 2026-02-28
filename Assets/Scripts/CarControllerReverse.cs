@@ -16,10 +16,16 @@ public class CarControllerReverse : MonoBehaviour
     private WheelController[] wheel;
     private Rigidbody rb;
 
+    public PlayerInput playerInput;
+
+    [SerializeField] private AudioSource engineAudio;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         wheel = GetComponentsInChildren<WheelController>();
+        engineAudio = GetComponent<AudioSource>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
@@ -27,11 +33,17 @@ public class CarControllerReverse : MonoBehaviour
         Vector3 centerOfMass = rb.centerOfMass;
         centerOfMass.y += centreOfGravityOffset;
         rb.centerOfMass = centerOfMass;
+        if (playerInput != null && MenuPause.menuPauseInstancec != null)
+        {
+            // Remove antes de adicionar para garantir que não haja duplicatas
+            playerInput.actions["OnPause"].started -= MenuPause.menuPauseInstancec.OnPause;
+            playerInput.actions["OnPause"].started += MenuPause.menuPauseInstancec.OnPause;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 inputVec = context.ReadValue<Vector2>();
+        Vector2 inputVec = context.ReadValue<Vector2>() * -1;
         horizontalInput = inputVec.x;
         verticalInput = inputVec.y;
         Debug.Log("Input recebido: " + inputVec);
@@ -73,8 +85,10 @@ public class CarControllerReverse : MonoBehaviour
                 wheel.WheelCollider.brakeTorque = 0f;
             }
         }
+
+
     }
-    public void ChamarPause(InputAction.CallbackContext context)
+    /*public void ChamarPause(InputAction.CallbackContext context)
     {
         // Se o botão acabou de ser apertado
         if (context.started)
@@ -84,6 +98,14 @@ public class CarControllerReverse : MonoBehaviour
             {
                 MenuPause.menuPauseInstancec.TogglePause();
             }
+        }
+    }*/
+    private void OnDisable()
+    {
+        // Quando o carro for destruído ou desativado (no Reset), limpamos o evento
+        if (playerInput != null && MenuPause.menuPauseInstancec != null)
+        {
+            playerInput.actions["OnPause"].started -= MenuPause.menuPauseInstancec.OnPause;
         }
     }
 }
