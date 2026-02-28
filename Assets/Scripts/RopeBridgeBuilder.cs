@@ -25,6 +25,8 @@ public class RopeBridgeBuilder : MonoBehaviour
     [SerializeField] private Material ropeMaterial;
     [SerializeField] private float ropeWidth = 0.1f;
 
+    [SerializeField] private bool isRigidBridge = false;
+
     public event Action OnBridgeGenerated;
 
     private const string BRIDGE_ROOT_NAME = "GeneratedRopeBridge";
@@ -77,7 +79,12 @@ public class RopeBridgeBuilder : MonoBehaviour
                 currentRigidbody = plankInstance.AddComponent<Rigidbody>();
             }
             currentRigidbody.mass = plankMass;
-            
+
+            if (isRigidBridge)
+            {
+                currentRigidbody.isKinematic = true; // Trava a prancha no ar
+            }
+
             ConnectToPrevious(previousRigidbody, currentRigidbody);
             previousRigidbody = currentRigidbody;
 

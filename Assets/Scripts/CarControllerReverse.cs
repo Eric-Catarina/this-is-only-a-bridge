@@ -13,13 +13,19 @@ public class CarControllerReverse : MonoBehaviour
     float verticalInput;
     float horizontalInput;
 
-    private WheelController[] wheel;
+    private WheelController[] wheels;
     private Rigidbody rb;
+
+    public PlayerInput playerInput;
+
+    [SerializeField] private AudioSource engineAudio;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        wheel = GetComponentsInChildren<WheelController>();
+        wheels = GetComponentsInChildren<WheelController>();
+        engineAudio = GetComponent<AudioSource>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
@@ -27,11 +33,17 @@ public class CarControllerReverse : MonoBehaviour
         Vector3 centerOfMass = rb.centerOfMass;
         centerOfMass.y += centreOfGravityOffset;
         rb.centerOfMass = centerOfMass;
+        if (playerInput != null && MenuPause.menuPauseInstancec != null)
+        {
+            // Remove antes de adicionar para garantir que não haja duplicatas
+            playerInput.actions["OnPause"].started -= MenuPause.menuPauseInstancec.OnPause;
+            playerInput.actions["OnPause"].started += MenuPause.menuPauseInstancec.OnPause;
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 inputVec = context.ReadValue<Vector2>();
+        Vector2 inputVec = context.ReadValue<Vector2>() * -1;
         horizontalInput = inputVec.x;
         verticalInput = inputVec.y;
         Debug.Log("Input recebido: " + inputVec);
@@ -42,7 +54,7 @@ public class CarControllerReverse : MonoBehaviour
         float currentMotorTorque = Mathf.Lerp(motorTorque, 0f, speedFactor);
         float currentSteerAngle = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
 
-        foreach (var wheel in wheel)
+        foreach (var wheel in wheels)
         {
             if (wheel.steerable)
             {
@@ -73,8 +85,31 @@ public class CarControllerReverse : MonoBehaviour
                 wheel.WheelCollider.brakeTorque = 0f;
             }
         }
+        bool currentlyAccelerating = false;
+
+        foreach (var wheel in wheels)
+        {
+            // ... (código que já está aí)
+
+            if (Mathf.Abs(verticalInput) > 0.001f && wheel.motorized)
+            {
+                currentlyAccelerating = true;
+            }
+        }
+
+        // Toca ou para o som
+        if (currentlyAccelerating && !engineAudio.isPlaying)
+        {
+            engineAudio.Play();
+        }
+        else if (!currentlyAccelerating && engineAudio.isPlaying)
+        {
+            engineAudio.Stop();
+        }
+
+
     }
-    public void ChamarPause(InputAction.CallbackContext context)
+    /*public void ChamarPause(InputAction.CallbackContext context)
     {
         // Se o botão acabou de ser apertado
         if (context.started)
@@ -84,6 +119,27 @@ public class CarControllerReverse : MonoBehaviour
             {
                 MenuPause.menuPauseInstancec.TogglePause();
             }
+        }
+    }*/
+    private void OnDestroy()
+    {
+        if (MenuPause.menuPauseInstancec != null && playerInput != null)
+        {
+            InputAction actionPause = playerInput.actions.FindAction("OnPause");
+
+            if (actionPause != null)
+            {
+                // Remove o link quando a cena reseta e esse carro morre
+                actionPause.started -= MenuPause.menuPauseInstancec.OnPause;
+            }
+        }
+    }
+    private void OnDisable()
+    {
+        // Quando o carro for destruído ou desativado (no Reset), limpamos o evento
+        if (playerInput != null && MenuPause.menuPauseInstancec != null)
+        {
+            playerInput.actions["OnPause"].started -= MenuPause.menuPauseInstancec.OnPause;
         }
     }
 }
