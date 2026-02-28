@@ -3462,14 +3462,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloudPlane
       objectReference: {fileID: 0}
-    - target: {fileID: 1328419641213090447, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1328419641213090447, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
-      propertyPath: 'm_Materials.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d49706f25f425ae42b0ab57b7ba600aa, type: 2}
     - target: {fileID: 8539238981786605610, guid: e4e7dca33add6ba419ef0ab88288a3ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.8
