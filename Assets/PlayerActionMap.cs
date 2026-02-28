@@ -124,7 +124,7 @@ public partial class @PlayerActionMap: IInputActionCollection2, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""11b786ea-df42-4a2d-8f86-5cce83666aea"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""ScaleVector2(x=15,y=15)"",
+                    ""processors"": ""ScaleVector2(x=7.5,y=7.5)"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 }
