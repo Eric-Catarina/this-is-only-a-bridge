@@ -13,7 +13,7 @@ public class CarControllerReverse : MonoBehaviour
     float verticalInput;
     float horizontalInput;
 
-    private WheelController[] wheel;
+    private WheelController[] wheels;
     private Rigidbody rb;
 
     public PlayerInput playerInput;
@@ -23,7 +23,7 @@ public class CarControllerReverse : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        wheel = GetComponentsInChildren<WheelController>();
+        wheels = GetComponentsInChildren<WheelController>();
         engineAudio = GetComponent<AudioSource>();
         playerInput = GetComponent<PlayerInput>();
     }
@@ -54,7 +54,7 @@ public class CarControllerReverse : MonoBehaviour
         float currentMotorTorque = Mathf.Lerp(motorTorque, 0f, speedFactor);
         float currentSteerAngle = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
 
-        foreach (var wheel in wheel)
+        foreach (var wheel in wheels)
         {
             if (wheel.steerable)
             {
@@ -84,6 +84,27 @@ public class CarControllerReverse : MonoBehaviour
                 wheel.WheelCollider.motorTorque = 0f;
                 wheel.WheelCollider.brakeTorque = 0f;
             }
+        }
+        bool currentlyAccelerating = false;
+
+        foreach (var wheel in wheels)
+        {
+            // ... (código que já está aí)
+
+            if (Mathf.Abs(verticalInput) > 0.001f && wheel.motorized)
+            {
+                currentlyAccelerating = true;
+            }
+        }
+
+        // Toca ou para o som
+        if (currentlyAccelerating && !engineAudio.isPlaying)
+        {
+            engineAudio.Play();
+        }
+        else if (!currentlyAccelerating && engineAudio.isPlaying)
+        {
+            engineAudio.Stop();
         }
 
 
