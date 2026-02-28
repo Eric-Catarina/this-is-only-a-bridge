@@ -148,9 +148,13 @@ public class MenuPause : MonoBehaviour
         LevelDeathManager.Instance.restartText.SetActive(true);
 #if UNITY_EDITOR
         pauseButton.SetActive(false);
-        #elif UNITY_ANDROID || UNITY_IOS
+#elif UNITY_ANDROID || UNITY_IOS
             pauseButton.SetActive(false);
-        #endif
+            foreach (GameObject joystick in joysticks) 
+        {
+            joystick.SetActive(true);
+        }
+#endif
         LockCursor();
     }
 

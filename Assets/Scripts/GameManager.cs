@@ -22,6 +22,19 @@ public class GameManager : MonoBehaviour
 
     public void OnRestartScene(InputAction.CallbackContext context)
     {
+#if UNITY_EDITOR
+        {
+            foreach (GameObject joystick in MenuPause.menuPauseInstancec.joysticks)
+            {
+                joystick.SetActive(false);
+            }
+        }
+#elif UNITY_ANDROID || UNITY_IOS
+        foreach (GameObject joystick in MenuPause.menuPauseInstancec.joysticks)
+        {
+            joystick.SetActive(true);
+        }
+#endif
         if (SceneManager.GetActiveScene().name == "Creditos")
         {
             Destroy(gameObject);

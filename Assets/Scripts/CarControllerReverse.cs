@@ -142,4 +142,11 @@ public class CarControllerReverse : MonoBehaviour
             playerInput.actions["OnPause"].started -= MenuPause.menuPauseInstancec.OnPause;
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Sky"))
+        {
+            GameManager.gameManager.RestartScene();
+        }
+    }
 }
