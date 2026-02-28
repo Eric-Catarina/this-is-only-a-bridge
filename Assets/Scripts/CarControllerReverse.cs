@@ -100,6 +100,19 @@ public class CarControllerReverse : MonoBehaviour
             }
         }
     }*/
+    private void OnDestroy()
+    {
+        if (MenuPause.menuPauseInstancec != null && playerInput != null)
+        {
+            InputAction actionPause = playerInput.actions.FindAction("OnPause");
+
+            if (actionPause != null)
+            {
+                // Remove o link quando a cena reseta e esse carro morre
+                actionPause.started -= MenuPause.menuPauseInstancec.OnPause;
+            }
+        }
+    }
     private void OnDisable()
     {
         // Quando o carro for destruído ou desativado (no Reset), limpamos o evento

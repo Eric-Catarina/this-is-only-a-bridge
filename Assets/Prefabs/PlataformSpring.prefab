@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpringPlatformMechanism
   playerTag: Player
-  speedThreshold: 5
+  speedThreshold: 10
   launchForce: 75
   springPlatform: {fileID: 6494506509486546974}
   compressedLocalY: 0
