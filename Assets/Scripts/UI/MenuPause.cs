@@ -11,6 +11,7 @@ public class MenuPause : MonoBehaviour
     [SerializeField] GameObject restartButton;
     public static MenuPause menuPauseInstancec;
     private PlayerInput inputDoCarro; // referência mantida para desinscrever depois
+    
 
     private void Awake()
     {
@@ -134,6 +135,7 @@ public class MenuPause : MonoBehaviour
     private void PauseGame()
     {
         menuObject.SetActive(true);
+        LevelDeathManager.Instance.restartText.SetActive(false);
         Time.timeScale = 0f;
         pauseButton.SetActive(false);
         UnlockCursor();
@@ -143,8 +145,9 @@ public class MenuPause : MonoBehaviour
     {
         Time.timeScale = 1f;
         menuObject.SetActive(false);
-        #if UNITY_EDITOR
-                pauseButton.SetActive(false);
+        LevelDeathManager.Instance.restartText.SetActive(true);
+#if UNITY_EDITOR
+        pauseButton.SetActive(false);
         #elif UNITY_ANDROID || UNITY_IOS
             pauseButton.SetActive(false);
         #endif
