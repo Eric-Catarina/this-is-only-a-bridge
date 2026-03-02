@@ -1,6 +1,6 @@
 # This Is More Than a Bridge 🌉🚗
 
-![Unity](https://img.shields.io/badge/Unity-2022.3+-black?logo=unity)
+![Unity](https://img.shields.io/badge/Unity-6.3.9f1-black?logo=unity)
 ![Status](https://img.shields.io/badge/Status-Shipped-success)
 ![Platform](https://img.shields.io/badge/Platform-Mobile%20(Android)-blue)
 
